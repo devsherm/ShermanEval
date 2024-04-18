@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Base Project for Evaluating Sherman Developer Candidates
 
-Things you may want to cover:
+Fork me. Make your changes. Submit Pull Request.
+This acts as your submission for your job application.
 
-* Ruby version
+Instructions can be found at the url provided to you.
 
-* System dependencies
+Be sure to check .env and create your development database.
 
-* Configuration
+From Gemfile
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* ruby "3.2.2"
+* gem "rails", "~> 7.0.8", ">= 7.0.8.1"
+* gem "pg", "~> 1.1"
