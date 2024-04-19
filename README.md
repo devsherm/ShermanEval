@@ -17,5 +17,5 @@ Important lines from Gemfile
 * gem "pg", "~> 1.1"
 * gem "tailwindcss-rails"
 * gem "devise", "~> 4.9"
-* # bcrypt is a depencency of Devise
-* # gem "bcrypt", "~> 3.1.7"
+* \# bcrypt is a depencency of Devise
+* \# gem "bcrypt", "~> 3.1.7"
