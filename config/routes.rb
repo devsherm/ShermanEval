@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   get 'welcome/spring_24_junior_rails_developer'
 
   # Defines the root path route ("/")
-  root 'welcome#spring_24_junior_rails_developer'
+  root 'welcome#index'
 end
