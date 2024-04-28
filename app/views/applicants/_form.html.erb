@@ -1,8 +1,13 @@
 <%= form_with(model: model, class: "contents") do |form| %>
 
   <div class="my-5">
-    <%= form.label :my_level %>
-    <%= form.number_field :my_level, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%# form.label :my_level %>
+    <%# form.select :my_level, Applicant.my_levels.keys, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <% Applicant.my_levels.each do |level, _value| %>
+      <p>
+      <%= form.radio_button :my_level, level, class: "mt-2 h-5 w-5" %>
+      <%= form.label :my_level, level %>
+    <% end %>
   </div>
 
   <div class="my-5">
