@@ -1,0 +1,12 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+
+    <%= render @applicant %>
+
+    <%= link_to "Edit this applicant", edit_applicant_path(@applicant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this applicant", applicant_path(@applicant), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%= link_to "Back to applicants", applicants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>
