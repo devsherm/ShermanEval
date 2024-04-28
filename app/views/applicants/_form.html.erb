@@ -1,0 +1,33 @@
+<%= form_with(model: model, class: "contents") do |form| %>
+
+  <div class="my-5">
+    <%# form.label :my_level %>
+    <%# form.select :my_level, Applicant.my_levels.keys, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <% Applicant.my_levels.each do |level, _value| %>
+      <p>
+      <%= form.radio_button :my_level, level, class: "mt-2 h-5 w-5" %>
+      <%= form.label :my_level, level.humanize, value: level %>
+    <% end %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :scratch_before %>
+    <%= form.check_box :scratch_before, class: "block mt-2 h-5 w-5" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :fav_hobby %>
+    <%= form.text_field :fav_hobby, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <% if current_user.admin? %>
+    <div class="my-5">
+      <%= form.label :eval %>
+      <%= form.select :eval, Applicant.evals.keys.map { |k| [k.humanize, k]}, {}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
