@@ -1,0 +1,31 @@
+<div class="flex flex-col h-screen">
+  <div class="container mx-auto mt-4 px-4 pb-8">
+    <div class="overflow-x-auto shadow rounded-lg">
+      <table class="w-full min-w-full table-auto text-left">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">First Name</th>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">Last Name</th>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">Email</th>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">Age</th>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">Gender</th>
+            <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">Skills</th>
+            <th class="px-4 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @applicants.each do |applicant| %>
+            <tr>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.first_name %></td>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.last_name %></td>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.email %></td>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.age %></td>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.gender %></td>
+              <td class="px-4 py-2 border-b border-gray-200"><%= applicant.skills %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
