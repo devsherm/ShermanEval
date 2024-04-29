@@ -1,8 +1,6 @@
 class Applicant < ApplicationRecord
   belongs_to :user
 
-
-
   # Sorting Scopes
   scope :sorted_by_name, -> { order(name: :asc) }
   scope :sorted_by_creation, -> { order(created_at: :asc) }
