@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicantsController < ApplicationController
   before_action :set_applicant, only: %i[show edit update destroy]
   before_action :set_user, only: %i[new create]
