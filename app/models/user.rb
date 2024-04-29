@@ -3,9 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :registerable,
-         # :recoverable, # requires mailer setup
+         :lockable, :timeoutable, :trackable,
+         #  :recoverable, # requires mailer setup
          :rememberable,
-         :confirmable, # Database is set up, but you need to set up the mailer, if you want
+         #  :confirmable, # Database is set up, but you need to set up the mailer, if you want
          :validatable
 
   has_many :applicants, dependent: :destroy

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :applicants do
       member do
         post 'categorize'
+        post 'notify'
       end
     end
   end

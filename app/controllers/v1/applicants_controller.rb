@@ -70,7 +70,13 @@ module V1
       end
     end
 
+    def notify
+      ApplicantMailer.notification(@applicant, params[:message]).deliver_now
+
+      redirect_to v1_applicant_path(@applicant), notice: 'Email sent successfully.'
+    end
     # Helper method to find an applicant
+
     private
 
     def set_applicant
