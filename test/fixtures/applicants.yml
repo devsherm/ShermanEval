@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  salary: 9.99
+  hybrid_option: false
+  rails_level: MyString
+  perks: MyString
+  test_score: 1
+
+two:
+  user: two
+  salary: 9.99
+  hybrid_option: false
+  rails_level: MyString
+  perks: MyString
+  test_score: 1
