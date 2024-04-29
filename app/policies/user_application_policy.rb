@@ -10,4 +10,30 @@ class UserApplicationPolicy < ApplicationPolicy
   def show?
     @user.id == record.user_id
   end
+
+  def new?
+    true
+  end
+
+  def create?
+    show? 
+  end 
+
+  def edit?
+    update?
+  end 
+
+  def destroy?
+    update?
+  end
+
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.where(user: user)
+      end
+    end
+  end
 end

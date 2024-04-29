@@ -3,25 +3,27 @@ class UserApplicationsController < ApplicationController
 
   # GET /user_applications or /user_applications.json
   def index
-    @user_applications = UserApplication.all
+    @user_applications = policy_scope(UserApplication)
   end
 
   # GET /user_applications/1 or /user_applications/1.json
   def show
+    @user_application = authorize @user_application
   end
 
   # GET /user_applications/new
   def new
-    @user_application = UserApplication.new
+    @user_application = authorize UserApplication.new
   end
 
   # GET /user_applications/1/edit
   def edit
+    @user_application = authorize @user_application
   end
 
   # POST /user_applications or /user_applications.json
   def create
-    @user_application = UserApplication.new(user_application_params)
+    @user_application = authorize UserApplication.new(user_application_params)
 
     respond_to do |format|
       if @user_application.save
@@ -36,6 +38,8 @@ class UserApplicationsController < ApplicationController
 
   # PATCH/PUT /user_applications/1 or /user_applications/1.json
   def update
+    @user_application = authorize @user_application
+
     respond_to do |format|
       if @user_application.update(user_application_params)
         format.html { redirect_to user_application_url(@user_application), notice: "User application was successfully updated." }
@@ -49,6 +53,7 @@ class UserApplicationsController < ApplicationController
 
   # DELETE /user_applications/1 or /user_applications/1.json
   def destroy
+    @user_application = authorize @user_application
     @user_application.destroy
 
     respond_to do |format|
