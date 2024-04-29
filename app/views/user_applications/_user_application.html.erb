@@ -1,0 +1,42 @@
+<div id="<%= dom_id user_application %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">First name:</strong>
+    <%= user_application.first_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Last name:</strong>
+    <%= user_application.last_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= user_application.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Skills:</strong>
+    <%= user_application.skills %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">About me:</strong>
+    <%= user_application.about_me %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gender:</strong>
+    <%= user_application.gender %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Score:</strong>
+    <%= user_application.score %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this user application", user_application, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this user application", edit_user_application_path(user_application), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
