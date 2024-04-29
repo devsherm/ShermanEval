@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def format_error_msg(controller)
+    err_msg = '<ul class="p-4 max-w-md space-y-1 text-gray-500 list-disc list-inside">'
+    controller.errors.full_messages.each do |msg|
+      err_msg = err_msg+"<li>"+msg+"</li>"
+    end
+    err_msg = err_msg+"</ul>"
+    return err_msg
+  end
+
   protected
 
   def configure_permitted_parameters
