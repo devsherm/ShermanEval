@@ -1,7 +1,7 @@
 <div class="flex flex-col h-screen">
   <div class="container mx-auto mt-4 px-4 pb-8">
     <div class="overflow-x-auto shadow rounded-lg">
-      <table class="w-full min-w-full table-auto text-left">
+      <table class="w-full min-w-full table-auto text-left" id="applicant-table">
         <thead>
           <tr>
             <th class="px-4 py-2 text-left border-b border-gray-300 bg-gray-100">First Name</th>
@@ -51,3 +51,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $("#applicant-table").dataTable();
+  });
+</script>
