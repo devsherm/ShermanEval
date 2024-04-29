@@ -9,4 +9,6 @@ class Applicant < ApplicationRecord
                   numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :gender, presence: true, inclusion: { in: %w[male female other] }
   validates :skills, presence: true
+
+  serialize :skills, JSON
 end

@@ -1,8 +1,7 @@
-<%= form_with(model: model, class: "contents") do |form| %>
+<%= form_with(model: @applicant, class: "contents", id: "applicant_form") do |form| %>
   <% if @applicant.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>
-
       <ul>
         <% @applicant.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,27 +9,22 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name, class: "rounded-lg border border-gray-300 py-2 px-3 w-full", autofocus: true %>
   </div>
-
   <div class="field">
     <%= form.label :last_name %>
     <%= form.text_field :last_name, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
   </div>
-
   <div class="field">
     <%= form.label :email %>
     <%= form.email_field :email, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
   </div>
-
   <div class="field">
     <%= form.label :age %>
     <%= form.number_field :age, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
   </div>
-
   <div class="field">
     <%= form.label :gender %>
     <div class="flex items-center">
@@ -46,23 +40,24 @@
       <%= form.label :gender, "Other", for: "gender_other" %>
     </div>
   </div>
-
   <div class="field">
     <%= form.label :skills %>
     <div>
-      <%= form.check_box :skills, { include_hidden: true }, value: "Rails" %> Rails
+      <%= form.check_box :skills, {multiple: true}, "Rails", nil %> Rails
     </div>
     <div>
-      <%= form.check_box :skills, { include_hidden: true }, value: "Ruby" %> Ruby
+      <%= form.check_box :skills, {multiple: true}, "Python", nil %> Python
     </div>
     <div>
-      <%= form.check_box :skills, { include_hidden: true }, value: "Python" %> Python
+      <%= form.check_box :skills, {multiple: true}, "Java", nil %> Java
     </div>
     <div>
-      <%= form.check_box :skills, { include_hidden: true }, value: "Java" %> Java
+      <%= form.check_box :skills, {multiple: true}, "PostgreSQL", nil %> PostgreSQL
+    </div>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "MySQL", nil %> MySQL
     </div>
   </div>
-
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>

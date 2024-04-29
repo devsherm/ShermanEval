@@ -10,25 +10,25 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants/1 or /applicants/1.json
   def show
-    # authorize @applicant
+    authorize @applicant
   end
 
   # GET /applicants/new
   def new
-    # authorize Applicant
+    authorize Applicant
     @applicant = current_user.applicants.build
   end
 
   # GET /applicants/1/edit
   def edit
-    # authorize @applicant
+    authorize @applicant
   end
 
   # POST /applicants or /applicants.json
   def create
     @applicant = current_user.applicants.build(applicant_params)
-    binding.pry
-    # authorize @applicant
+
+    authorize @applicant
 
     respond_to do |format|
       if @applicant.save
@@ -43,7 +43,7 @@ class ApplicantsController < ApplicationController
 
   # PATCH/PUT /applicants/1 or /applicants/1.json
   def update
-    # authorize @applicant
+    authorize @applicant
     respond_to do |format|
       if @applicant.update(applicant_params)
         format.html { redirect_to applicants_url, notice: "Applicant was successfully updated." }
@@ -57,7 +57,7 @@ class ApplicantsController < ApplicationController
 
   # DELETE /applicants/1 or /applicants/1.json
   def destroy
-    # authorize(@applicant)
+    authorize(@applicant)
     @applicant.destroy
 
     respond_to do |format|
@@ -84,7 +84,7 @@ class ApplicantsController < ApplicationController
         :email,
         :age,
         :gender,
-        :skills
+        skills: []
       )
     end
 end

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :applicants, only: %i[index edit update]
+  resources :applicants, only: %i[index edit update delete]
   devise_for :users
 
   resources :users, only: %i[edit update] do
