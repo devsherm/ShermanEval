@@ -1,5 +1,5 @@
 module Admin
-  class ApplicantsController < ApplicationController
+  class ApplicantsController < BaseController
     before_action :set_applicant, only: %i[ show edit update destroy ]
   
     # GET /applicants or /applicants.json
@@ -26,7 +26,7 @@ module Admin
   
       respond_to do |format|
         if @applicant.save
-          format.html { redirect_to applicant_url(@applicant), notice: "Applicant was successfully created." }
+          format.html { redirect_to admin_applicant_url(@applicant), notice: "Applicant was successfully created." }
           format.json { render :show, status: :created, location: @applicant }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ module Admin
     def update
       respond_to do |format|
         if @applicant.update(applicant_params)
-          format.html { redirect_to applicant_url(@applicant), notice: "Applicant was successfully updated." }
+          format.html { redirect_to admin_applicant_url(@applicant), notice: "Applicant was successfully updated." }
           format.json { render :show, status: :ok, location: @applicant }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +66,7 @@ module Admin
   
       # Only allow a list of trusted parameters through.
       def applicant_params
-        params.require(:applicant).permit(:user_id, :salary, :hybrid_option, :rails_level, :perks, :test_score)
+        params.require(:applicant).permit(:user_id, :salary, :hybrid_option, :rails_level, :test_score, perks: [])
       end
   end
   
