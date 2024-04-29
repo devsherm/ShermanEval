@@ -61,6 +61,7 @@ gem 'cancancan'
 gem 'devise', '~> 4.9'
 gem 'kaminari'
 gem 'simple_form'
+gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -71,6 +72,9 @@ group :development, :test do
   gem 'pry', require: false
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'bullet' # help to kill N+1 queries and unused eager loading
+  gem 'brakeman' # free vulnerability scanner specifically designed for Ruby on Rails
+
 end
 
 group :development do
