@@ -1,15 +1,41 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<div class="mx-auto w-full flex">
+  <div class="mx-auto w-full">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-
-    <%= render @applicant %>
-
-    <%= link_to "Edit this applicant", edit_applicant_path(@applicant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this applicant", applicant_path(@applicant), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <div class="contents mx-auto w-full">
+      <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+        <div class="mb-4">
+          <strong class="block text-gray-700">First Name:</strong>
+          <span class="text-gray-900"><%= @applicant.first_name %></span>
+        </div>
+        <div class="mb-4">
+          <strong class="block text-gray-700">Last Name:</strong>
+          <span class="text-gray-900"><%= @applicant.last_name %></span>
+        </div>
+        <div class="mb-4">
+          <strong class="block text-gray-700">Email:</strong>
+          <span class="text-gray-900"><%= @applicant.email %></span>
+        </div>
+        <div class="mb-4">
+          <strong class="block text-gray-700">Age:</strong>
+          <span class="text-gray-900"><%= @applicant.age %></span>
+        </div>
+        <div class="mb-4">
+          <strong class="block text-gray-700">Gender:</strong>
+          <span class="text-gray-900"><%= @applicant.gender %></span>
+        </div>
+        <div>
+          <strong class="block text-gray-700">Skills:</strong>
+          <ul class="list-disc list-inside text-gray-900">
+            <% @applicant.skills.each do |skill| %>
+              <li><%= skill %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
+    <%= link_to "Edit this applicant", edit_applicant_path(@applicant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to applicants", applicants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>

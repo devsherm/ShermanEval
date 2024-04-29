@@ -1,4 +1,4 @@
-<%= form_with(model: @applicant, class: "contents", id: "applicant_form", data: { controller: "form-validation" }) do |form| %>
+<%= form_with(model: model, class: "contents", id: "applicant_form", data: { controller: "form-validation" }) do |form| %>
   <% if @applicant.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>
@@ -58,6 +58,7 @@
       <%= form.check_box :skills, {multiple: true}, "MySQL", nil %> MySQL
     </div>
   </div>
+  <br />
   <div class="inline">
     <%= form.submit data: { action: "form-validation#validate" }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
