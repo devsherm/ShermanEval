@@ -1,0 +1,52 @@
+<div id="<%= dom_id user_application %>">
+  <% if current_user.admin? %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">User:</strong>
+      <%= user_application.user.email %>
+    </p>
+  <% else %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Submitted to:</strong>
+      <%= user_application.employer.email %>
+    </p>
+  <% end %>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">My level:</strong>
+    <%= user_application.my_level %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Scratch before:</strong>
+    <%= user_application.scratch_before %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fav hobby:</strong>
+    <%= user_application.fav_hobby %>
+  </p>
+
+  <% if current_user.admin? %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Eval:</strong>
+      <%= user_application.eval %>
+    </p>
+  <% end %>
+
+  <% if action_name != "show" %>
+    <% if current_user.admin? %>
+      <%= link_to "Evaluate This Application",
+      edit_user_application_path(user_application),
+      class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+      <hr class="mt-6">
+    <% else %>
+      <%= link_to "Edit This Application",
+      edit_user_application_path(user_application),
+      class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <% end %>
+    <%= button_to "Delete This Application",
+    user_application_path(user_application),
+    method: :delete,
+    class: "rounded-lg py-3 ml-2 px-5 bg-red-400 inline-block font-medium" %>
+  <% end %>
+</div>

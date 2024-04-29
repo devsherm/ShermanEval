@@ -1,0 +1,64 @@
+<%= form_with(model: @application, class: "contents") do |form| %>
+  <% if @application.errors.any? %>
+    <div
+      id="error_explanation"
+      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
+    >
+      <h2><%= pluralize(@application.errors.count, "error") %>
+        prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @application.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="my-5">
+    <ul class="flex flex-col gap-2">
+      <% UserApplication.my_levels.keys.each do |level| %>
+        <li class="flex items-center gap-2">
+          <%= form.radio_button :my_level,
+                            level,
+                            required: true,
+                            class: "h-5 w-5",
+                            disabled: current_user.admin? %>
+          <%= form.label :my_level, level.humanize, value: level %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="my-5 flex items-center gap-2">
+    <%= form.check_box :scratch_before,
+                   class: "block h-5 w-5",
+                   disabled: current_user.admin? %>
+    <%= form.label :scratch_before %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :fav_hobby %>
+    <%= form.text_field :fav_hobby,
+                    disabled: current_user.admin?,
+                    required: true,
+                    class:
+                      "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <% if current_user.admin? %>
+    <div class="my-5">
+      <%= form.label :eval %>
+      <%= form.select :eval,
+                  UserApplication.evals.keys.map { |k| [k.humanize, k] },
+                  {},
+                  class:
+                    "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit "Submit Application",
+                class:
+                  "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
