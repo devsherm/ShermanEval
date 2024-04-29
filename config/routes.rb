@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :applicants, except: %i[new create]
+    resources :emails, only: %i[new create]
   end
 
   resources :users, only: %i[edit update]
