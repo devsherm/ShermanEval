@@ -48,6 +48,8 @@ window.init_modal = function(){
         closemodal[i].addEventListener('click', remove_modal)
     }
 
+    tinymce.remove();
+
     tinymce.init({
       selector: 'textarea',
       plugins: 'anchor autolink image link lists media searchreplace table',
