@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'welcome#index'
+  get 'contact_us' => 'welcome#contact_us'
 end
