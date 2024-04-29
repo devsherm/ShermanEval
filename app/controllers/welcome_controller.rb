@@ -1,5 +1,5 @@
-class WelcomeController < ApplicationController
+# frozen_string_literal: true
 
-  def spring_24_junior_rails_developer
-  end
+class WelcomeController < ApplicationController
+  def spring_24_junior_rails_developer; end
 end

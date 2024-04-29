@@ -1,0 +1,82 @@
+<%= form_with(model: model, class: "contents", id: "applicant_form", data: { controller: "form-validation" }) do |form| %>
+  <% if @applicant.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>
+      <ul>
+        <% @applicant.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class: "rounded-lg border border-gray-300 py-2 px-3 w-full", autofocus: true %>
+  </div>
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
+  </div>
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
+  </div>
+  <div class="field">
+    <%= form.label :age %>
+    <%= form.number_field :age, class: "rounded-lg border border-gray-300 py-2 px-3 w-full" %>
+  </div>
+  <div class="field">
+    <%= form.label :gender %>
+    <div class="flex items-center">
+      <%= form.radio_button :gender, "male", id: "gender_male", class: "mr-2" %>
+      <%= form.label :gender, "Male", for: "gender_male" %>
+    </div>
+    <div class="flex items-center">
+      <%= form.radio_button :gender, "female", id: "gender_female", class: "mr-2" %>
+      <%= form.label :gender, "Female", for: "gender_female" %>
+    </div>
+    <div class="flex items-center">
+      <%= form.radio_button :gender, "other", id: "gender_other", class: "mr-2" %>
+      <%= form.label :gender, "Other", for: "gender_other" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :skills %>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "Rails", nil %> Rails
+    </div>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "Python", nil %> Python
+    </div>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "Java", nil %> Java
+    </div>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "PostgreSQL", nil %> PostgreSQL
+    </div>
+    <div>
+      <%= form.check_box :skills, {multiple: true}, "MySQL", nil %> MySQL
+    </div>
+  </div>
+  <% if current_user.admin? %>
+    <br>
+    <% score_color = case form.object.score %>
+      <% when 'poor' then 'bg-red-500' %>
+      <% when 'good' then 'bg-yellow-500' %>
+      <% when 'excellent' then 'bg-green-500' %>
+      <%else 'bg-grey-300'%>
+    <% end %>
+
+    <div class="score-field-container rounded-lg border border-8 border-black	 py-2 px-3 ">
+      <div class="font-semibold">**Admin Score Evaluation**</div>
+      <div class="field">
+        <%= form.label :score %>
+        <%= form.select :score, options_for_select(Applicant.scores.keys, selected: form.object.score), {include_blank: true, prompt: 'Score the Applicant'}, class: "rounded-lg border #{score_color} py-2 px-3 w-full" %>
+      </div>
+    </div>
+  <% end %>
+<br />
+<div class="inline">
+  <%= form.submit data: { action: "form-validation#validate" }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+</div>
+<% end %>
