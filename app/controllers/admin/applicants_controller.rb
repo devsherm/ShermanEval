@@ -4,7 +4,7 @@ module Admin
   
     # GET /applicants or /applicants.json
     def index
-      @applicants = Applicant.all
+      @applicants = Applicant.includes(:user).search_and_orders(search_and_orders_params)
     end
   
     # GET /applicants/1 or /applicants/1.json
@@ -67,6 +67,10 @@ module Admin
       # Only allow a list of trusted parameters through.
       def applicant_params
         params.require(:applicant).permit(:user_id, :salary, :hybrid_option, :rails_level, :test_score, perks: [])
+      end
+
+      def search_and_orders_params
+        params.permit(:sort_by, :sort_order, :search)
       end
   end
   
