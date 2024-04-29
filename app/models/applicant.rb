@@ -17,6 +17,7 @@ class Applicant < ApplicationRecord
   def self.search_and_orders(params)
     data = where(false)
 
+    data = search(data, params[:search])
     data = order_sanitize_sql(data, params[:sort_by], params[:sort_order])
     
     data
@@ -28,6 +29,12 @@ class Applicant < ApplicationRecord
     target_model = %w[name email].include?(sort_by) ? "users" : "applicants"
       
     data.order(sanitize_sql(["#{target_model}.#{sort_by} #{sort_order}"]))
+  end
+
+  def self.search(data, search)
+    return data if search.blank?
+      
+    data.joins(:user).where("users.name ILIKE :search OR users.email ILIKE :search", search: sanitize_sql("%#{search}%"))
   end
 
   private

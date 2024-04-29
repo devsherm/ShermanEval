@@ -4,6 +4,10 @@
   </div>
 
   <div id="applicants" class="min-w-full overflow-x-auto">
+    <%= form_tag search_helper, method: :get do %>
+      <%= text_field_tag :search, params[:search] %>
+    <% end %>
+
     <table class="table-auto min-w-full divide-y divide-gray-200">
       <thead>
         <tr>
