@@ -4,10 +4,23 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Applicants</h1>
+    <h1 class="font-bold text-4xl mb-2">Applicants</h1>
   </div>
 
-  <div id="applicants" class="min-w-full">
-    <%= render @applicants %>
+  <div id="applicants" class="min-w-full overflow-x-auto">
+    <table class="table-auto min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Score</th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"></th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+         <%= render @applicants %>
+      </tbody>
+    </table>
+   
   </div>
 </div>

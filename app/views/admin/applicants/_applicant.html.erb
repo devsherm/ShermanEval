@@ -1,37 +1,12 @@
-<div id="<%= dom_id applicant %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= applicant.user_id %>
-  </p>
+<tr id="<%= dom_id applicant %>">
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.user.name %></td>
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.user.email %></td>
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.test_score %></td>
+  <td class="px-6 py-4 whitespace-no-wrap">
+    <span><%= link_to "Show", admin_applicant_path(applicant) %></span>
+    <span><%= link_to "Edit", edit_admin_applicant_path(applicant) %></span>
+  </td>
+</tr>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Salary:</strong>
-    <%= applicant.salary %>
-  </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Hybrid option:</strong>
-    <%= applicant.hybrid_option %>
-  </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Rails level:</strong>
-    <%= applicant.rails_level %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Perks:</strong>
-    <%= applicant.perks.join(', ') %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Test score:</strong>
-    <%= applicant.test_score %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this applicant", admin_applicant_path(applicant), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this applicant", edit_admin_applicant_path(applicant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>

@@ -4,7 +4,37 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <%= render @applicant %>
+    <div id="<%= dom_id applicant %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">User:</strong>
+        <%= applicant.user_id %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Salary:</strong>
+        <%= applicant.salary %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Hybrid option:</strong>
+        <%= applicant.hybrid_option %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Rails level:</strong>
+        <%= applicant.rails_level %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Perks:</strong>
+        <%= applicant.perks.join(', ') %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Test score:</strong>
+        <%= applicant.test_score %>
+      </p>
+    </div>
 
     <%= link_to "Edit this applicant", edit_admin_applicant_path(@applicant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
