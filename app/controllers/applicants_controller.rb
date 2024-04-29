@@ -72,6 +72,17 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def mail_template
+    authorize :applicant, :mail?
+    @applicant = Applicant.find(params[:applicant_id])
+  end
+
+  def send_mail
+    authorize :applicant, :mail?
+
+    ApplicationMailer.send_applicant_mail(params).deliver!
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

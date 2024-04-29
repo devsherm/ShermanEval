@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update] do
     resources :applicants, only: %i[new create]
   end
-  resources :applicants, only: %i[index edit update create show]
+  resources :applicants, only: %i[index edit update create show] do
+    get 'mail_template'
+    post 'send_mail', to: 'applicants#send_mail'
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

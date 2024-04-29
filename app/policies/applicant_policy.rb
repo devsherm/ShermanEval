@@ -25,6 +25,10 @@ class ApplicantPolicy < ApplicationPolicy
     admin?
   end
 
+  def mail?
+    admin?
+  end
+
   private
 
   def admin?

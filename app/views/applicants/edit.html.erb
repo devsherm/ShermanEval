@@ -4,4 +4,7 @@
   <%= render "form", model: [@applicant] %>
 
   <%= link_to "Back to applicants", applicants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <% if current_user.admin? %>
+    <%= link_to "Send Email", applicant_mail_template_path(@applicant), class: "ml-2 rounded-lg py-3 px-5 bg-green-100 inline-block font-medium" %>
+  <%end%>
 </div>
