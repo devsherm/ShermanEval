@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ShermanEval</title>
+    <title>Duleep - Sherman Eval</title>
+    <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://cdn.datatables.net/v/dt/dt-2.0.5/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/dt/dt-2.0.5/datatables.min.js"></script>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <div class="container mx-auto mt-8 px-5">
+      <% if current_user %><%#%>
+        <%= render 'layouts/authenticated_header', user: current_user %><%#%>
+      <% end %><%#%>
       <% if notice.present? %><%#%>
         <p class='py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block' id='notice'>
           <%= notice %><%#%>
@@ -27,9 +33,6 @@
         <%= render 'layouts/object_errors', errors: local_assigns[:errors] %><%#%>
       <% end %><%#%>
       <br>
-      <% if current_user %><%#%>
-        <%= render 'layouts/authenticated_header', user: current_user %><%#%>
-      <% end %><%#%>
     </div>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
