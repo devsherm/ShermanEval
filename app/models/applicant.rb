@@ -1,6 +1,13 @@
 class Applicant < ApplicationRecord
   belongs_to :user
 
+
+
+  # Sorting Scopes
+  scope :sorted_by_name, -> { order(name: :asc) }
+  scope :sorted_by_creation, -> { order(created_at: :asc) }
+  scope :sorted_by_category, -> { order(category: :asc) }
+
   # Add necessary validations
 
   validates :name, :email, :posting_pay, :requesting_pay, :posting_sched, :requesting_class, :requesting_schedule,
@@ -19,4 +26,6 @@ class Applicant < ApplicationRecord
   validates :name, :email, length: { maximum: 255 }
   validates :posting_pay, :requesting_pay, :posting_sched, :requesting_schedule, :rpd_schema, :gpt_desc, :what_wrong,
             length: { maximum: 1000 }
+  # Ensure categorization values are valid
+  validates :category, inclusion: { in: %w[Approved Rejected Pending], allow_nil: true }
 end

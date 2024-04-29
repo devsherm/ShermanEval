@@ -1,69 +1,56 @@
-class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  #   # GET /users or /users.json
-  #   def index
-  #     @users = User.all
-  #   end
-  #
-  #   # GET /users/1 or /users/1.json
-  #   def show
-  #   end
-  #
-  #   # GET /users/new
-  #   def new
-  #     @user = User.new
-  #   end
-  #
-  #   # POST /users or /users.json
-  #   def create
-  #     @user = User.new(user_params)
-  #
-  #     respond_to do |format|
-  #       if @user.save
-  #         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-  #         format.json { render :show, status: :created, location: @user }
-  #       else
-  #         format.html { render :new, status: :unprocessable_entity }
-  #         format.json { render json: @user.errors, status: :unprocessable_entity }
-  #       end
-  #     end
-  #   end
+# app/controllers/users_controller.rb
 
-  # GET /users/1/edit
+class UsersController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
+
+  # Display user profile
+  def show
+    @applicants = @user.applicants
+  end
+
+  # Display form for editing user profile
   def edit; end
 
-  # PATCH/PUT /users/1 or /users/1.json
+  # Update user profile
   def update
-    @user.admin = (User.count == 1)
-    respond_to do |format|
+    User.transaction do
       if @user.update(user_params)
-        format.html { redirect_to root_url, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        redirect_to user_path(@user), notice: 'User updated successfully.'
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :edit
+        raise ActiveRecord::Rollback
       end
     end
   end
-  #   # DELETE /users/1 or /users/1.json
-  #   def destroy
-  #     @user.destroy
-  #
-  #     respond_to do |format|
-  #       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-  #       format.json { head :no_content }
-  #     end
-  #   end
 
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
+  # Delete a user
+  def destroy
+    if @user == current_user
+      sign_out(@user) # Log out the user before deleting
+      @user.destroy
+      redirect_to root_path, notice: 'Your account has been deleted successfully.'
+    else
+      redirect_to root_path, alert: "You can't delete other users."
+    end
   end
 
-  # Only allow a list of trusted parameters through.
+  # Create a new user
+  def create
+    User.transaction do
+      if @user.save
+        redirect_to user_path(@user), notice: 'User created successfully.'
+      else
+        render :new
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+  # Helper methods
+  private
+
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name)
   end
 end
