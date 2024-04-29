@@ -3,6 +3,9 @@ class Applicant < ApplicationRecord
 
   PERKS = %w[laptop ergonomic_office_furniture internet]
 
+  validates :salary, presence: true
+  validates :perks, inclusion: { in: PERKS }, allow_nil: true
+
   enum rails_level: {
     "newbie": "newbie",
     "middle": "middle",
