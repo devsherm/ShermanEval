@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   # Display user profile
   def show
-    @applicants = @user.applicants
+    @applicants = current_user.applicants
   end
 
   # Display form for editing user profile
