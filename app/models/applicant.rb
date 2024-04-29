@@ -14,6 +14,14 @@ class Applicant < ApplicationRecord
 
   before_validation :check_perks
 
+  def category
+    return if test_score.blank?
+    return "passed" if test_score >= 80
+    return "considered" if test_score >= 50
+
+    "fail"
+  end
+
   def self.search_and_orders(params)
     data = where(false)
 
