@@ -12,5 +12,5 @@ class Applicant < ApplicationRecord
 
   serialize :skills, JSON
 
-  enum eval: { poor: 0, good: 1, excellent: 3 }
+  enum score: { poor: 0, good: 1, excellent: 3 }
 end

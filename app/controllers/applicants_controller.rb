@@ -4,7 +4,6 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants or /applicants.json
   def index
-    # @applicants = policy_scope(Applicant)
     @applicants = if current_user.admin?
                     Applicant.all
                   else
@@ -26,14 +25,14 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants/1/edit
   def edit
-    authorize @applicant
+    authorize @applicant, :create?
   end
 
   # POST /applicants or /applicants.json
   def create
     @applicant = current_user.applicants.build(applicant_params)
 
-    authorize @applicant
+    authorize @applicant, :create?
 
     respond_to do |format|
       if @applicant.save
@@ -62,7 +61,7 @@ class ApplicantsController < ApplicationController
 
   # DELETE /applicants/1 or /applicants/1.json
   def destroy
-    authorize(@applicant)
+    authorize @applicant
     @applicant.destroy
 
     respond_to do |format|
@@ -90,6 +89,7 @@ class ApplicantsController < ApplicationController
       :email,
       :age,
       :gender,
+      :score,
       skills: []
     )
   end

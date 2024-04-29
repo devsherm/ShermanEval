@@ -1,10 +1,10 @@
 class ApplicantPolicy < ApplicationPolicy
   def index?
-    admin?
+    true
   end
 
   def show?
-    admin?
+    true
   end
 
   def create?
