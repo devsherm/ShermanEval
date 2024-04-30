@@ -7,8 +7,7 @@ class ApplicantMailer < ApplicationMailer
 
     mail(to: @applicant.email, subject: 'Notification from Sherman Buildings') do |format|
       format.text { render plain: @message }
-      format.html { render 'notification' }  # We'll create a corresponding HTML template
+      format.html { render 'notification' } # We'll create a corresponding HTML template
     end
   end
 end
-

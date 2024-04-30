@@ -66,10 +66,8 @@ module V1
       end
     end
 
-
     # Render notification form
-    def notify
-    end
+    def notify; end
 
     # Send the notification email
     def send_notification
