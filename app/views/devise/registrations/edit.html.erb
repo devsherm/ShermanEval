@@ -1,0 +1,59 @@
+<div class="container">
+
+  <h1 class="font-bold text-4xl">Edit Account</h1>
+
+  <div class="container">
+  <main>
+  <div class="row">
+
+  <div class="col-md-12">
+
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="my-3 col-md-5">
+      <%= f.label :email, class: "form-label block" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control block rounded-md border border-gray-200 outline-none" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="my-3 col-md-5">
+      <%
+        placeholder = ""
+        if @minimum_password_length
+          placeholder = "#{@minimum_password_length} characters minimum"
+        end
+      %>
+      <%= f.label :password, class: "form-label" %> <i>(leave blank if you don't want to change it)</i><br/>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control block rounded-md border border-gray-200 outline-none", placeholder: placeholder %>
+    </div>
+
+    <div class="my-3 col-md-5">
+      <%= f.label :password_confirmation, class: "form-label block" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control block rounded-md border border-gray-200 outline-none" %>
+    </div>
+
+    <div class="my-3 col-md-5">
+      <%= f.label :current_password, class: "form-label block" %>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control block rounded-md border border-gray-200 outline-none", placeholder: "(we need your current password to confirm your changes)" %>
+    </div>
+
+    <div class="flex">
+      <%= f.submit "Update", class: "col-md-2 btn btn-primary" %>
+      <span class="col-md-1"></span>
+      <%= link_to "Cancel Edit", root_path, class: "col-md-2 btn btn-danger" %>
+    </div>
+  <% end %>
+
+  <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
+
+  </div>
+
+  </div>
+  </main>
+  </div>
+</div>

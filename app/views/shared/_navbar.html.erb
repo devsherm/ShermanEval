@@ -6,6 +6,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if current_user && !current_user.admin %>
+        <li class="nav-item">
+          <%= link_to "Take the Survey", new_survey_path, class: "nav-link active" %>
+        </li>
+        <% end %>
       </ul>
       <ul class="navbar-nav me-2 mb-2 mb-lg-0">
         <% if current_user %>
@@ -15,7 +20,13 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to current_user.email, "#", class: "dropdown-item disabled" %></li>
+            <li><%= link_to "Edit Account", edit_user_registration_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Edit Name", edit_profile_path, class: "dropdown-item" %></li>
             <li><hr class="dropdown-divider"></li>
+            <% if current_user.admin %>
+            <li><%= link_to "Surveys", admin_surveys_path, class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <% end %>
             <li><%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
           </ul>
         </li>
