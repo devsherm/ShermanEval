@@ -2,8 +2,9 @@
   <h2 class="text-2xl font-bold text-center mb-4">Application for <%= @applicant.name %></h2>
 
   <p><strong>Email:</strong> <%= @applicant.email %></p>
+  <% if current_user.admin? %>
   <p><strong>Category:</strong> <%= @applicant.category || "Not Categorized" %></p>
-
+  <% end %>
   <h3 class="mt-6 font-bold text-xl">Answers:</h3>
   <ul class="list-disc pl-5">
     <li><strong>Posting Pay:</strong> <%= @applicant.posting_pay %></li>
@@ -42,7 +43,9 @@
     <% end %>
 
   <div class="flex justify-between mt-6">
-    <%= link_to "Edit", edit_v1_applicant_path(@applicant), class: "px-4 py-2 bg-yellow-500 text-white rounded-lg" %>
+    <% if current_user == @applicant.user %>
+      <%= link_to "Edit", edit_v1_applicant_path(@applicant), class: "px-4 py-2 bg-yellow-500 text-white rounded-lg" %>
+    <% end %>
     <%= link_to "Back", v1_applicants_path, class: "px-4 py-2 text-blue-600 underline" %>
   </div>
 </div>
