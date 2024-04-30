@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  resources :user_applications
   devise_for :users
+  
+  resources :user_applications do
+    member do
+      patch :update_status
+    end
+  end
+
   resources :users, only: %i[edit update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

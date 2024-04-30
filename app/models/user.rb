@@ -8,4 +8,7 @@ class User < ApplicationRecord
           # :confirmable, # Database is set up, but you need to set up the mailer, if you want
           :validatable
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[email name]
+  end
 end

@@ -1,9 +1,11 @@
 class UserApplicationsController < ApplicationController
-  before_action :set_user_application, only: %i[ show edit update destroy ]
+  before_action :set_user_application, only: %i[ show edit update destroy update_status ]
 
   # GET /user_applications or /user_applications.json
   def index
-    @user_applications = policy_scope(UserApplication)
+    @q = policy_scope(UserApplication).ransack(build_ransack_query(params))
+    @q.sorts = 'last_name asc' if @q.sorts.empty?
+    @user_applications = @q.result
   end
 
   # GET /user_applications/1 or /user_applications/1.json
@@ -66,6 +68,20 @@ class UserApplicationsController < ApplicationController
     end
   end
 
+  def update_status
+    @user_application = authorize @user_application, :update?
+    @user_application.update(score: params[:score])
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("user_application_status_#{@user_application.id}",
+                                                  partial: "user_applications/status",
+                                                  locals: { user_application: @user_application })
+      end
+      format.html { redirect_to @user_application }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_application
@@ -75,5 +91,12 @@ class UserApplicationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_application_params
       params.require(:user_application).permit(:first_name, :last_name, :user_id, :about_me, :gender, :score, skills: [])
+    end
+
+    # Since I'm using a custom sort instead of a table, this method formats the sort parameters for ransack
+    def build_ransack_query(query_params)
+      return {} unless query_params
+      sort_query = "#{query_params[:sort_field]} #{query_params[:sort_direction]}" if query_params[:sort_field] && query_params[:sort_direction]
+      query_params.merge(s: sort_query).except(:sort_field, :sort_direction)
     end
 end

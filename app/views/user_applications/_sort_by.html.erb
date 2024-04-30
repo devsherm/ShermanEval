@@ -1,0 +1,24 @@
+<%= form_tag(user_applications_path, method: :get, class: "my-5 border border-black-500 border-opacity-20 px-7 py-5 rounded-md shadow leading-tight") do %>
+  <div class="flex justify-between items-center">
+    <div class="flex flex-row gap-3">
+      <div class="me-3">
+        <%= label_tag :sort_field, "Sort field:" %>
+        <%= select_tag :sort_field, options_for_select([
+          ['Last Name', 'last_name'],
+          ['First Name', 'first_name'],
+          ['User Email', 'user_email'],
+          ['Score', 'score']
+        ], params[:sort_field]), class: "mt-1 block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+
+      <div class="mx-3">
+        <%= label_tag :sort_direction, "Sort direction:" %>
+        <%= select_tag :sort_direction, options_for_select([
+          ['Ascending', 'asc'],
+          ['Descending', 'desc']
+        ], params[:sort_direction]), class: "mt-1 block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+    </div>
+    <%= submit_tag("Sort", class: "rounded-lg py-3 px-5 min-w-36 bg-blue-600 text-white block font-bold") %>
+  </div>
+<% end %>
