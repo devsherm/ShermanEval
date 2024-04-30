@@ -33,10 +33,12 @@
     </p>
   </div>
 
-  <p class="my-5">
+  <p class="mt-5 mb-3 line-clamp-4 text-container">
     <strong class="block font-medium mb-1">About me:</strong>
     <%= user_application.about_me %>
   </p>
+
+  <p class="read-more text-blue-500 underline cursor-pointer">Read more</p>
 
   <% if current_user.admin? %>
     <div class="flex items-center">
