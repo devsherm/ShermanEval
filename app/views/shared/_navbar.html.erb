@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <%= link_to "Home", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if current_user && !current_user.admin %>
+        <li class="nav-item">
+          <%= link_to "Take the Survey", new_survey_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show the Survey", survey_path, class: "nav-link active" %>
+        </li>
+        <% end %>
+      </ul>
+      <ul class="navbar-nav me-2 mb-2 mb-lg-0">
+        <% if current_user %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= "#{current_user.name} #{current_user.admin ? ' (Admin)' : ''}" %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><%= link_to current_user.email, "#", class: "dropdown-item disabled" %></li>
+            <li><%= link_to "Edit Account", edit_user_registration_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Edit Name", edit_profile_path, class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <% if current_user.admin %>
+            <li><%= link_to "Surveys", admin_surveys_path, class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <% end %>
+            <li><%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
+          </ul>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,36 @@
+<div class="container">
+<h1 class="font-bold text-4xl mt-4">Surveys</h1>
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+  <div class="row mb-3 text-center">
+    <div class="col-md-1">
+      Fave Cube
+    </div>
+    <div class="col-md-1">
+      Like Ruby
+    </div>
+    <div class="col-md-5">
+      Last Ruby Project
+    </div>
+    <div class="col-md-2">
+      Applicant Info
+    </div>
+    <div class="col-md-2">
+      Actions
+    </div>
+    <div class="col-md-1">
+      Evaluation
+    </div>
+  </div>
+</div>
+
+<hr class="my-4">
+
+<div class="container">
+  <% @surveys.each do |survey| %>
+    <%= render "surveys/survey", survey: survey %>
+  <% end %>
+</div>

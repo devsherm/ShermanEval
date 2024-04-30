@@ -1,4 +1,13 @@
+<div class="container">
+<main>
+<div class="row">
+
+<div class="col-md-12">
+
 <%= form_with(model: user, class: "contents") do |form| %>
+
+  <br/>
+
   <% if user.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,12 +20,21 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <br/>
+
+  <div class="my-3 col-md-5">
+    <%= form.label :name, class: "form-label block" %>
+    <%= form.text_field :name, class: "form-control block rounded-md border border-gray-200 outline-none" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex">
+    <%= form.submit class: "col-md-2 btn btn-primary" %>
+    <span class="col-md-1"></span>
+    <%= link_to "Cancel", root_path, class: "col-md-2 btn btn-danger" %>
   </div>
 <% end %>
+
+</div>
+</div>
+</main>
+</div>
