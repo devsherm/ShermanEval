@@ -1,0 +1,59 @@
+<div class="container">
+<main>
+<div class="row">
+
+<div class="col-md-12">
+
+<%= form_with(model: survey) do |form| %>
+
+  <br/>
+
+  <% if survey.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+        <% survey.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <div class="my-3 col-md-5">
+    <%= form.label "Describe your last ruby project", class: "form-label", style: "display: block" %>
+    <%= form.text_area :last_project, class: "form-control" %>
+  </div>
+
+  <div class="my-3 col-md-5">
+    <%= form.label "What is your favorite rubyks cube?", class: "form-label", style: "display: block" %>
+    <%= form.radio_button :favorite_cube, "classic", class: "form-control" %>
+    <%= form.label :favorite_cube_classic, "3x3 Classic", class: "form-label" %>
+    <br/>
+    <%= form.radio_button :favorite_cube, "windmill", class: "form-control" %>
+    <%= form.label :favorite_cube_windmill, "3x3 Windmill", class: "form-label" %>
+    <br/>
+    <%= form.radio_button :favorite_cube, "mega", class: "form-control" %>
+    <%= form.label :favorite_cube_mega, "12side MegaMinx", class: "form-label" %>
+  </div>
+
+  <div class="my-3 col-md-5">
+    <%= form.label :like_ruby, "Do you like ruby?", class: "form-label", style: "display: block" %>
+    <%= form.check_box :like_ruby, class: "form-control" %>
+  </div>
+
+  <br/>
+
+  <div class="flex">
+    <%= form.submit "Submit", class: "col-md-2 btn btn-primary" %>
+    <span class="col-md-1"></span>
+    <%= link_to "Cancel", root_path, class: "col-md-2 btn btn-danger" %>
+  </div>
+<% end %>
+
+</div>
+</div>
+</main>
+</div>
