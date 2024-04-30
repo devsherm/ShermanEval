@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   get 'edit_profile', to: 'users#edit'
   resources :users, only: %i[edit update]
-  resources :surveys, only: %i[show new create]
+  resources :surveys, only: %i[create]
+  get 'survey/new', to: 'surveys#new', as: 'new_survey'
+  get 'survey', to: 'surveys#show'
   namespace :admin do
     resources :surveys
   end

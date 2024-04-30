@@ -7,6 +7,9 @@ class SurveysController < ApplicationController
   end
 
   def show
+    if !@survey
+      @survey = Survey.create
+    end
   end
 
   def new
