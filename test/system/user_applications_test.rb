@@ -21,7 +21,7 @@ class UserApplicationsTest < ApplicationSystemTestCase
     fill_in "Score", with: @user_application.score
     fill_in "Skills", with: @user_application.skills
     fill_in "User", with: @user_application.user_id
-    click_on "Create User application"
+    click_on "Submit"
 
     assert_text "User application was successfully created"
     click_on "Back"

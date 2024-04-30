@@ -25,6 +25,10 @@ class UserApplicationsController < ApplicationController
   def create
     @user_application = authorize UserApplication.new(user_application_params)
 
+    # when using collection checboxes, rails adds a hidden input field to ensure this param is always present even if no checkboxes are selected
+    # this filters out blank entries
+    @user_application.skills.reject!(&:blank?) if @user_application.skills.present?
+
     respond_to do |format|
       if @user_application.save
         format.html { redirect_to user_application_url(@user_application), notice: "User application was successfully created." }
@@ -70,6 +74,6 @@ class UserApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_application_params
-      params.require(:user_application).permit(:first_name, :last_name, :user_id, :skills, :about_me, :gender, :score)
+      params.require(:user_application).permit(:first_name, :last_name, :user_id, :about_me, :gender, :score, skills: [])
     end
 end

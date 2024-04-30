@@ -22,13 +22,17 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
   <div class="my-5">
-    <%= form.label :skills %>
-    <%= form.text_field :skills, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :skills %><br>
+    <%= form.collection_check_boxes :skills, [['Ruby', 'ruby'], ['React', 'react'], ['Vue.js', 'vue'], ['Python', 'python']], :second, :first do |b| %>
+      <div class="mt-2">
+        <%= b.check_box class: "mr-2" %>
+        <%= b.label class: "inline-block" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="my-5">
@@ -37,16 +41,23 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :gender %>
-    <%= form.number_field :gender, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :gender %><br>
+    <%= form.collection_radio_buttons :gender, [['Other', 'other'], ['Male', 'male'], ['Female', 'female']], :second, :first do |b| %>
+      <div class="mt-2">
+        <%= b.radio_button class: "mr-2" %>
+        <%= b.label class: "inline-block" %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :score %>
-    <%= form.number_field :score, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <% if current_user.admin? %>
+    <div class="my-5">
+      <%= form.label :score %>
+      <%= form.number_field :score, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% end %>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
