@@ -21,18 +21,18 @@
 
   <div class="col-md-2 d-grid align-self-start">
     <div class="row">
-      <div class="col-md-6 p-2">
+      <div class="col-md-6 p-1">
         <%= button_to "Deny", admin_deny_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-danger p-0" %>
       </div>
-      <div class="col-md-6 p-2">
+      <div class="col-md-6 p-1">
         <%= button_to "Approve", admin_approve_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-success p-0" %>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 p-2">
+      <div class="col-md-6 p-1">
         <%= button_to "Hold", admin_hold_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-primary p-0" %>
       </div>
-      <div class="col-md-6 p-2">
+      <div class="col-md-6 p-1">
         <%= button_to "Reset", admin_reset_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-outline-secondary p-0" %>
       </div>
     </div>
