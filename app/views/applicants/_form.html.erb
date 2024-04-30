@@ -1,0 +1,35 @@
+<div class=" ">
+<%= form_with(model: applicant) do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :job_type, "Desired job type?" %>
+    <%= f.label :job_type, "Part Time" %>
+    <%= f.radio_button :job_type, :part_time %>
+    <%= f.label :job_type, "Full Time" %>
+    <%= f.radio_button :job_type, :full_time %>
+  </div>
+
+  <div>
+    <%= f.label :start_date, "When are you available to start?" %>
+    <%= f.date_field :start_date %>
+  </div>
+
+  <div>
+    <%= f.label :agree_tc, "Do you accept our terms and conditions?" %>
+    <%= f.check_box :agree_tc %>
+  </div>
+
+  <div>
+    <%= f.submit 'Submit Application' %>
+  </div>
+<% end %>
+</div>

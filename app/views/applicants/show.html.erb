@@ -1,0 +1,21 @@
+<div>
+    <h1 class="text-6xl">Application</h1>
+    <div>
+        First Name: <%= @applicant.first_name %>
+    </div>
+    <div>
+        Last Name: <%= @applicant.last_name %>
+    </div>
+    <div>
+        Job Type: <%= get_job_type %>
+    </div>
+    <div>
+        Available Starting Date: <%= @applicant.start_date %>
+    </div>
+
+    <% if current_user == @applicant.user %>
+    <div>
+        <%= button_to 'Withdraw Application', current_user.applicant, method: :delete, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-red-200' %>
+    </div>
+    <% end %>
+</div>
