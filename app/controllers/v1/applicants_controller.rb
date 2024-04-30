@@ -2,8 +2,8 @@
 
 module V1
   class ApplicantsController < ApplicationController
-    before_action :authenticate_user!, only: %i[new create index show edit update]
-    before_action :set_applicant, only: %i[show edit update]
+    before_action :authenticate_user!
+    before_action :set_applicant, only: %i[show edit update categorize notify send_notification]
 
     # Display all applications
     def index
@@ -66,11 +66,20 @@ module V1
       end
     end
 
-    def notify
-      ApplicantMailer.notification(@applicant, params[:message]).deliver_now
 
-      redirect_to v1_applicant_path(@applicant), notice: 'Email sent successfully.'
+    # Render notification form
+    def notify
     end
+
+    # Send the notification email
+    def send_notification
+      if ApplicantMailer.notification(@applicant, params[:message]).deliver_now
+        redirect_to root_path(@applicant), notice: 'Email sent successfully.'
+      else
+        redirect_to notify_v1_applicant_path(@applicant), alert: 'Error sending email.'
+      end
+    end
+
     # Helper method to find an applicant
 
     private
