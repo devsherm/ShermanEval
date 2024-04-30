@@ -23,14 +23,10 @@ module V1
                     else
                       current_user.applicants
                     end
-
-      render json: @applicants
     end
 
     # Show a specific application
-    def show
-      render json: @applicant
-    end
+    def show; end
 
     # Display the form for a new application
     def new
@@ -98,6 +94,7 @@ module V1
         :rpd_schema,
         :doc_store,
         :my_values,
+        :gpt_use,
         :gpt_desc,
         :what_wrong
       )

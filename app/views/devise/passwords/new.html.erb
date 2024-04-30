@@ -1,11 +1,10 @@
 <div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md">
   <h2 class="text-2xl font-bold text-center mb-4">Forgot Your Password?</h2>
 
-  <%= form_with(model: resource, as: resource_name, url: new_user_password_path, method: :post, local: true) do |f| %>
+  <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :post, local: true) do |f| %>
     <% if resource.errors.any? %>
       <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-        <h3><%= pluralize(resource.errors.count, "error") %> prohibited resetting the password:</h3>
-
+        <h3><%= pluralize(resource.errors.count, "error") %> prevented resetting the password:</h3>
         <ul>
           <% resource.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
@@ -15,13 +14,17 @@
     <% end %>
 
     <div class="mb-4">
-      <%= f.label :email, class: "block text-sm font-medium" %>
-      <%= f.email_field :email, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "email" %>
+      <%= f.label :email, "Email", class: "block text-sm font-bold mb-2" %>
+      <%= f.email_field :email, class: "w-full p-2 border rounded-md", autocomplete: "email" %>
     </div>
 
-    <div class="form-actions flex justify-between">
-      <%= f.submit "Send Reset Instructions", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer hover:bg-blue-600" %>
-      <%= render "devise/shared/links" %>
+    <div class="flex justify-between items-center mt-6">
+      <%= f.submit "Send Reset Instructions", class: "px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" %>
+      <div class="flex gap-4">
+        <%= link_to "Log in", new_session_path(resource_name), class: "text-blue-600 underline" %>
+        <%= link_to "Sign up", new_registration_path(resource_name), class: "text-blue-600 underline" %>
+      </div>
     </div>
   <% end %>
+
 </div>
