@@ -54,10 +54,10 @@
                 <%= job_application.job_department %>
             </td>
             <td class="px-6 py-4">
-                N.A
+                <%= job_application.job_submissions.where(created_by_id: current_user.id)&.first&.status&.humanize || "N.A" %>
             </td>
             <td class="px-6 py-4">
-                <a href="#" class="font-medium text-blue-600 hover:underline">View</a>
+                <%= link_to 'View', job_application_path(id: job_application),data: {turbo: false}, class: "font-medium text-blue-600 hover:underline" %>
             </td>
         </tr>
         <% end %>

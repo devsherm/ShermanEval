@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :job_applications
+  resources :job_submissions
   get 'welcome/spring_24_junior_rails_developer'
 
   # Defines the root path route ("/")
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   get 'contact_us' => 'welcome#contact_us'
 
   get '/dashboard' => 'admins#index'
-  get '/job_position/:id/manage' => 'admins#manage_job_position', as: :manage_job_position
+
+  get '/job_submissions/:job_application_id/apply' => 'job_submissions#apply', as: :apply_job_submission
 
 end

@@ -62,3 +62,33 @@ window.init_modal = function(){
 window.remove_modal = function(){
     document.getElementById("modal-container").innerHTML = ""
 }
+
+if ($("form").length) {
+  $("form").submit(function(event) {
+    let xChecked = $("div.checkbox-group.required :checkbox:checked").length;
+    let checkboxes = $("div.checkbox-group.required :checkbox");
+    if(xChecked == 0){
+      checkboxes.each(function() {
+        this.setCustomValidity("Please select at least one checkbox.");
+      });
+      
+      if (!this.reportValidity()) {
+        event.preventDefault();
+      }
+    }else{
+      checkboxes.each(function() {
+        this.setCustomValidity("");
+      });
+    }
+  })
+
+  $("div.checkbox-group.required :checkbox").change(function() {
+    let checkboxes = $("div.checkbox-group.required :checkbox");
+    let xChecked = $("div.checkbox-group.required :checkbox:checked").length;
+    if (xChecked > 0) {
+      checkboxes.each(function() {
+        this.setCustomValidity("");
+      });
+    }
+  });
+}

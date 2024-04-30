@@ -1,10 +1,11 @@
 class JobApplicationsController < ApplicationController
     before_action :authenticate_user!
-    before_action :admin_only!
+    before_action :admin_only!, only: [:index, :new, :create, :edit, :update, :destroy]
 
     def new
         render plain:render_to_string('job_applications/_create_new_job_applications_modal', layout: false)
     end
+
     def create
         job_application = JobApplication.new(job_application_params)
         job_application.created_by_id = current_user.id
@@ -18,12 +19,20 @@ class JobApplicationsController < ApplicationController
         end
     end
 
+    def show
+        @job_application = JobApplication.find(params[:id])
+    end
+
+    def edit
+        @job_application = JobApplication.find(params[:id])
+    end
+
     def update
         job_application = JobApplication.find(params[:id])
         if job_application.update(job_application_params)
-            redirect_to manage_job_position_path(job_application), notice: "Job Application was successfully updated."
+            redirect_to edit_job_application_path(job_application), notice: "Job Application was successfully updated."
         else
-            redirect_to manage_job_position_path(job_application), alert: format_error_msg(job_application)
+            redirect_to edit_job_application_path(job_application), alert: format_error_msg(job_application)
         end
     end
 

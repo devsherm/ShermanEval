@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_29_162719) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_30_034618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_29_162719) do
     t.integer "job_department"
     t.integer "job_position"
     t.integer "status"
+    t.integer "created_by_id", null: false
+    t.integer "updated_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "job_submissions", force: :cascade do |t|
+    t.integer "job_application_id", null: false
+    t.jsonb "job_submission_data", null: false
+    t.integer "status", default: 0, null: false
     t.integer "created_by_id", null: false
     t.integer "updated_by_id", null: false
     t.datetime "created_at", null: false
