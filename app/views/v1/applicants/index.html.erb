@@ -1,0 +1,51 @@
+<div class="container mx-auto mt-10">
+  <h1 class="text-3xl font-bold">Applicants</h1>
+
+  <%= form_with(url: v1_applicants_path, method: :get, local: true) do |f| %>
+    <div class="flex justify-between mb-4">
+      <label class="text-sm">Sort by:</label>
+      <%= f.select :sort_by, options_for_select([["Name", "name"], ["Creation Date", "creation"]] + (current_user.admin? ? [["Category", "category"]] : []), params[:sort_by]), { include_blank: false, selected: "name" }, class: "p-2 border border-gray-300 rounded-md outline-none" %>
+      <%= f.submit "Sort", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer" %>
+    </div>
+  <%end%>
+
+
+  <div class="flex justify-between mb-6">
+    <%= link_to "New Application", new_v1_applicant_path, class: "px-4 py-2 bg-green-500 text-white rounded-lg font-medium cursor-pointer" %>
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border p-2">Name</th>
+          <th class="border p-2">Email</th>
+          <% if current_user.admin? %>
+          <th class="border p-2">Category</th>
+          <% end %>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @applicants.each do |applicant| %>
+          <tr>
+            <td class="border p-2"><%= applicant.name %></td>
+            <td class="border p-2"><%= applicant.email %></td>
+            <% if current_user.admin? %>
+            <td class="border p-2"><%= applicant.category || "Not Categorized" %></td>
+            <% end %>
+            <td class="border p-2">
+              <%= link_to "Show", v1_applicant_path(applicant), class: "px-2 py-1 bg-blue-500 text-white rounded-lg" %>
+              <% if current_user == applicant.user %>
+              <%= link_to "Edit", edit_v1_applicant_path(applicant), class: "px-2 py-1 bg-yellow-500 text-white rounded-lg" %>
+              <% end %>
+              <% if current_user.admin? %>
+                <%= link_to "Notify", notify_v1_applicant_path(applicant), class: "px-2 py-1 bg-red-500 text-white rounded-lg cursor-pointer" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

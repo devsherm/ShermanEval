@@ -1,0 +1,109 @@
+<div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">New Applicant</h2>
+
+  <%= form_with(model: @applicant, url: v1_applicants_path, local: true) do |f| %>
+    <% if @applicant.errors.any? %>
+      <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h3><%= pluralize(@applicant.errors.count, "error") %> prohibited this application from being submitted:</h3>
+
+        <ul>
+          <% @applicant.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :name, class: "block text-sm font-medium" %>
+      <%= f.text_field :name, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", data: { action: "input->applicant#validate" } %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-medium" %>
+      <%= f.email_field :email, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "email", data: { action: "input->applicant#validate" } %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :posting_pay, class: "block text-sm font-medium" %>
+      <%= f.text_field :posting_pay, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_pay, class: "block text-sm font-medium" %>
+      <%= f.text_field :requesting_pay, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :posting_sched, class: "block text-sm font-medium" %>
+      <%= f.text_field :posting_sched, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_class, class: "block text-sm font-medium" %>
+        <%= f.select :requesting_class, [['Contractor With Maximum Flexibility', 'Contractor With Maximum Flexibility)']], class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_schedule, class: "block text-sm font-medium" %>
+      <%= f.text_area :requesting_schedule, rows: 4, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-10">
+      <h3 class="font-bold text-xl">Questions about the Rails App</h3>
+      <hr>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :app_host, class: "block text-sm font-medium" %>
+      <%= f.select :app_host, ['Heroku', 'AWS', 'Azure', 'Google Cloud'], class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :app_db, class: "block text-sm font-medium" %>
+      <%= f.select :app_db, ['MySQL', 'SQLite', 'PostgreSQL', 'MongoDB'], class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+    <div class="mb-4">
+        <%= f.label :rpd_schema, class: "block text-sm font-medium" %>
+        <%= f.text_area :rpd_schema, rows: 4, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", value: "Reproduce the snippet in `schema.rb` for this Table in this App." %>
+    </div>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :doc_store, class: "block text-sm font-medium" %>
+      <%= f.select :doc_store, ['AWS', 'Azure', 'Google Cloud'], class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-10">
+      <h3 class="font-bold text-xl">Questions about the Position</h3>
+      <hr>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :my_values, class: "block text-sm font-medium" %>
+      <%= f.select :my_values, ['cost of infrastructure', 'speed of development', 'beauty of UI'], class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :gpt_desc, class: "block text-sm font-medium" %>
+      <%= f.text_area :gpt_desc, rows: 4, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+        <%= f.label :what_wrong, "Give me feedback. What am I doing wrong?", class: "block text-sm font-medium" %>
+        <%= f.text_area :what_wrong, rows: 4, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
+      <label>Do you use a Rails GPT to help develop?</label>
+      <%= f.radio_button :gpt_use, 'yes', class: "mr-2" %> Yes
+      <%= f.radio_button :gpt_use, 'no', class: "mr-2" %> No
+    </div>
+
+    <div class="flex justify-between mt-4">
+    <%= f.submit "Create Application", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer" %>
+      <%= link_to "Back", v1_applicants_path, class: "px-4 py-2 text-blue-600 underline" %>
+    </div>
+  <%end%>
+</div>

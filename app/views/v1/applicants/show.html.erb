@@ -1,0 +1,51 @@
+<div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">Application for <%= @applicant.name %></h2>
+
+  <p><strong>Email:</strong> <%= @applicant.email %></p>
+  <% if current_user.admin? %>
+  <p><strong>Category:</strong> <%= @applicant.category || "Not Categorized" %></p>
+  <% end %>
+  <h3 class="mt-6 font-bold text-xl">Answers:</h3>
+  <ul class="list-disc pl-5">
+    <li><strong>Posting Pay:</strong> <%= @applicant.posting_pay %></li>
+    <li><strong>Requesting Pay:</strong> <%= @applicant.requesting_pay %></li>
+    <li><strong>Posting Schedule:</strong> <%= @applicant.posting_sched %></li>
+    <li><strong>Requesting Class:</strong> <%= @applicant.requesting_class %></li>
+    <li><strong>Requesting Schedule:</strong> <%= @applicant.requesting_schedule %></li>
+    <li><strong>App Host:</strong> <%= @applicant.app_host %></li>
+    <li><strong>App DB:</strong> <%= @applicant.app_db %></li>
+    <li><strong>Schema:</strong> <%= @applicant.rpd_schema %></li>
+    <li><strong>Document Storage:</strong> <%= @applicant.doc_store %></li>
+    <li><strong>Values:</strong> <%= @applicant.my_values %></li>
+    <li><strong>Are using Any Gpt:</strong> <%= @applicant.gpt_use ? "Yes" : "No" %></li>
+    <% if @applicant.gpt_use %>
+      <li><strong>GPT Description:</strong> <%= @applicant.gpt_desc %></li>
+    <% end %>
+    <li><strong>Feedback:</strong> <%= @applicant.what_wrong %></li>
+  </ul>
+
+  <% if current_user.admin? %>
+    <div class="mt-6">
+      <h3 class="text-xl font-bold">Categorize Applicant</h3>
+      <%= form_with(url: categorize_v1_applicant_path(@applicant), method: :post, local: true) do |f| %>
+        <div class="mb-4">
+          <label class="block text-sm font-medium">Category</label>
+          <select name="category" class="block w-full p-2 border border-gray-300 rounded-md outline-none">
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <%= f.submit "Update Category", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer" %>
+     <% end %>
+    </div>
+    <% end %>
+
+  <div class="flex justify-between mt-6">
+    <% if current_user == @applicant.user %>
+      <%= link_to "Edit", edit_v1_applicant_path(@applicant), class: "px-4 py-2 bg-yellow-500 text-white rounded-lg" %>
+    <% end %>
+    <%= link_to "Back", v1_applicants_path, class: "px-4 py-2 text-blue-600 underline" %>
+  </div>
+</div>

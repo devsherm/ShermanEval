@@ -2,8 +2,8 @@
 
 module V1
   class ApplicantsController < ApplicationController
-    before_action :authenticate_user!, only: %i[new create index show edit update]
-    before_action :set_applicant, only: %i[show edit update]
+    before_action :authenticate_user!
+    before_action :set_applicant, only: %i[show edit update categorize notify send_notification]
 
     # Display all applications
     def index
@@ -23,14 +23,10 @@ module V1
                     else
                       current_user.applicants
                     end
-
-      render json: @applicants
     end
 
     # Show a specific application
-    def show
-      render json: @applicant
-    end
+    def show; end
 
     # Display the form for a new application
     def new
@@ -70,11 +66,18 @@ module V1
       end
     end
 
-    def notify
-      ApplicantMailer.notification(@applicant, params[:message]).deliver_now
+    # Render notification form
+    def notify; end
 
-      redirect_to v1_applicant_path(@applicant), notice: 'Email sent successfully.'
+    # Send the notification email
+    def send_notification
+      if ApplicantMailer.notification(@applicant, params[:message]).deliver_now
+        redirect_to root_path(@applicant), notice: 'Email sent successfully.'
+      else
+        redirect_to notify_v1_applicant_path(@applicant), alert: 'Error sending email.'
+      end
     end
+
     # Helper method to find an applicant
 
     private
@@ -98,6 +101,7 @@ module V1
         :rpd_schema,
         :doc_store,
         :my_values,
+        :gpt_use,
         :gpt_desc,
         :what_wrong
       )

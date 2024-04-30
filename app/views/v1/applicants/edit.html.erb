@@ -1,0 +1,92 @@
+<div class="container mx-auto max-w-4xl mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">Edit Application</h2>
+
+  <%= form_with(model: @applicant, url: v1_applicant_path(@applicant), method: :put, local: true) do |f| %>
+    <% if @applicant.errors.any? %>
+      <div class="bg-red-100 text-red-800 p-3 rounded-lg mb-4">
+        <h3><%= pluralize(@applicant.errors.count, "error") %> prevented this application from being saved:</h3>
+        <ul>
+          <% @applicant.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :name, "Name", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :name, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :email, "Email", class: "block text-sm font-bold mb-2" %>
+      <%= f.email_field :email, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :posting_pay, "Posting Pay", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :posting_pay, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_pay, "Requested Pay", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :requesting_pay, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :posting_sched, "Posting Schedule", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :posting_sched, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_class, "Preferred Employment Class", class: "block text-sm font-bold mb-2" %>
+      <%= f.select :requesting_class,[['Contractor With Maximum Flexibility', 'Contractor With Maximum Flexibility)']], selected: @applicant.requesting_class, include_blank: true, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :requesting_schedule, "Preferred Work Schedule", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_area :requesting_schedule, rows: 3, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :app_host, "App Hosting Service", class: "block text-sm font-bold mb-2" %>
+      <%= f.select :app_host, ['Heroku', 'AWS', 'Azure', 'Google Cloud'], selected: @applicant.app_host, include_blank: true, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :app_db, "Database Used", class: "block text-sm font-bold mb-2" %>
+      <%= f.select :app_db, ['MySQL', 'SQLite', 'PostgreSQL', 'MongoDB'], selected: @applicant.app_db, include_blank: true, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :doc_store, "Document Storage Service", class: "block text-sm font-bold mb-2" %>
+      <%= f.select :doc_store, ['AWS', 'Azure', 'Google Cloud'], selected: @applicant.doc_store, include_blank: true, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+        <%= f.label :my_values, "Values", class: "block text-sm font-bold mb-2" %>
+        <%= f.select :my_values, ['cost of infrastructure', 'speed of development', 'beauty of UI'], selected: @applicant.my_values, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+        <%= f.label :gpt_desc, "GPT Description", class: "block text-sm font-bold mb-2" %>
+        <%= f.text_area :gpt_desc, rows: 3, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+        <%= f.label :what_wrong, "Feedback", class: "block text-sm font-bold mb-2" %>
+        <%= f.text_area :what_wrong, rows: 3, class: "w-full p-2 border rounded" %>
+    </div>
+
+    <div class="mb-4">
+        <label>Do you use a Rails GPT to help develop?</label>
+        <%= f.radio_button :gpt_use, 'yes', class: "mr-2" %> Yes
+        <%= f.radio_button :gpt_use, 'no', class: "mr-2" %> No
+    </div>
+
+    <div class="flex justify-between mt-6">
+        <%= f.submit "Update Application", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer" %>
+        <%= link_to "Cancel", v1_applicants_path, class: "px-4 py-2 text-blue-600 underline" %>
+    </div>
+ <% end %>
+</div>

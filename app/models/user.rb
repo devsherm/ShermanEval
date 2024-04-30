@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :registerable,
          :lockable, :timeoutable, :trackable,
-         #  :recoverable, # requires mailer setup
+         :recoverable, # requires mailer setup
          :rememberable,
          #  :confirmable, # Database is set up, but you need to set up the mailer, if you want
          :validatable
