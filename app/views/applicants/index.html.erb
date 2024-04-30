@@ -2,18 +2,31 @@
   <h1>Welcome to Sherman Evaluation!</h1>
   <br>
   <% if current_user.admin %>
-    Submitted Applications:
+    
+    <p class="m-5">Pending Applications:</p>
     <div>
-    <% @applicants.each do |applicant| %>
-      <div>
-        <%= applicant.first_name + ' ' + applicant.last_name %>
-        <%= link_to 'View Application', applicant, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-blue-200' %>
-      </div>
+    <% @applicants.select { |applicant| applicant.status == 'pending'}.each do |applicant| %>
+      <%= render 'applicant', applicant: applicant %>
     <% end %>
     </div>
+
+    <p class="m-5">Accepted Applications:</p>
+    <div>
+    <% @applicants.select { |applicant| applicant.status == 'accepted'}.each do |applicant| %>
+      <%= render 'applicant', applicant: applicant %>
+    <% end %>
+    </div>
+
+    <p class="m-5">Denied Applications:</p>
+    <div>
+    <% @applicants.select { |applicant| applicant.status == 'denied'}.each do |applicant| %>
+      <%= render 'applicant', applicant: applicant %>
+    <% end %>
+    </div>
+
   <% elsif !current_user.applicant %>
     <%= link_to 'Start Application', new_applicant_path, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-blue-200' %>
   <% else %>
     <%= link_to 'View Application', current_user.applicant, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-blue-200' %>
   <% end %>
-</div
+</div>

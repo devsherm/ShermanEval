@@ -32,11 +32,25 @@ class ApplicantsController < ApplicationController
   end
 
   def destroy
-    @applicant.destroy
-
     respond_to do |format|
-      format.html { redirect_to applicants_url, notice: 'Applicant was successfully destroyed.' }
-      format.json { head :no_content }
+      if @applicant.destroy
+        format.html { redirect_to applicants_url, notice: 'Applicant was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to applicants_url, status: :unprocessable_entity }
+        format.json { render json: @applicant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @applicant.update(applicant_params)
+        format.html { redirect_to applicants_url, notice: 'Applicant was successfully updated.' }
+        format.json { render :show, status: :updated, location: @applicant }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -47,6 +61,6 @@ class ApplicantsController < ApplicationController
   end
 
   def applicant_params
-    params.require(:applicant).permit(:first_name, :last_name, :job_type, :start_date, :agree_tc)
+    params.require(:applicant).permit(:id, :first_name, :last_name, :job_type, :start_date, :agree_tc, :status)
   end
 end
