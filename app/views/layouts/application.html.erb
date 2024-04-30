@@ -33,9 +33,6 @@
         <%= render 'layouts/object_errors', errors: local_assigns[:errors] %><%#%>
       <% end %><%#%>
       <br>
-      <% if current_user %><%#%>
-        <%= render 'layouts/authenticated_header', user: current_user %><%#%>
-      <% end %><%#%>
     </div>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
