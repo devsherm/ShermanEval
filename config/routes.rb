@@ -1,10 +1,25 @@
-Rails.application.routes.draw do
-  devise_for :users
-  resources :users, only: %i[edit update]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # config/routes.rb
 
-  get 'welcome/spring_24_junior_rails_developer'
+  Rails.application.routes.draw do
+    # Devise routes for authentication
+    devise_for :users
 
-  # Defines the root path route ("/")
-  root 'welcome#index'
-end
+    # Non-versioned resources
+    resources :users, only: [:show, :edit, :update, :destroy, :create]
+
+    # Versioned resources
+    namespace :v1 do
+      resources :applicants do
+        member do
+          post 'categorize'
+          get 'notify'  # Render form for notification
+          post 'send_notification'  # Action to send the notification
+        end
+      end
+    end
+
+    # Root path
+    root to: "v1/applicants#index"
+    
+    match '*path', to: 'application#not_found', via: :all
+  end

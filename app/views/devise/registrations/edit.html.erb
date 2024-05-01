@@ -1,0 +1,59 @@
+<div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-4">Edit <%= resource_name.to_s.humanize %></h2>
+
+  <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), method: :put, local: true) do |f| %>
+    <% if resource.errors.any? %>
+      <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h3><%= pluralize(resource.errors.count, "error") %> prevented this profile from being saved:</h3>
+        <ul>
+          <% resource.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-bold mb-2" %>
+      <%= f.email_field :email, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "email" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :name, class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :name, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="bg-yellow-50 text-yellow-700 p-2 mb-4">
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :password, class: "block text-sm font-bold mb-2" %>
+      <%= f.password_field :password, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "new-password" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :password_confirmation, class: "block text-sm font-bold mb-2" %>
+      <%= f.password_field :password_confirmation, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "new-password" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :current_password, class: "block text-sm font-bold mb-2" %>
+      <%= f.password_field :current_password, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", autocomplete: "current-password" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Update", class: "px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <div class="other-links mt-6">
+    <h3 class="font-bold text-xl mb-2">Cancel my account</h3>
+
+    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer" %></p>
+
+    <%= link_to "Back", v1_applicants_path, class: "text-blue-600 underline" %>
+  </div>
+</div>
