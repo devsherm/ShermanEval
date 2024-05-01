@@ -59,6 +59,11 @@
     </div>
 
     <div class="mb-4">
+        <%= f.label :rpd_schema, class: "block text-sm font-medium" %>
+        <%= f.text_area :rpd_schema, rows: 4, class: "block w-full p-2 border border-gray-300 rounded-md outline-none" %>
+    </div>
+
+    <div class="mb-4">
       <%= f.label :doc_store, "Document Storage Service", class: "block text-sm font-bold mb-2" %>
       <%= f.select :doc_store, ['AWS', 'Azure', 'Google Cloud'], selected: @applicant.doc_store, include_blank: true, class: "w-full p-2 border rounded" %>
     </div>

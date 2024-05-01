@@ -48,7 +48,7 @@ module V1
     # Categorize an applicant
     def categorize
       if @applicant.update(category: params[:category])
-        redirect_to v1_applicant_path(@applicant), notice: 'Applicant categorized successfully.'
+        redirect_to root_path, notice: 'Applicant categorized successfully.'
       else
         redirect_to v1_applicant_path(@applicant), alert: 'Error categorizing applicant.'
       end

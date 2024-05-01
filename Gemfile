@@ -61,7 +61,6 @@ gem 'cancancan'
 gem 'devise', '~> 4.9'
 gem 'kaminari'
 gem 'rack-cors'
-gem 'simple_form'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -70,7 +69,9 @@ group :development, :test do
   gem 'database_cleaner-active_record'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'pry', require: false
+  gem 'rails-controller-testing' # test your controllers with RSpec
   gem 'rspec-rails'
   gem 'rubocop', require: false
 end
