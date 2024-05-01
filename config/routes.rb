@@ -20,4 +20,6 @@
 
     # Root path
     root to: "v1/applicants#index"
+    
+    match '*path', to: 'application#not_found', via: :all
   end
