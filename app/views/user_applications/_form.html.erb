@@ -27,7 +27,7 @@
 
   <div class="my-5">
     <%= form.label :skills %><br>
-    <%= form.collection_check_boxes :skills, [['Ruby', 'ruby'], ['React', 'react'], ['Vue.js', 'vue'], ['Python', 'python']], :second, :first do |b| %>
+    <%= form.collection_check_boxes :skills, UserApplication.skills_for_select, :second, :first do |b| %>
       <div class="mt-2 flex items-center">
         <%= b.check_box class: "mr-2" %>
         <%= b.label class: "inline-block" %>
