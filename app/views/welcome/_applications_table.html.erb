@@ -48,10 +48,10 @@
                 <%= job_application.job_title %>
             </th>
             <td class="px-6 py-4">
-                <%= job_application.job_position %>
+                <%= job_application.job_position.humanize %>
             </td>
             <td class="px-6 py-4">
-                <%= job_application.job_department %>
+                <%= job_application.job_department.humanize %>
             </td>
             <td class="px-6 py-4">
                 <%= format_status(job_application.job_submissions.where(created_by_id: current_user.id)&.first&.status || "N.A") %>

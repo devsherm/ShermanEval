@@ -1,6 +1,6 @@
 class JobSubmissionsController < ApplicationController
     before_action :authenticate_user!
-    before_action :admin_only!, only: [:manage, :update]
+    before_action :admin_only!, only: [:manage, :update, :send_note, :notify]
 
     def create
         @job_submissions = JobSubmission.where(created_by_id: current_user.id, job_application_id: params[:job_submission][:job_application_id])
@@ -48,6 +48,25 @@ class JobSubmissionsController < ApplicationController
         @job_submissions = @q.result.includes(:user)
     end
 
+    def notify
+        @submission = JobSubmission.find(params[:id])
+        render plain:render_to_string('job_submissions/_send_note_to_applicant_modal', layout: false)
+    end
+
+    def send_note
+        @submission = JobSubmission.find(params[:id])
+        @submission.updated_by_id = current_user.id
+        @submission.note_sent_at = Time.now
+        
+        if @submission.update(job_submission_params)
+            NotifyApplicantMailer.notify_email(User.first,@submission.note_to_applicant,@submission.job_application.job_title,@submission.status.humanize).deliver_later
+            redirect_to job_submission_path(id:@submission.id), notice: "Note was successfully sent."
+        else
+            redirect_to job_submission_path(id:@submission.id), alert: format_error_msg(@submission)
+        end
+        
+    end
+
     def validate_data_params(data_params)
         if !data_params.nil?
             required_keys = [:values, :hosting, :database, :pay_range, :work_schedule, :expected_work_schedule]
@@ -60,6 +79,6 @@ class JobSubmissionsController < ApplicationController
     private
 
     def job_submission_params
-        params.require(:job_submission).permit(:job_application_id, :status, :create_by_id, :update_by_id, job_submission_data: {} )
+        params.require(:job_submission).permit(:job_application_id, :note_to_applicant, :status, :create_by_id, :update_by_id, job_submission_data: {} )
     end
 end

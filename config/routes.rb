@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   get '/job_submissions/:job_application_id/apply' => 'job_submissions#apply', as: :apply_job_submission
   get '/job_submissions/:id/manage' => 'job_submissions#manage', as: :manage_job_submission
+  get '/job_submission/:id/notify' => 'job_submissions#notify', as: :notify_job_submission
+  patch '/job_submission/:id/notify' => 'job_submissions#send_note', as: :send_note_job_submission
 
+  post '/contact_us' => 'welcome#contact_us_email'
 
 end

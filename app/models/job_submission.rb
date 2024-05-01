@@ -15,7 +15,7 @@ class JobSubmission < ApplicationRecord
     }, _prefix: :status
 
     def self.ransackable_attributes(auth_object = nil) 
-        ["created_by_id"] 
+        ["created_by_id","status"] 
     end
 
     def self.ransackable_associations(auth_object = nil)

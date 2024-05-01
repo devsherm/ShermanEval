@@ -20,23 +20,12 @@
                 </li>
             </ol>
         </nav>
-
-        
-
         <section class="bg-white">
             <div class="py-8 lg:py-8 mx-auto max-w-screen-lg">
                 <h2 class="mb-2 text-4xl tracking-tight font-extrabold text-center text-gray-900"><%= @job_application.job_title %></h2>
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="ms-1 text-sm font-medium text-gray-500 md:ms-2">
                         Posted <%= time_ago_in_words(@job_application.created_at) %> ago
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg class="w-[20px] h-[20px] text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
-                            </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2"><%= @job_application.job_department.humanize %></span>
-                        </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
