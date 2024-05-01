@@ -27,6 +27,10 @@ class UserApplicationPolicy < ApplicationPolicy
     update?
   end
 
+  def email_applicant?
+    user.admin?
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user.admin?

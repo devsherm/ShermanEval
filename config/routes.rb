@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :user_applications do
     member do
       patch :update_status
+      post :email_applicant
     end
   end
 

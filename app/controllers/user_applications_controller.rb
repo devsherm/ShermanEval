@@ -5,7 +5,8 @@ class UserApplicationsController < ApplicationController
   def index
     @q = policy_scope(UserApplication).ransack(build_ransack_query(params))
     @q.sorts = 'last_name asc' if @q.sorts.empty?
-    @user_applications = @q.result
+
+    @user_applications = filter_user_applications
   end
 
   # GET /user_applications/1 or /user_applications/1.json
@@ -84,6 +85,13 @@ class UserApplicationsController < ApplicationController
     end
   end
 
+  def email_applicant
+    user_application = authorize UserApplication.find(params[:id])
+    applicant = user_application.user
+    UserMailer.custom_email(applicant, params[:subject], params[:body]).deliver_now
+    redirect_to root_path, notice: "Email successfully sent to #{user_application.full_name}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_application
@@ -100,5 +108,22 @@ class UserApplicationsController < ApplicationController
       return {} unless query_params
       sort_query = "#{query_params[:sort_field]} #{query_params[:sort_direction]}" if query_params[:sort_field] && query_params[:sort_direction]
       query_params.merge(s: sort_query).except(:sort_field, :sort_direction)
+    end
+
+    def filter_user_applications
+      return @q.result if params[:score].blank?
+
+      case params[:score]
+      when 'pending_review'
+        @q.result.where(score: nil)
+      when 'pass'
+        @q.result.pass
+      when 'follow_up'
+        @q.result.follow_up
+      when 'move_forward'
+        @q.result.move_forward
+      else
+        @q.result
+      end
     end
 end

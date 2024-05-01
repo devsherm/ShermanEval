@@ -1,8 +1,4 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">User applications</h1>
     <%= link_to "New user application", new_user_application_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
@@ -13,7 +9,12 @@
   <div id="user_applications" class="min-w-full">
     <%= render @user_applications %>
   </div>
-</div>  
+</div>
+
+<%= render 'shared/modal', modal_title: "Send Email", modal_id: "email-modal",
+    modal_body: (render partial: 'email_applicant_form'),
+    modal_buttons: (render partial: 'email_applicant_buttons') 
+%>
 
 <script>
   function toggleReadMore() {
@@ -47,6 +48,39 @@
       });
     });
   }
+
+  // Function to toggle modal visibility
+  function toggleModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.toggle('hidden');
+  }
+
+  // Updates the user application id in the email form
+  function updateEmailId(applicationId) {
+    const form = document.getElementById('sendEmail');
+    const hiddenIdInput = document.getElementById('email_user_application_id');
+
+    form.action = `/user_applications/${applicationId}/email_applicant`;
+  }
+
+  // Bind our events to toggle modal
+  document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve all toggle buttons if there are multiple
+    const toggleButtons = document.querySelectorAll('[data-modal-id]');
+
+    // Attach event listeners to each toggle button
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const modalId = this.getAttribute('data-modal-id');
+        const applicationId = this.getAttribute('data-user-application-id');
+
+        console.log(`updating email id ${applicationId}`)
+
+        updateEmailId(applicationId)
+        toggleModal(modalId);
+      });
+    });
+  });
 
   // Call the function whenever the page is loaded or refreshed
   toggleReadMore();
