@@ -1,6 +1,7 @@
 class Applicant < ApplicationRecord
     belongs_to :user
     validates :name, presence: true
+    validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :experience, presence: true
     validates :availability, presence: true
     serialize :availability, Array
