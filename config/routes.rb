@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get 'welcome/spring_24_junior_rails_developer'
 
   # Defines the root path route ("/")
-  root 'welcome#index'
+  root 'user_applications#index'
 end

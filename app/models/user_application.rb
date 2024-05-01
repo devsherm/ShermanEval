@@ -12,4 +12,8 @@ class UserApplication < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     %w[score first_name last_name]
   end
+
+  def full_name
+    "#{first_name} #{last_name}".strip
+  end
 end
