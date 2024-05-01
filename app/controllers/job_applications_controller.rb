@@ -1,4 +1,6 @@
 class JobApplicationsController < ApplicationController
+    include Pagy::Backend
+    
     before_action :authenticate_user!
     before_action :admin_only!, only: [:index, :new, :create, :edit, :update, :destroy]
 

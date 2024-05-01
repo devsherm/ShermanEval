@@ -154,6 +154,7 @@ GEM
     nokogiri (1.16.4-x64-mingw-ucrt)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (8.3.0)
     pg (1.5.6)
     pg (1.5.6-x64-mingw-ucrt)
     psych (5.1.2)
@@ -201,6 +202,7 @@ GEM
     ransack-enum (1.0.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
+    recaptcha (5.16.0)
     regexp_parser (2.9.0)
     reline (0.5.4)
       io-console (~> 0.5)
@@ -273,11 +275,13 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  pagy
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8, >= 7.0.8.1)
   ransack
   ransack-enum (~> 1.0)
+  recaptcha
   selenium-webdriver
   sprockets-rails
   stimulus-rails

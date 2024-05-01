@@ -61,8 +61,15 @@ gem "devise", "~> 4.9"
 # User Trix rich text editor [https://github.com/basecamp/trix]
 gem 'tinymce-rails'
 
+# ransack is a search gem [https://github.com/activerecord-hackery/ransack]
 gem 'ransack'
 gem 'ransack-enum', '~> 1.0'
+
+#pagy is a pagination gem [https://github.com/ddnexus/pagy]
+gem 'pagy'
+
+#recaptcha is a reCAPTCHA gem [https://github.com/ambethia/recaptcha]
+gem 'recaptcha'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

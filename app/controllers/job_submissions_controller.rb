@@ -1,4 +1,6 @@
 class JobSubmissionsController < ApplicationController
+    include Pagy::Backend
+    
     before_action :authenticate_user!
     before_action :admin_only!, only: [:manage, :update, :send_note, :notify]
 
@@ -46,6 +48,7 @@ class JobSubmissionsController < ApplicationController
         @job_application = JobApplication.find(params[:id])
         @q = JobSubmission.where(job_application_id: params[:id]).ransack(params[:q])
         @job_submissions = @q.result.includes(:user)
+        @pagy, @job_submissions = pagy(@job_submissions)
     end
 
     def notify
