@@ -11,3 +11,8 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+# This is specifically for integration tests
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers  # Include Devise helpers specifically for integration tests
+end
