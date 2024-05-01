@@ -31,7 +31,7 @@ class UserApplicationsController < ApplicationController
     # when using collection checboxes, rails adds a hidden input field to ensure this param is always present even if no checkboxes are selected
     # this filters out blank entries
     @user_application.skills.reject!(&:blank?) if @user_application.skills.present?
-
+    
     respond_to do |format|
       if @user_application.save
         format.html { redirect_to user_application_url(@user_application), notice: "User application was successfully created." }
@@ -95,7 +95,7 @@ class UserApplicationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_application
-      @user_application = UserApplication.find(params[:id])
+      @user_application = UserApplication.where(id: params[:id]).first
     end
 
     # Only allow a list of trusted parameters through.
