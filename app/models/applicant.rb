@@ -6,6 +6,10 @@ class Applicant < ApplicationRecord
     serialize :availability, Array
     before_save(:titleize_name, :tally_score)
 
+    scope :most_recent, -> { order(created_at: :desc) }
+    scope :highest_score, -> { order(score: :desc) }
+    scope :most_available, -> { all.sort_by { |applicant| -applicant.availability.size } }
+
     private
     def titleize_name
         self.name = self.name.titleize

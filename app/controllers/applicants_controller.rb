@@ -4,7 +4,15 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants or /applicants.json
   def index
-    @applicants = Applicant.all
+    if params[:sort_by] == "most_recent"
+      @applicants = Applicant.most_recent
+    elsif params[:sort_by] == "highest_score"
+      @applicants = Applicant.highest_score
+    elsif params[:sort_by] == "most_available"
+      @applicants = Applicant.most_available
+    else
+      @applicants = Applicant.all
+    end
   end
 
   # GET /applicants/1 or /applicants/1.json

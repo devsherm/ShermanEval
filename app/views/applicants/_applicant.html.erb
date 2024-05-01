@@ -23,7 +23,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Availability:</strong>
-    <%= applicant.availability %>
+    <%= applicant.availability.join(', ') %>
   </p>
 
   <% if action_name != "show" %>

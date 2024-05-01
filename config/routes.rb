@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit update] do
     resources :applicants, only: %i[new create]
   end
-  resources :applicants, only: %i[index edit update]
+  resources :applicants, only: %i[index edit update] do
+    collection do
+      get :highest_score
+      get :most_recent
+      get :most_available
+    end
+  end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
