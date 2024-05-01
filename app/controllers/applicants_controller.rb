@@ -4,14 +4,12 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants or /applicants.json
   def index
-    if params[:sort_by] == "most_recent"
-      @applicants = Applicant.most_recent
-    elsif params[:sort_by] == "highest_score"
+    if params[:sort_by] == "highest_score"
       @applicants = Applicant.highest_score
     elsif params[:sort_by] == "most_available"
       @applicants = Applicant.most_available
     else
-      @applicants = Applicant.all
+      @applicants = Applicant.most_recent
     end
   end
 
