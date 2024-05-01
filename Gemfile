@@ -71,6 +71,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry', require: false
+  gem 'rails-controller-testing' # test your controllers with RSpec
   gem 'rspec-rails'
   gem 'rubocop', require: false
 end
