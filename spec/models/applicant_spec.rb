@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'factory_bot_rails'
 
-
 RSpec.describe Applicant, type: :model do
   # Set up a valid applicant for testing
   let(:user) { create(:user) } # Create a valid user using FactoryBot
