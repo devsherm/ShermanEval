@@ -1,7 +1,7 @@
 <%= form_with(model: user_application, class: "contents") do |form| %>
   <% if user_application.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(user_application.errors.count, "error") %> prohibited this user_application from being saved:</h2>
+      <h2><%= pluralize(user_application.errors.count, "error") %> prohibited your application from being saved:</h2>
 
       <ul>
         <% user_application.errors.each do |error| %>
@@ -28,7 +28,7 @@
   <div class="my-5">
     <%= form.label :skills %><br>
     <%= form.collection_check_boxes :skills, [['Ruby', 'ruby'], ['React', 'react'], ['Vue.js', 'vue'], ['Python', 'python']], :second, :first do |b| %>
-      <div class="mt-2">
+      <div class="mt-2 flex items-center">
         <%= b.check_box class: "mr-2" %>
         <%= b.label class: "inline-block" %>
       </div>

@@ -1,5 +1,9 @@
 class UserApplication < ApplicationRecord
   belongs_to :user
+  validates :user, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :skills, presence: true
 
   enum gender: { other: 0, male: 1, female: 2 }
 
