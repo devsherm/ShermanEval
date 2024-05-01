@@ -37,12 +37,14 @@
     </p>
   </div>
 
-  <p class="mt-5 mb-3 line-clamp-4 text-container">
+  <p class="mt-5 mb-3 text-container <%= action_name != "show" ? "line-clamp-4" : "" %>">
     <strong class="block font-medium mb-1">About me:</strong>
     <%= user_application.about_me %>
   </p>
 
-  <p class="read-more text-blue-500 underline cursor-pointer">Read more</p>
+  <% if action_name != "show" %>
+    <p class="read-more text-blue-500 underline cursor-pointer">Read more</p>
+  <% end %>
 
   <%= render partial: "update_score", locals: {user_application: user_application} %>
 </div>

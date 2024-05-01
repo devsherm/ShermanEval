@@ -1,12 +1,14 @@
 <div class="w-full">
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">User applications</h1>
-    <%= link_to "New user application", new_user_application_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl"><%= index_header %></h1>
+    <% if show_new_application_button? %>
+      <%= link_to "New user application", new_user_application_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
   </div>
 
-  <%= render partial: "sort_by" %>
+  <%= render partial: "filter_controls" %>
 
-  <div id="user_applications" class="min-w-full">
+  <div id="user_applications" class="min-w-full mt-3">
     <%= render @user_applications %>
   </div>
 </div>
@@ -73,8 +75,6 @@
       button.addEventListener('click', function () {
         const modalId = this.getAttribute('data-modal-id');
         const applicationId = this.getAttribute('data-user-application-id');
-
-        console.log(`updating email id ${applicationId}`)
 
         updateEmailId(applicationId)
         toggleModal(modalId);
