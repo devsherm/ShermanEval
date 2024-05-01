@@ -1,0 +1,5 @@
+{
+    "scripts": {
+      "build": "postcss ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css"
+    }
+  }
