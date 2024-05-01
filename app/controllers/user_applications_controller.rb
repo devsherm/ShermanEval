@@ -74,9 +74,11 @@ class UserApplicationsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("user_application_status_#{@user_application.id}",
-                                                  partial: "user_applications/status",
-                                                  locals: { user_application: @user_application })
+        render turbo_stream: turbo_stream.replace(
+          "user_application_status_content#{@user_application.id}",
+          partial: "user_applications/score",
+          locals: { user_application: @user_application }
+        )
       end
       format.html { redirect_to @user_application }
     end

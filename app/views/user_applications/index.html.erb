@@ -16,7 +16,7 @@
 </div>  
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function toggleReadMore() {
     const containers = document.querySelectorAll('.text-container');
     const buttons = document.querySelectorAll('.read-more');
 
@@ -35,7 +35,7 @@
         button.style.display = 'inline'; // Ensure it's visible if needed
       }
 
-        // Add click event listener to each button
+      // Add click event listener to each button
       button.addEventListener('click', function() {
         if (container.classList.contains('line-clamp-4')) {
           container.classList.remove('line-clamp-4'); // Remove clamping
@@ -46,6 +46,10 @@
         }
       });
     });
-  });
+  }
+
+  // Call the function whenever the page is loaded or refreshed
+  toggleReadMore();
 </script>
+
 

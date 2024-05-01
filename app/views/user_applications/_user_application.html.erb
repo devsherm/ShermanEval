@@ -40,17 +40,5 @@
 
   <p class="read-more text-blue-500 underline cursor-pointer">Read more</p>
 
-  <% if current_user.admin? %>
-    <div class="flex items-center">
-      <%= turbo_frame_tag "user_application_status_#{user_application.id}" do %>
-        <%= render partial: "score", locals: {user_application: user_application} %>
-      <% end %>
-
-      <div class="flex flex-row gap-3 ml-5">
-        <%= button_to 'Pass', update_status_user_application_path(user_application, score: :pass), method: :patch, data: { turbo_frame: "user_application_status#{user_application.id}" }, class: "rounded-lg py-3 px-5 bg-red-100 inline-block font-medium" %>
-        <%= button_to 'Follow Up', update_status_user_application_path(user_application, score: :follow_up), method: :patch, data: { turbo_frame: "user_application_status#{user_application.id}" }, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <%= button_to 'Move Forward', update_status_user_application_path(user_application, score: :move_forward), method: :patch, data: { turbo_frame: "user_application_status#{user_application.id}" }, class: "rounded-lg py-3 px-5 bg-green-100 inline-block font-medium" %>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "update_score", locals: {user_application: user_application} %>
 </div>
