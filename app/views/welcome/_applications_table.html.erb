@@ -54,7 +54,7 @@
                 <%= job_application.job_department %>
             </td>
             <td class="px-6 py-4">
-                <%= job_application.job_submissions.where(created_by_id: current_user.id)&.first&.status&.humanize || "N.A" %>
+                <%= format_status(job_application.job_submissions.where(created_by_id: current_user.id)&.first&.status || "N.A") %>
             </td>
             <td class="px-6 py-4">
                 <%= link_to 'View', job_application_path(id: job_application),data: {turbo: false}, class: "font-medium text-blue-600 hover:underline" %>

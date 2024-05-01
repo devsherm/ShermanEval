@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   get '/dashboard' => 'admins#index'
 
   get '/job_submissions/:job_application_id/apply' => 'job_submissions#apply', as: :apply_job_submission
+  get '/job_submissions/:id/manage' => 'job_submissions#manage', as: :manage_job_submission
+
 
 end

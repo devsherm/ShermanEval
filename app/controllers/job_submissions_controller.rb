@@ -1,7 +1,8 @@
 class JobSubmissionsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :admin_only!, only: [:manage, :update]
 
     def create
-        
         @job_submissions = JobSubmission.where(created_by_id: current_user.id, job_application_id: params[:job_submission][:job_application_id])
         
         if @job_submissions.length == 0
@@ -16,11 +17,21 @@ class JobSubmissionsController < ApplicationController
                     redirect_to apply_job_submission_path(job_application_id: params[:job_submission][:job_application_id]), alert: format_error_msg(@form_submission)
                 end
             else
-                redirect_to apply_job_submission_path(job_application_id: params[:job_submission][:job_application_id]), alert: format_error_msg(@form_submission)
+                redirect_to apply_job_submission_path(job_application_id: params[:job_submission][:job_application_id]), alert: "Please fill out all required fields."
             end
         else
             redirect_to job_application_path(id: params[:job_submission][:job_application_id]), alert: "You have already submitted this job application."
         end
+    end
+
+    def update
+        @job_submissions = JobSubmission.find(params[:id])
+        if @job_submissions.update(job_submission_params)
+            redirect_to manage_job_submission_path(id:@job_submissions.job_application_id), notice: "Job Submission was successfully updated."
+        else
+            redirect_to job_submission_path(id: params[:id]), alert: format_error_msg(@job_submissions)
+        end
+
     end
 
     def apply
@@ -31,9 +42,19 @@ class JobSubmissionsController < ApplicationController
         @job_submission = JobSubmission.find(params[:id]) 
     end
 
+    def manage
+        @job_application = JobApplication.find(params[:id])
+        @q = JobSubmission.where(job_application_id: params[:id]).ransack(params[:q])
+        @job_submissions = @q.result.includes(:user)
+    end
+
     def validate_data_params(data_params)
-        required_keys = [:values, :hosting, :database, :pay_range, :work_schedule, :expected_work_schedule]
-        return required_keys.all? { |key| data_params[key].present? }
+        if !data_params.nil?
+            required_keys = [:values, :hosting, :database, :pay_range, :work_schedule, :expected_work_schedule]
+            return required_keys.all? { |key| data_params[key].present? }
+        else
+            return false
+        end
     end
 
     private

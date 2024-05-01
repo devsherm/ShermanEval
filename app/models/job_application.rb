@@ -42,4 +42,8 @@ class JobApplication < ApplicationRecord
         ["job_title","job_position","job_department","status"] 
     end
 
+    def self.ransackable_associations(auth_object = nil)
+        ["user"]
+    end
+
 end
