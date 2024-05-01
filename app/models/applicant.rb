@@ -25,4 +25,6 @@ class Applicant < ApplicationRecord
             length: { maximum: 1000 }
   # Ensure categorization values are valid
   validates :category, inclusion: { in: %w[Approved Rejected Pending], allow_nil: true }
+  # Allow false value for gpt_use
+  validates :gpt_use, inclusion: { in: [true, false] }
 end
