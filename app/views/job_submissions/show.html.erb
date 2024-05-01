@@ -56,7 +56,7 @@
                   <%= form.hidden_field :job_application_id, value: @job_submission.job_application.id %>
                     <% if current_user.admin? %>
                         <div class="my-5 bg-gray-100 p-4 rounded-lg shadow-md">
-                            <%= form.label :status, "What is the status of this Posting?" %>
+                            <%= form.label :status, "What is the status of this Submission?" %>
                             <%= form.select :status, JobSubmission.statuses.keys ,{}, {class: "mt-2 bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5", required: true} %>
                         </div>
                         <div class="h-3"></div>
