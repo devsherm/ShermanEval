@@ -15,6 +15,12 @@
             <%= form.label :message, "Your message", class: "block mb-2 text-sm font-medium text-gray-900" %>
             <%= form.text_area :message, rows: 6, class: "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500", placeholder: "Leave a comment...", required: true %>
         </div>
+
+        <div class="sm:col-span-2">
+            <%= recaptcha_tags %>
+        </div>
+
+        
         <%= form.submit "Send message", class: "rounded py-2 px-3 bg-blue-600 text-white inline-block cursor-pointer" %>
         <% end %>
   </div>
