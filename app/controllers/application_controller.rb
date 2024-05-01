@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def submission_owner!
+    if user_signed_in? && !current_user.admin
+        job_submission = JobSubmission.find(params[:id])
+        if job_submission.created_by_id != current_user.id
+            redirect_to root_path, alert: "You are not authorized to access this page."
+        end
+    end
+  end
+
   def format_error_msg(controller)
     err_msg = '<ul class="p-4 max-w-md space-y-1 text-gray-500 list-disc list-inside">'
     controller.errors.full_messages.each do |msg|

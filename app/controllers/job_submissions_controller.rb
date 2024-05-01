@@ -3,6 +3,7 @@ class JobSubmissionsController < ApplicationController
     
     before_action :authenticate_user!
     before_action :admin_only!, only: [:manage, :update, :send_note, :notify]
+    before_action :submission_owner!, only: [:show]
 
     def create
         @job_submissions = JobSubmission.where(created_by_id: current_user.id, job_application_id: params[:job_submission][:job_application_id])
