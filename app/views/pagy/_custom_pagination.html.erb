@@ -1,0 +1,35 @@
+<!-- app/views/pagy/custom_pagination.html.erb -->
+
+<nav aria-label="Page navigation">
+  <ul class="inline-flex -space-x-px text-sm">
+    <% if @pagy.prev %>
+        <%= link_to '<', url_for(@pagy.vars.merge(page: @pagy.prev)), class: 'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700', data: {turbo: false} %>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"><</span>
+      </li>
+    <% end %>
+
+    <% @pagy.series.each do |item| %>
+      <% if item.is_a?(Integer) %>
+        <li class="page-item <%= 'active' if item == @pagy.page %>">
+          <%= link_to item, url_for(@pagy.vars.merge(page: item)), class: 'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700', data: {turbo: false} %>
+        </li>
+      <% else %>
+        <li class="page-item disabled">
+          <span class="flex items-center justify-center px-3 h-8 text-white border border-gray-300 bg-blue-500 hover:bg-blue-100 hover:text-blue-700"><%= item.to_s %></span>
+        </li>
+      <% end %>
+    <% end %>
+
+    <% if @pagy.next %>
+      <li class="page-item">
+        <%= link_to '>', url_for(@pagy.vars.merge(page: @pagy.next)), class: 'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700', data: {turbo: false} %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">></span>
+      </li>
+    <% end %>
+  </ul>
+</nav>
