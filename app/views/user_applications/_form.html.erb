@@ -50,13 +50,6 @@
     <% end %>
   </div>
 
-  <% if current_user.admin? %>
-    <div class="my-5">
-      <%= form.label :score %>
-      <%= form.number_field :score, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
-  <% end %>
-
   <div class="inline">
     <%= form.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>

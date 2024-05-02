@@ -5,7 +5,7 @@
         <b class="block font-medium mb-1 mr-2">Applicant:</b>
         <%= user_application.full_name %>
       </span>
-      <% if current_user.admin? %>
+      <% if current_user.admin? && action_name != "show" %>
         <i data-modal-id="email-modal" data-applicant-name="<%= user_application.full_name %>" class="email-button fa-solid fa-envelope ml-3 text-blue-300 cursor-pointer text-lg" title="Send Email" data-user-application-id="<%= user_application.id %>"></i>
       <% end %>
     </h2>

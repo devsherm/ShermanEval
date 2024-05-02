@@ -1,6 +1,8 @@
 class UserApplication < ApplicationRecord
   AVAILABLE_SKILLS = ['ruby', 'react', 'vue_js', 'python'].freeze
 
+  before_validation :remove_blank_skills
+
   belongs_to :user
   validates :user, presence: true
   validates :first_name, presence: true
@@ -32,5 +34,11 @@ class UserApplication < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  private
+
+  def remove_blank_skills
+    self.skills = self.skills.reject(&:blank?)
   end
 end
