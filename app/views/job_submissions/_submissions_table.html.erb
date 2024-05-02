@@ -48,7 +48,7 @@
                     <%= format_status(job_submission.status) %>
                 </td>
                 <td class="px-6 py-4">
-                    <%= link_to 'Show', job_submission_path(id: job_submission), class: "font-medium text-blue-600 hover:underline" if current_user.admin %>
+                    <%= link_to 'Show', job_submission_path(id: job_submission), class: "font-medium text-blue-600 hover:underline", data: {turbo: false} if current_user.admin %>
                 </td>
             </tr>
         <% end %>

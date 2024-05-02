@@ -4,7 +4,7 @@ class JobSubmission < ApplicationRecord
     validates :created_by_id, presence:true
     validates :updated_by_id, presence:true
 
-    belongs_to :job_application
+    belongs_to :job_application, counter_cache: true
     belongs_to :user, class_name: 'User', foreign_key: 'created_by_id'
     
     enum status: {

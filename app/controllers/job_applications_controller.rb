@@ -23,6 +23,7 @@ class JobApplicationsController < ApplicationController
 
     def show
         @job_application = JobApplication.find(params[:id])
+        @job_submissions = @job_application.job_submissions.where(created_by_id: current_user.id)
     end
 
     def edit
