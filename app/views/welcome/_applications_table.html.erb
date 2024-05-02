@@ -1,0 +1,68 @@
+<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :job_title, 'Application', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :job_position, 'Position', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :job_department, 'Department', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :status, 'Status', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if @job_applications.empty? %>
+        <tr class="odd:bg-white even:bg-gray-50 border-b">
+            <td colspan="5">
+                <div class="p-4">
+                    <div class="p-4 text-sm text-center text-gray-800 rounded-lg bg-gray-50" role="alert">
+                        <span class="font-medium">No result found</span>
+                        <% if params[:q].present? %>
+                            <span class="block"><a class="text-center font-bold text-blue-600 hover:underline" href="<%= root_path %>">clear</a></span>
+                        <% elsif current_user.admin %>
+                            <div class="mt-2 flex items-center justify-center text-center w-full">  
+                                <button onclick="open_modal(this, '<%= new_job_application_path %>')" type="button" class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none">
+                                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                    </svg>
+                                    Add job application
+                                </button>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <% end %>
+        <% @job_applications.each do |job_application| %>
+        <tr class="odd:bg-white even:bg-gray-50 border-b">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                <%= job_application.job_title %>
+            </th>
+            <td class="px-6 py-4">
+                <%= job_application.job_position.humanize %>
+            </td>
+            <td class="px-6 py-4">
+                <%= job_application.job_department.humanize %>
+            </td>
+            <td class="px-6 py-4">
+                <%= format_status(job_application.job_submissions.where(created_by_id: current_user.id)&.first&.status || "N.A") %>
+            </td>
+            <td class="px-6 py-4">
+                <%= link_to 'View', job_application_path(id: job_application),data: {turbo: false}, class: "font-medium text-blue-600 hover:underline" %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<div class="pagy-nav mt-4 mb-4 flex justify-center">
+    <%= render 'pagy/custom_pagination', pagy: @pagy %>
+</div>

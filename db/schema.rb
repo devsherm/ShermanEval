@@ -10,9 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_18_212641) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_02_042040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "job_applications", force: :cascade do |t|
+    t.string "job_title"
+    t.text "job_description"
+    t.integer "job_department"
+    t.integer "job_position"
+    t.integer "status"
+    t.integer "created_by_id", null: false
+    t.integer "updated_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "job_submissions_count", default: 0
+  end
+
+  create_table "job_submissions", force: :cascade do |t|
+    t.integer "job_application_id", null: false
+    t.jsonb "job_submission_data", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "created_by_id", null: false
+    t.integer "updated_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "note_to_applicant"
+    t.datetime "note_sent_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

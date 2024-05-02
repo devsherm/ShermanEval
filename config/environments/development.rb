@@ -1,8 +1,17 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.alert         = false
+    Bullet.bullet_logger = true
+    Bullet.console       = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+  end
 
+  # Settings specified here will take precedence over those in config/application.rb.
+  config.hosts << "edu-sheet.ngrok.io"
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -37,9 +46,11 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+
 
   # Be sure to enable Authenticated SMTP for this address's account
   config.action_mailer.delivery_method = :smtp
@@ -49,7 +60,7 @@ Rails.application.configure do
     user_name: ENV["EMAIL_USERNAME"],
     password: ENV["EMAIL_PASSWORD"],
     authentication: ENV["EMAIL_AUTH"],
-    enable_starttls_auto: ENV["EMAIL_TLS_AUTO"]
+    enable_starttls_auto: true
   }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }

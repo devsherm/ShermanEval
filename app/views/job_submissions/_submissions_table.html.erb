@@ -1,0 +1,59 @@
+<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :user_name, 'Full Name', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :user_email, 'Email', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :created_at, 'Submitted At', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                <%= sort_link(@q, :status, 'Status', default_order: :desc, class: "font-bold text-blue-600 hover:underline") %>
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if @job_submissions.empty? %>
+        <tr class="odd:bg-white even:bg-gray-50 border-b">
+            <td colspan="5">
+                <div class="p-4">
+                    <div class="p-4 text-sm text-center text-gray-800 rounded-lg bg-gray-50" role="alert">
+                        <span class="font-medium">No result found</span>
+                        <% if params[:q].present? %>
+                            <span class="block"><a data-turbo="false" class="text-center font-bold text-blue-600 hover:underline" href="<%= manage_job_submission_path %>">clear</a></span>
+                        <% end %>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <% end %>
+        <% @job_submissions.each do |job_submission| %>
+            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    <%= job_submission.user&.name || "N.A" %>
+                </th>
+                <td class="px-6 py-4">
+                    <%= job_submission.user.email %>
+                </td>
+                <td class="px-6 py-4">
+                    <%= job_submission.created_at.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="px-6 py-4">
+                    <%= format_status(job_submission.status) %>
+                </td>
+                <td class="px-6 py-4">
+                    <%= link_to 'Show', job_submission_path(id: job_submission), class: "font-medium text-blue-600 hover:underline", data: {turbo: false} if current_user.admin %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<div class="pagy-nav mt-4 mb-4 flex justify-center">
+    <%= render 'pagy/custom_pagination', pagy: @pagy %>
+</div>
