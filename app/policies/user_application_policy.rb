@@ -19,6 +19,8 @@ class UserApplicationPolicy < ApplicationPolicy
     show? 
   end 
 
+  # Prevent users from editing an already submitted application
+  # Once they submit it, it is final
   def edit?
     update?
   end 

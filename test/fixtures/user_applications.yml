@@ -17,3 +17,12 @@ two:
   about_me: MyText
   gender: 1
   score: 1
+
+pass:
+  first_name: MyString
+  last_name: MyString
+  user: two
+  skills: ["ruby"]
+  about_me: MyText
+  gender: 1
+  score: 0

@@ -1,17 +1,22 @@
 class UserApplicationsController < ApplicationController
-  before_action :set_user_application, only: %i[ show edit update destroy update_status ]
+  before_action :set_user_application, only: %i[ show edit update destroy update_status email_applicant ]
 
   # GET /user_applications or /user_applications.json
   def index
+    # Since the sorting is custom and not a traditional table sort, we need to 
+    # manually build the ransack query from our params
     @q = policy_scope(UserApplication).ransack(build_ransack_query(params))
     @q.sorts = 'last_name asc' if @q.sorts.empty?
 
     @user_applications = filter_user_applications
+
+    # avoid n+1 query scenario since we call user#email for each user_application
+    @user_applications.includes(:user)
   end
 
   # GET /user_applications/1 or /user_applications/1.json
   def show
-    @user_application = authorize @user_application
+    authorize @user_application
   end
 
   # GET /user_applications/new
@@ -21,7 +26,7 @@ class UserApplicationsController < ApplicationController
 
   # GET /user_applications/1/edit
   def edit
-    @user_application = authorize @user_application
+    authorize @user_application
   end
 
   # POST /user_applications or /user_applications.json
@@ -45,7 +50,7 @@ class UserApplicationsController < ApplicationController
 
   # PATCH/PUT /user_applications/1 or /user_applications/1.json
   def update
-    @user_application = authorize @user_application
+    authorize @user_application
 
     respond_to do |format|
       if @user_application.update(user_application_params)
@@ -86,10 +91,12 @@ class UserApplicationsController < ApplicationController
   end
 
   def email_applicant
-    user_application = authorize UserApplication.find(params[:id])
-    applicant = user_application.user
+    authorize @user_application
+    applicant = @user_application.user
+
     UserMailer.custom_email(applicant, params[:subject], params[:body]).deliver_now
-    redirect_to root_path, notice: "Email successfully sent to #{user_application.full_name}"
+
+    redirect_to root_path, notice: "Email successfully sent to #{@user_application.full_name}"
   end
 
   private
@@ -111,7 +118,8 @@ class UserApplicationsController < ApplicationController
     end
 
     def filter_user_applications
-      return @q.result if params[:score].blank?
+      # Filtering is only available to admins
+      return @q.result if params[:score].blank? || !current_user.admin?
 
       case params[:score]
       when 'pending_review'
