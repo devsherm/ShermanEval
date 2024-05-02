@@ -1,0 +1,21 @@
+<h2 class="font-bold text-2xl mt-2">New Applicants</h2>
+<table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+  <thead>
+    <tr>
+      <th style="text-align: left;">Name</th>
+      <th style="text-align: left;">Email</th>
+      <th style="text-align: left;">Contacted</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% applicants.each do |applicant| %>
+      <tr>
+        <td><%= link_to applicant.user.name, edit_applicant_path(applicant), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %></td>
+        <td><%= applicant.user.email %></td>
+        <td><%= applicant.contacted %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate applicants %>
