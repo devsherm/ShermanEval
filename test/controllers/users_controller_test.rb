@@ -5,44 +5,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user = users(:one)
   end
 
-  test "should get index" do
-    get users_url
-    assert_response :success
-  end
-
   test "should get new" do
-    get new_user_url
+    get new_user_registration_url
     assert_response :success
   end
 
   test "should create user" do
     assert_difference("User.count") do
-      post users_url, params: { user: { name: @user.name } }
+      post user_registration_url, params: { user: { email: "user@test.com", password: "Password123", password_confirmation: "Password123" } }
     end
 
-    assert_redirected_to user_url(User.last)
+    assert_redirected_to root_url
   end
 
-  test "should show user" do
-    get user_url(@user)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_user_url(@user)
-    assert_response :success
-  end
-
-  test "should update user" do
-    patch user_url(@user), params: { user: { name: @user.name } }
-    assert_redirected_to user_url(@user)
-  end
-
-  test "should destroy user" do
-    assert_difference("User.count", -1) do
-      delete user_url(@user)
+  test "should not create user with invalid password confirmation" do
+    assert_no_difference('User.count') do
+      post user_registration_url, params: { user: { email: "user@test.com", password: "Password123", password_confirmation: "Password321" } }
     end
-
-    assert_redirected_to users_url
+  
+    assert_response :unprocessable_entity
   end
 end

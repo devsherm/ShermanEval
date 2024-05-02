@@ -3,23 +3,13 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   # Show generic 404s in production for pundit errors
+  # Show full error in other envs for easier debugging
   if Rails.env.production?
     # Rescue from a pundit authorization error
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     # Rescue from NoMethodError or similar if you suspect nil objects might be authorized
     rescue_from Pundit::NotDefinedError, with: :handle_nil_class_error
-  end
-
-  def after_sign_in_path_for(user)
-    # Check if any critical profile information is missing
-    if user.name.nil? || user.name.blank?
-      # Redirect to the 'edit profile' page if the profile is incomplete
-      edit_user_path(user)
-    else
-      # Otherwise, proceed to wherever Devise would normally redirect
-      super
-    end
   end
 
   private

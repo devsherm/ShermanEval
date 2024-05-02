@@ -13,6 +13,6 @@ class User < ApplicationRecord
   has_many :applications, class_name: "UserApplication"
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[email name]
+    %w[email]
   end
 end

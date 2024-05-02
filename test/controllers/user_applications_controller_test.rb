@@ -9,6 +9,32 @@ class UserApplicationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user_application.user
     get user_applications_url
     assert_response :success
+
+    assert_select '.user-application', count: UserApplication.where(user: @user_application.user).count
+  end
+
+  test "should be able to view all applications as admin" do
+    sign_in users(:admin)
+    get user_applications_url
+    assert_response :success
+
+    assert_select '.user-application', count: UserApplication.count
+  end
+
+  test "should be able to filter applications by score as admin" do
+    sign_in users(:admin)
+    get user_applications_url(score: "pass")
+    assert_response :success
+
+    assert_select '.user-application', count: UserApplication.pass.count
+  end
+
+  test "should not be able to filter applications if not admin" do
+    sign_in users(:one)
+    get user_applications_url(score: "pass")
+    assert_response :success
+
+    assert_select '.user-application', count: UserApplication.where(user: users(:one)).count
   end
 
   test "should get new" do
