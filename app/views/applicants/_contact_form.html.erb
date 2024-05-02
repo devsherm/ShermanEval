@@ -1,0 +1,8 @@
+<%= form_with url: "contact", method: :post, class: "contents" do |form| %>
+
+  <h1 class="block mt-2 pt-2 font-bold text-2xl">Contact applicant</h1>
+  <%= form.text_field :subject, placeholder: "Subject", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <%= form.text_area :body, placeholder: "Type your message here", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <br/>
+  <%= form.submit "Send Message", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+<% end %>
