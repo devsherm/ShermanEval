@@ -32,10 +32,6 @@ class UserApplicationsController < ApplicationController
   # POST /user_applications or /user_applications.json
   def create
     @user_application = authorize UserApplication.new(user_application_params)
-
-    # when using collection checboxes, rails adds a hidden input field to ensure this param is always present even if no checkboxes are selected
-    # this filters out blank entries
-    @user_application.skills.reject!(&:blank?) if @user_application.skills.present?
     
     respond_to do |format|
       if @user_application.save
