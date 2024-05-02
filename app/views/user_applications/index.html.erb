@@ -12,11 +12,12 @@
     <%= render @user_applications %>
   </div>
 </div>
-
-<%= render 'shared/modal', modal_title: "Send Email", modal_id: "email-modal",
-    modal_body: (render partial: 'email_applicant_form'),
-    modal_buttons: (render partial: 'email_applicant_buttons') 
-%>
+  <% if current_user.admin? %>
+    <%= render 'shared/modal', modal_title: "Send Email to: ", modal_id: "email-modal",
+        modal_body: (render partial: 'email_applicant_form'),
+        modal_buttons: (render partial: 'email_applicant_buttons') 
+    %>
+  <% end %>
 
 <script>
   function toggleReadMore() {
@@ -65,20 +66,46 @@
     form.action = `/user_applications/${applicationId}/email_applicant`;
   }
 
+  function updateEmailApplicantName(name) {
+    const modalWrapper = document.getElementById('modal-title-wrapper');
+    let existingParagraph = modalWrapper.querySelector('p');
+
+    // Check if a <p> tag already exists inside the modalWrapper div
+    if (existingParagraph) {
+      // If it exists, replace its text content with the new name
+      existingParagraph.textContent = name;
+    } else {
+      // If it doesn't exist, create a new <p> element and append it to the modalWrapper div
+      const newParagraph = document.createElement('p');
+      newParagraph.textContent = name;
+      modalWrapper.appendChild(newParagraph);
+    }
+  }
+
   // Bind our events to toggle modal
   document.addEventListener('DOMContentLoaded', function() {
     // Retrieve all toggle buttons if there are multiple
     const toggleButtons = document.querySelectorAll('[data-modal-id]');
 
     // Attach event listeners to each toggle button
-    toggleButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const modalId = this.getAttribute('data-modal-id');
-        const applicationId = this.getAttribute('data-user-application-id');
+     document.addEventListener('click', function(event) {
+    // Check if the clicked element is an email button
+      if (event.target.matches('.email-button')) {
+        // Retrieve data attributes from the clicked button
+        const modalId = event.target.getAttribute('data-modal-id');
+        const applicationId = event.target.getAttribute('data-user-application-id');
+        const applicantName = event.target.getAttribute('data-applicant-name');
 
-        updateEmailId(applicationId)
+        // Call functions with the retrieved data
+        updateEmailId(applicationId);
+        updateEmailApplicantName(applicantName);
         toggleModal(modalId);
-      });
+      }
+      
+      if (event.target.matches('.close-modal')) {
+        const modalId = event.target.getAttribute('data-modal-id');
+        toggleModal(modalId)
+      }
     });
   });
 

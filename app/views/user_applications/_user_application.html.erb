@@ -1,4 +1,4 @@
-<div class="border border-black-500 border-opacity-70 p-5 rounded-lg mb-5" id="<%= dom_id user_application %>">
+<div class="border border-black-500 border-opacity-70 p-5 rounded-lg mb-5 user-application" id="<%= dom_id user_application %>">
   <div class="flex flex-row justify-between">
     <h2 class="flex flex-row items-center">
       <span class="text-2xl flex">
@@ -6,7 +6,7 @@
         <%= user_application.full_name %>
       </span>
       <% if current_user.admin? %>
-        <i data-modal-id="email-modal" class="fa-solid fa-envelope ml-3 text-blue-300 cursor-pointer text-lg" title="Send Email" data-user-application-id="<%= user_application.id %>"></i>
+        <i data-modal-id="email-modal" data-applicant-name="<%= user_application.full_name %>" class="email-button fa-solid fa-envelope ml-3 text-blue-300 cursor-pointer text-lg" title="Send Email" data-user-application-id="<%= user_application.id %>"></i>
       <% end %>
     </h2>
 
