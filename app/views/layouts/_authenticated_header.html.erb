@@ -1,11 +1,20 @@
-<table>
-  <tr>
-    <td style="vertical-align: top;">
-      <%= link_to 'Home', root_path, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %><%#%><br>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'my-2 rounded-lg py-3 px-5 bg-red-200 text-black font-medium cursor-pointer' %><%#%>
-    </td><td style="vertical-align: top;">
-      Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><%#%><br>
-      <%= user.email %><%#%><br>
-    </td>
-  </tr>
-</table>
+<nav class="flex items-center justify-between flex-wrap bg-blue-950 p-6">
+  <div class="flex-shrink-0 text-white mr-6">
+    <span class="font-semibold text-xl tracking-tight">Sherman Buildings</span>
+  </div>
+  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+    <div class="text-sm lg:flex-grow">
+        <%= link_to 'Home', root_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4' %>
+        <%= link_to 'Questionnaire', questionnaire_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4' %>
+    </div>
+    <div>
+      <span class="block mt-4 lg:inline-block lg:mt-0 font-semibold text-white mr-4"><%= user.name ? "#{user.name}, ":  "" %><%#%><%= user.email %><%#%></span>
+      <% if user.admin then %>
+      <%= link_to 'Admin Pannel', admin_path, class: 'block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4' %>
+      <% end %>
+    </div>
+    <div>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-200 hover:bg-white mt-4 lg:mt-0' %><%#%>
+    </div>
+  </div>
+</nav>
