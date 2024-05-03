@@ -28,7 +28,12 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+# gem "tailwindcss-rails"
+
+#Use Bootstrap for styling
+gem "bootstrap", "~> 5.1.3"
+
+# Use Redis for caching [
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"

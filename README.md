@@ -15,7 +15,6 @@ Important lines from Gemfile
 * gem "rails", "~> 7.0.8", ">= 7.0.8.1"
 * gem 'dotenv-rails', groups: [:development, :test]
 * gem "pg", "~> 1.1"
-* gem "tailwindcss-rails"
 * gem "devise", "~> 4.9"
 * \# bcrypt is a depencency of Devise
 * \# gem "bcrypt", "~> 3.1.7"

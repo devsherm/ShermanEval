@@ -1,0 +1,23 @@
+<%= form_with model: @job_application do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+  
+    <div>
+      <%= form.label :experience_level %>
+      <%= form.radio_button :experience_level, "Junior" %>
+      <%= form.label :experience_level_junior, "Junior" %>
+      <%= form.radio_button :experience_level, "Mid" %>
+      <%= form.label :experience_level_mid, "Mid" %>
+      <%= form.radio_button :experience_level, "Senior" %>
+      <%= form.label :experience_level_senior, "Senior" %>
+    </div>
+  
+    <div>
+      <%= form.label :remote_ok, "Are you open to remote work?" %>
+      <%= form.check_box :remote_ok %>
+    </div>
+  
+    <%= form.submit %>
+  <% end %>

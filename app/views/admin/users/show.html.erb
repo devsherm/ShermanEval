@@ -1,0 +1,36 @@
+<h1>User Application</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<% JobApplication.where(email: @user.email).each do |job_application| %>
+  <h2>Application of <%= job_application.email %></h2>
+  <p>
+    <strong>Experience:</strong> <%= job_application.experience_level %>
+  </p>
+  <p>
+    <strong>Remote OK:</strong> <%= job_application.remote_ok ? 'Yes' : 'No' %>
+  </p>
+  <p>
+    <strong>Created At:</strong> <%= job_application.created_at %>
+  </p>
+  <p>
+    <strong>Status:</strong> <%= job_application.status.humanize %>
+  </p>
+  <% if current_user.admin? %>
+  <%= form_with(model: job_application, url: update_status_admin_user_path(@user), method: :patch) do |f| %>
+    <%= f.hidden_field :user_id, value: @user.id %>
+    <%= f.select :status, JobApplication.statuses.keys.map { |status| [status.humanize, status] }, {}, { class: 'form-control' } %>
+    <%= f.submit 'Update Status', class: 'btn btn-primary' %>
+  <% end %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back', admin_users_path %>
