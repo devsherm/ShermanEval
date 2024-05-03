@@ -1,11 +1,32 @@
-<div>
-  <h2><strong>Hello Candidates</strong></h2>
-  <p class='mt-5'>
-    <% if JobApplication.exists?(email: current_user.email) %>
-      <%= link_to 'View your submitted application', admin_user_path(current_user), class: 'text-blue-600 underline' %>
-    <% else %>
-      <%= link_to 'Rails Developer Job Application', new_job_application_path, class: 'text-blue-600 underline' %>
-    <% end %>
-    <%= link_to "Spring '24 Junior Rails Developer Instructions", welcome_spring_24_junior_rails_developer_path, class: 'text-blue-600 underline' %>
-  </p>
+<% job_application = JobApplication.find_by(user_id: current_user.id) %>
+
+<div class="navbar navbar-expand-lg navbar-dark bg-dark mt-2" style="margin: 0 -15px; border-radius: 15px; height: 350px;">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <div class="text-light text-center">
+        <% if job_application && job_application.status == 'further_consideration' %>
+          <p class='mt-3'>
+            Congratulations! You've advanced to the next stage. Click the button below to access your next steps.
+          </p>
+          <div class="d-flex justify-content-center">
+            <%= link_to 'Instructions', welcome_spring_24_junior_rails_developer_path, class: 'btn btn-primary' %>
+          </div>
+        <% elsif job_application && ['pending', 'rejected'].include?(job_application.status) %>
+          <p class='mt-3'>
+            We understand the anticipation of waiting for a response. Rest assured, we are reviewing your application and will update you as soon as possible. Thank you for your patience.
+          </p>
+          <div class="d-flex justify-content-center">
+            <%= link_to 'View your application', admin_user_path(current_user), class: 'btn btn-primary' %>
+          </div>
+        <% else %>
+          <p class='mt-3'>
+            Ready to embark on an exciting journey with us? Click the button below to start your application. We look forward to learning more about you!
+          </p>
+          <div class="d-flex justify-content-center">
+            <%= link_to 'Apply Now', new_job_application_path, class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

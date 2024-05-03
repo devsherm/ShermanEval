@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head class='bg-grey'>
     <title>ShermanEval</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body style="background-color: grey">
     <div class="container mx-auto mt-8 px-5">
       <% if notice.present? %><%#%>
         <p class='py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block' id='notice'>
@@ -29,7 +29,17 @@
       <% if current_user %><%#%>
         <%= render 'layouts/authenticated_header', user: current_user %><%#%>
       <% end %><%#%>
+
+      <% unless controller_name == 'users' && action_name == 'show' %>
+        <%= render 'layouts/middle_bar' %>
+      <% end %>
     </div>
+
+
+  
+
+
+
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>

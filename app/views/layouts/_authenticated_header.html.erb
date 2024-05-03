@@ -1,25 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin: 0 -15px; border-radius: 15px;">
   <%= link_to root_path, class: 'navbar-brand' do %>
-    <%= image_tag 'Sherman Buildings Logo.png', height: '60', width: '100', class: 'd-inline-block align-top' %>
+    <%= image_tag 'Sherman Buildings Logo.png', height: '60', width: '125', class: 'd-inline-block align-top' %>
   <% end %>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <%= link_to 'Home', root_path, class: 'nav-link' %>
-      </li>
     </ul>
-    <span class="navbar-text d-none d-lg-block">
-      Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><br>
-      <%= user.email %>
-    </span>
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-outline-light my-2 my-sm-0 d-none d-lg-block mr-3' %>
+    <div class="d-flex align-items-center">
+      <span class="navbar-text d-none d-lg-block">
+        Hi, <%= "#{user.name}" %><br>
+        <%= user.email %>
+      </span>
+      <div class="ms-3 me-3">
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-outline-light my-2 my-sm-0 d-none d-lg-block' %>
+      </div>
+    </div>
   </div>
   <span class="navbar-text d-lg-none">
     Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><br>
     <%= user.email %>
   </span>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-outline-light my-2 my-sm-0 d-lg-none mr-3' %>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-outline-light my-2 my-sm-0 d-lg-none' %>
 </nav>
+ 

@@ -1,23 +1,43 @@
-<%= form_with model: @job_application do |form| %>
-    <div>
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-  
-    <div>
-      <%= form.label :experience_level %>
-      <%= form.radio_button :experience_level, "Junior" %>
-      <%= form.label :experience_level_junior, "Junior" %>
-      <%= form.radio_button :experience_level, "Mid" %>
-      <%= form.label :experience_level_mid, "Mid" %>
-      <%= form.radio_button :experience_level, "Senior" %>
-      <%= form.label :experience_level_senior, "Senior" %>
-    </div>
-  
-    <div>
-      <%= form.label :remote_ok, "Are you open to remote work?" %>
-      <%= form.check_box :remote_ok %>
-    </div>
-  
-    <%= form.submit %>
-  <% end %>
+<%= render 'layouts/middle_bar_for_application' %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3" style="margin: 0 -15px; border-radius: 15px;">
+<div class="container mt-3">
+  <div class="bg-dark text-white p-4 rounded">
+
+    <%= form_with model: @job_application, html: { class: 'text-white' } do |form| %>
+
+      <div class="form-group">
+        <%= form.label :experience_level, class: 'font-weight-bold' %>
+        <div style="margin-bottom: 10px;">
+          <%= form.radio_button :experience_level, "Junior" %>
+          <%= form.label :experience_level_junior, "Junior" %>
+          <%= form.radio_button :experience_level, "Mid" %>
+          <%= form.label :experience_level_mid, "Mid" %>
+          <%= form.radio_button :experience_level, "Senior" %>
+          <%= form.label :experience_level_senior, "Senior" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :remote_ok, "Are you open to remote work?", class: 'font-weight-bold' %>
+        <div style="margin-bottom: 10px;">
+          <%= form.check_box :remote_ok %>
+          <%= form.label :remote_ok, "Yes", value: "remote_ok" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :about, "Tell me about yourself", class: 'font-weight-bold' %>
+        <%= form.text_area :about, class: 'form-control', style: "margin-bottom: 10px;" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :resume, class: 'font-weight-bold' %>
+        <%= form.file_field :resume, style: "margin-bottom: 10px;" %>
+      </div>
+
+      <%= form.submit 'Submit', class: 'btn btn-outline-light mt-3' %>
+    <% end %>
+
+  </div>
+</div>
+</nav>

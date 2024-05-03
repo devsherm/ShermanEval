@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="d-flex flex-column align-items-center" style="width: 100%; max-width: 70rem;">
+
+    <!-- Image Card -->
+    <div class="card bg-dark mb-3 w-50" style="max-height: 70rem;">
+      <div class="card-body d-flex justify-content-center">
+        <%= image_tag("Sherman Buildings Logo.png", alt: "Sherman Buildings Logo", style: "max-width: 100%; height: auto;") %>
+      </div>
+    </div>
+
+
+    <div class="card text-white bg-dark mb-3 w-50" style="max-height: 70rem;">
+      <div class="card-header text-center" style="font-size: 1.5rem;"><h2>Sign up</h2></div>
+      <div class="card-body p-3" style="font-size: 1.2rem;">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal w-100' }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <%= f.label :email, class: 'control-label text-white', style: 'margin-bottom: 0.5rem;' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', style: 'font-size: 1.1rem; padding: 0.75rem;' %>
+          </div>
+
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <%= f.label :password, class: 'control-label text-white', style: 'margin-bottom: 0.5rem;' %>
+            <% if @minimum_password_length %>
+              <em style="font-size: 0.8rem; color: #ccc;">(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', style: 'font-size: 1.1rem; padding: 0.75rem;' %>
+          </div>
+
+  
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <%= f.label :password_confirmation, class: 'control-label text-white', style: 'margin-bottom: 0.5rem;' %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', style: 'font-size: 1.1rem; padding: 0.75rem;' %>
+          </div>
+
+   
+          <div class="d-flex justify-content-center" style="margin-bottom: 1rem;">
+            <%= f.submit "Sign up", class: 'btn btn-primary', style: 'font-size: 1.2rem; padding: 0.75rem 1.5rem; margin-right: 0.5rem;' %>
+            <%= link_to "Log in", new_session_path(resource_name), class: 'btn btn-secondary', style: 'font-size: 1.2rem; padding: 0.75rem 1.5rem;' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

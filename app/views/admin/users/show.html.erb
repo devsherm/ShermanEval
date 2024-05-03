@@ -1,36 +1,42 @@
-<h1>User Application</h1>
+<%= render 'layouts/middle_bar_for_application' %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3" style="margin: 0 -15px; border-radius: 15px;">
+<div class="container mt-3">
+  <div class="bg-dark text-white p-4 rounded">
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+    <% JobApplication.where(email: @user.email).each do |job_application| %>
+      <ul class="list-unstyled text-white mt-3">
+        <li>
+          <strong>Experience:</strong>
+          <%= job_application.experience_level %>
+        </li>
+        <li>
+          <strong>Remote OK:</strong>
+          <%= job_application.remote_ok ? 'Yes' : 'No' %>
+        </li>
+        <li>
+          <strong>Created On:</strong>
+          <%= job_application.created_at.strftime("%B %d, %Y") %> 
+        </li>
+        <li>
+          <strong>Status:</strong>
+          <%= job_application.status.humanize %>
+        </li>
+        <li>
+          <strong>About:</strong>
+          <%= job_application.about %>
+      </ul>
+      <hr class="bg-white">
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+      <% if job_application.resume.attached? %>
+        <%= link_to 'Download Resume', rails_blob_path(job_application.resume, disposition: "attachment") %>
+      <% else %>
+        No resume attached.
+      <% end %>
+    <% end %>
 
-<% JobApplication.where(email: @user.email).each do |job_application| %>
-  <h2>Application of <%= job_application.email %></h2>
-  <p>
-    <strong>Experience:</strong> <%= job_application.experience_level %>
-  </p>
-  <p>
-    <strong>Remote OK:</strong> <%= job_application.remote_ok ? 'Yes' : 'No' %>
-  </p>
-  <p>
-    <strong>Created At:</strong> <%= job_application.created_at %>
-  </p>
-  <p>
-    <strong>Status:</strong> <%= job_application.status.humanize %>
-  </p>
-  <% if current_user.admin? %>
-  <%= form_with(model: job_application, url: update_status_admin_user_path(@user), method: :patch) do |f| %>
-    <%= f.hidden_field :user_id, value: @user.id %>
-    <%= f.select :status, JobApplication.statuses.keys.map { |status| [status.humanize, status] }, {}, { class: 'form-control' } %>
-    <%= f.submit 'Update Status', class: 'btn btn-primary' %>
-  <% end %>
-  <% end %>
-<% end %>
-
-<%= link_to 'Back', admin_users_path %>
+    <div class="mt-3">
+      <%= link_to 'Back', root_path, class: 'btn btn-outline-light' %>
+    </div>
+  </div>
+</div>
+</nav>

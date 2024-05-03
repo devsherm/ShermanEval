@@ -1,21 +1,52 @@
-<h1>Review Applications</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-<%= link_to 'Reverse Sort Order', review_applications_admin_users_path(sort_order: params[:sort_order] == 'desc' ? 'asc' : 'desc', show_rejected: params[:show_rejected]) %>
-<%= link_to params[:show_rejected] ? 'Hide Rejected' : 'Show Rejected', review_applications_admin_users_path(sort_order: params[:sort_order], show_rejected: params[:show_rejected] ? nil : 'true') %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @job_applications.each do |job_application| %>
-      <tr>
-        <td><%= link_to job_application.email, admin_user_path(job_application.user) %></td>
-        <td><%= job_application.status %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3" style="margin: 0 -15px; border-radius: 15px;">
+  <div class="container-fluid">
+    <div class="mx-auto" style="width: 100%; max-height: 675px; overflow-y: auto;">
+      <% if @job_applications.empty? %>
+        <p class="m-2" style="color:white">No job applications at the moment</p>
+      <% else %>
+        <table class="table table-hover text-light" style="margin: auto;">
+          <thead>
+            <tr>
+              <th>
+                Email
+                <%= link_to review_applications_admin_users_path(show_rejected: params[:show_rejected] ? nil : 'true'), style: "color: orange; text-decoration: none;" do %>
+                  <% if params[:show_rejected] %>
+                    <span>(Hide Rejected)</span>
+                  <% else %>
+                    <span>(Show Rejected)</span>
+                  <% end %>
+                <% end %>
+              </th>
+              <th>
+                <%= link_to review_applications_admin_users_path(sort_order: params[:sort_order] == 'desc' ? 'asc' : 'desc', show_rejected: params[:show_rejected]), style: "color: #FFFFFF; text-decoration: none;" do %>
+                  Status
+                  <% if params[:sort_order] == 'asc' %>
+                    <i class="fa fa-arrow-up" style="color: orange;"></i>
+                  <% else %>
+                    <i class="fa fa-arrow-down" style="color: orange;"></i>
+                  <% end %>
+                <% end %>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @job_applications.each do |job_application| %>
+              <tr>
+                <td><%= link_to admin_user_path(job_application.user), style: "color: #FFFFFF; text-decoration: none; display: block; width: 100%;" do %>
+                      <%= job_application.email %>
+                    <% end %>
+                </td>
+                <td><%= link_to admin_user_path(job_application.user), style: "color: #FFFFFF; text-decoration: none; display: block; width: 100%;" do %>
+                      <%= job_application.status %>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</nav>

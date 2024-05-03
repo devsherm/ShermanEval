@@ -1,0 +1,26 @@
+<% if current_user %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-2" style="margin: 0 -15px; border-radius: 15px;">
+
+      <div class="container-fluid">
+        <div class="text-left text-light m-2">
+          <% if current_user.admin? %>
+            <h2>Review Applications</h2>
+            <p>(Administrator Mode)</p>
+            <% if @application %>
+              <h2>User Application</h2>
+              <p>Name: <%= @application.user.name %></p>
+              <p>Email: <%= @application.user.email %></p>
+            <% end %>
+          <% else %>
+            <h2>Hello, <%= current_user.name %></h2>
+            <% if JobApplication.exists?(email: current_user.email) %>
+              <p>View your application below</p>
+            <% else %>
+              <p>Submit your application below</p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</nav>
+<% end %>

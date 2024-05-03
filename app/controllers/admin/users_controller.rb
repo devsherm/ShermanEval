@@ -12,6 +12,7 @@ module Admin
   
       def show
         @user = User.find(params[:id])
+        @job_application = JobApplication.find_by(user_id: @user.id)
   
         if current_user != @user && !current_user.admin?
           redirect_to root_path, alert: "You are not authorized to view this page."
@@ -24,16 +25,23 @@ module Admin
         @job_application = JobApplication.find_by(user_id: @user.id)
   
         if @job_application.update(job_application_params)
-          redirect_to admin_user_path(@user), notice: 'Job application status was successfully updated.'
         else
           render :show
         end
       end
 
+      def send_status_update_email
+        @user = User.find(params[:id])
+        @job_application = JobApplication.find_by(user_id: @user.id)
+  
+        ApplicationMailer.status_update_email(@user.email).deliver_now
+        redirect_to [:admin, @user], notice: 'Status update email was successfully sent.'
+      end
+
       private
   
       def job_application_params
-        params.require(:job_application).permit(:status)
+        params.require(:job_application).permit(:user_id, :about, :experience_level, :remote_ok, :resume, :status)
       end
     end
   end

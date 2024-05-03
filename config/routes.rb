@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         get :review_applications
       end
       member do
+        post :send_status_update_email
         get :user_application
         patch :update_status
       end

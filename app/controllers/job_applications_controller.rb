@@ -9,6 +9,8 @@ class JobApplicationsController < ApplicationController
         @job_application = JobApplication.new(job_application_params)
         @job_application.user = current_user
         @job_application.email = current_user.email
+        @job_application.resume.attach(params[:job_application][:resume])
+        @job_application.name = current_user.name
       
         if @job_application.save
           redirect_to submitted_job_applications_path
@@ -34,6 +36,6 @@ class JobApplicationsController < ApplicationController
       end
   
     def job_application_params
-      params.require(:job_application).permit(:name, :experience_level, :remote_ok, :email)
+      params.require(:job_application).permit(:name, :experience_level, :remote_ok, :email, :about)
     end
   end

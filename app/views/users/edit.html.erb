@@ -1,8 +1,22 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing user</h1>
+<% if @user %>
+  <div class="navbar navbar-expand-lg navbar-dark bg-dark mt-2" style="margin: 0 -15px; border-radius: 15px;">
+    <div class="container-fluid">
+      <div class="text-left text-light m-2">
+        <h2 class="font-bold text-4xl">Tell us your name</h2>
+        
+        <%= form_for @user do |f| %>
+          <div class="form-group">
+            <%= f.text_field :name, class: 'form-control short-textbox mt-2 mb-2', style: 'background-color: lightgrey;' %>
+          </div>
 
-  <%= render "form", user: @user %>
+          <div class="form-group">
+            <%= f.submit 'Update', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
 
-  <%### link_to "Show this user", @user, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%### link_to "Back to users", users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+        <%### link_to "Show this user", @user, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%### link_to "Back to users", users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </div>
+    </div>
+  </div>
+<% end %>

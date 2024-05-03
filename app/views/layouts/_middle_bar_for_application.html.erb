@@ -1,0 +1,37 @@
+<% if current_user.admin? || (@job_application.present? && @job_application.user.present?) %>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-2" style="margin: 0 -15px; border-radius: 15px;">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <div class="text-light">
+          <% if @job_application.present? %>
+            <p>Name: <%= @job_application.name %></p>
+            <p>Email: <%= @job_application.user.email %></p>
+            <% if @job_application.user.present? && current_user.admin? %>
+              <%= button_to 'Notify Applicant', send_status_update_email_admin_user_path(@job_application.user.email), method: :post, class: 'mb-2 btn btn-primary align-self-end', id: 'notify-button' %>
+              <p id="notify-text" style="display: none;">Email sent to applicant</p>
+            <% end %>
+          <% elsif current_user.admin? %>
+            <p>No application selected</p>
+          <% end %>
+        </div>
+        <% if current_user.admin? && @job_application.present? && @job_application.user.present? %>
+          <%= form_with(model: @job_application, url: update_status_admin_user_path(@job_application.user), method: :patch, local: true, class: 'd-flex align-items-center') do |f| %>
+            <%= f.hidden_field :user_id, value: @job_application.user.id %>
+            <div class="form-group mb-0 mr-2">
+              <%= f.label :status, class: 'text-light' %>
+              <%= f.select :status, JobApplication.statuses.keys.map { |status| [status.humanize, status] }, {}, { class: 'form-control mb-0 custom-select', style: 'appearance: auto;  no-repeat right .75rem center/8px 10px; padding-right: 1.75rem;' } %>
+            </div>
+            <%= f.submit 'Update Status', class: ' ms-1 btn btn-primary align-self-end' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+<% end %>
+
+<script>
+  document.getElementById('notify-button').addEventListener('click', function() {
+    this.style.display = 'none';
+    document.getElementById('notify-text').style.display = 'block';
+  });
+</script>
