@@ -8,4 +8,7 @@ class User < ApplicationRecord
           # :confirmable, # Database is set up, but you need to set up the mailer, if you want
           :validatable
 
+  has_many :applicants
+  has_many :mail_histories
+
 end

@@ -1,0 +1,60 @@
+<div class="container mx-auto">
+  <div class="mx-auto max-w-5xl">
+    <div class="sm:flex-auto">
+      <h1 class="text-3xl font-bold leading-6 text-gray-900">Applicant Details</h1>
+    </div>
+    <div class="space-y-12">
+  <div class="border-b border-gray-900/10 pb-12">
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="sm:col-span-2">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Full Name:</strong> <%= @applicant.full_name %>
+        </p>
+      </div>
+
+      <div class="sm:col-span-2">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Email:</strong> <%= @applicant.email %>
+        </p>
+      </div>
+
+      <div class="sm:col-span-6">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Experience Summary:</strong> <%= @applicant.experience_summary %>
+        </p>
+      </div>
+
+      <div class="sm:col-span-6">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Primary Backend Language:</strong> <%= @applicant.primary_backend_language %>
+        </p>
+      </div>
+
+      <div class="sm:col-span-6">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Tech Stacks:</strong>
+          <ul>
+            <% @applicant.tech_stack.each do |tech| %>
+              <li><%= tech %></li>
+            <% end %>
+          </ul>
+        </p>
+      </div>
+
+      <div class="sm:col-span-6">
+        <p class="block text-sm font-medium leading-6 text-gray-900">
+          <strong>Status:</strong> <%= @applicant.status.titleize %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= link_to 'Edit', edit_applicant_path(@applicant), class: 'underline' %> |
+    <%= link_to 'Back', applicants_path, class: 'underline' %>
+  </div>
+</div>
+  </div>
+</div>
+
+

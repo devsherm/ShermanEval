@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h1>Unfortunately to let you know that you didn’t make it to the next round</h1>
+  <p>
+    Dear <%= @applicant.full_name %>,
+  </p>
+  <p>
+    We regret to inform you that your application has been denied, and you will not be proceeding to the next round of our hiring process.
+  </p>
+  <p>
+    Thank you for your interest and time.
+  </p>
+  <p>
+    Best regards,<br>
+    <%= @sender.name %><br>
+  </p>
+</body>
+</html>

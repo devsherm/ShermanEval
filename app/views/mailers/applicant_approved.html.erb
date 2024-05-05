@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h1>Congratulations on making it to the next step</h1>
+  <p>
+    Dear <%= @applicant.full_name %>,
+  </p>
+  <p>
+    We are pleased to inform you that your application has been approved, and you have successfully advanced to the next step of our hiring process.
+  </p>
+  <p>
+    Best regards,<br>
+    <%= @sender.name %><br>
+  </p>
+</body>
+</html>
