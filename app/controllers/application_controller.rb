@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+
   before_action :authenticate_user!
+
+  def authorize_admin!
+    redirect_to applicants_path, alert: 'You are not authorized to perform this action.' unless current_user&.admin?
+  end
 
   def after_sign_in_path_for(user)
     # Check if any critical profile information is missing

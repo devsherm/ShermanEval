@@ -1,0 +1,11 @@
+<%= search_form_for @q, html: { class: "px-4 sm:px-6 lg:px-8 mb-8" } do |f| %>
+  <div class="flex flex-wrap place-items-end">
+    <div class="w-full sm:w-auto mb-4 sm:mb-0 sm:mr-4">
+      <%= f.label :s, 'Sort By', class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.select :s, options_for_select([['Date Created (Ascending)', 'created_at asc'], ['Date Created (Descending)', 'created_at desc']], params[:q]&.[](:s)), { prompt: 'Select Sorting' }, class: "form-select mt-1 block w-full rounded-md shadow-sm" %>
+    </div>   
+    <div class="w-full sm:w-auto">
+      <%= f.submit 'Sort', class: 'block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' %>
+    </div>
+  </div>
+<% end %>

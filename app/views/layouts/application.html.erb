@@ -12,27 +12,28 @@
   </head>
 
   <body>
-    <div class="container mx-auto mt-8 px-5">
-      <% if notice.present? %><%#%>
+    <%= render 'layouts/nav', user: current_user %>
+
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <% if notice.present? %>
         <p class='py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block' id='notice'>
-          <%= notice %><%#%>
+          <%= notice %>
         </p>
-      <% end %><%#%>
-      <% if alert.present? %><%#%>
+      <% end %>
+      <% if alert.present? %>
         <p class='py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block' id='alert'>
-          <%= alert %><%#%>
+          <%= alert %>
         </p>
-      <% end %><%#%>
-      <% if local_assigns[:errors] %><%#%>
-        <%= render 'layouts/object_errors', errors: local_assigns[:errors] %><%#%>
-      <% end %><%#%>
+      <% end %>
+      <% if local_assigns[:errors] %>
+        <%= render 'layouts/object_errors', errors: local_assigns[:errors] %>
+      <% end %>
       <br>
-      <% if current_user %><%#%>
-        <%= render 'layouts/authenticated_header', user: current_user %><%#%>
-      <% end %><%#%>
     </div>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <main class="container mx-auto">
+     <div class="mx-auto max-w-7xl">
+        <%= yield %>
+     </div>
     </main>
   </body>
 </html>
