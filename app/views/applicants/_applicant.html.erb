@@ -1,0 +1,14 @@
+<div id="<%= dom_id applicant %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= applicant.user.name %>
+  </p>
+
+  <%= render @applicant.answers %>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this applicant", appplicant, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this applicant", edit_applicant_path(appplicant), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

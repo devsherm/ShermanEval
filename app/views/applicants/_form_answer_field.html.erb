@@ -1,0 +1,38 @@
+<div class="py-3">
+  <p class="py-3 px-5 bg-gray-100">
+    <%= answer.question.text %>
+  </p>
+
+  <p class="py-2 px-5">  
+    <% case answer.question.answer_type %>
+      <% when "type_text" %>
+        <%= f.text_area :value %>
+
+      <% when "select_one" %>
+        <%#= f.collection_radio_buttons :value, answer.question.options.split("\n"), :to_s, :to_s %>
+
+        <%= f.select :value, answer.question.options.split("\n"), include_blank: true %>
+
+	<%# answer.question.options.split("\n").each_with_index do |opt, idx| %>
+          <%#= f.radio_button :value, opt %>
+	  <%#= opt %>
+        <%# end %>
+
+      <% when "select_multiple" %>
+	<% 
+	  opts = answer.question.options.split("\n")
+	  opts1 = opts.map { |e| [e, opts.find_index(e)] }
+	%>
+	
+        <%#= f.collection_check_boxes :value, opts1, :last, :first %>
+
+	<%= f.select(:value, opts, { prompt: "Please select" },  { multiple: true, size: 5, include_blank: false }) %>
+         
+	<%# answer.question.options.split("\n").each do |opt| %>
+          <%#= f.check_box :value, {}, opt %>
+	  <%#= opt %>
+        <%# end %>
+
+    <% end %>
+  </p>
+</div>

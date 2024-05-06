@@ -1,0 +1,19 @@
+<div id="answer">
+  <p class="py-3 px-5 bg-gray-100 font-medium">Question: <%= answer.question.text %></p>
+
+  <p class="py-3 px-5 font-medium">
+    <% case answer.question.answer_type %>
+      <% when "type_text" %>
+        <%= answer.value %>
+
+      <% when "select_one" %>
+        <%= answer.value %>
+
+      <% when "select_multiple" %>
+	<%= answer.value.split("\n").join(", ") %>
+
+    <% end %>
+  </p>
+
+
+</div>
