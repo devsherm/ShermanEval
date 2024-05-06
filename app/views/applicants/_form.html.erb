@@ -1,7 +1,7 @@
 <%= form_for @applicant do |form| %>
-
-  <%= render @applicant.user %>
-
+  <%= form.fields_for :user do |user_fields| %>
+    <%= render "form_user_field", user: @applicant.user, f: user_fields %>
+  <% end %>
 
   <%= form.fields_for :answers do |answer_fields| %>
     <%= render "form_answer_field", answer: answer_fields.object, f: answer_fields  %>

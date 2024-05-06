@@ -1,6 +1,7 @@
 <div class="py-3">
   <p class="py-3 px-5 bg-gray-100">
     <%= answer.question.text %>
+    <%= f.hidden_field :question_id %>
   </p>
 
   <p class="py-2 px-5">  
@@ -26,7 +27,7 @@
 	
         <%#= f.collection_check_boxes :value, opts1, :last, :first %>
 
-	<%= f.select(:value, opts, { prompt: "Please select" },  { multiple: true, size: 5, include_blank: false }) %>
+	<%= f.select(:value, opts, {},  { multiple: true, size: 5, include_blank: false }) %>
          
 	<%# answer.question.options.split("\n").each do |opt| %>
           <%#= f.check_box :value, {}, opt %>
