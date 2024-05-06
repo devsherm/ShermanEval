@@ -1,0 +1,44 @@
+
+<div class="container mt-5">
+  <h4>All Questionnaires</h4>
+  <table id="questionnairesTable" class="table table-striped" style="width:100%">
+    <thead>
+      <tr>
+        <th>Text Field</th>
+        <th>String Field</th>
+        <th>Radio Choice</th>
+        <th>Checkbox</th>
+        <th>Category</th>
+        <th>User</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @questionnaires.each do |questionnaire| %>
+        <tr>
+          <td><%= questionnaire.long_text %></td>
+          <td><%= questionnaire.short_text %></td>
+          <td><%= questionnaire.radio_choice %></td>
+          <td><%= questionnaire.checkbox ? 'Yes' : 'No' %></td>
+          <td><%= questionnaire.category %></td>
+          <td><%= questionnaire.user.email %></td>
+          <td>
+            <%= link_to 'Show', questionnaire_path(questionnaire), class: "btn btn-info" %>
+            <%= link_to 'Edit', edit_questionnaire_path(questionnaire), class: "btn btn-primary" if current_user.admin? %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#questionnairesTable').DataTable({
+      // DataTables options can be placed here
+      responsive: true,
+      "lengthChange": false,
+      "autoWidth": false,
+    });
+  });
+</script>

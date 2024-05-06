@@ -1,0 +1,36 @@
+<!-- Button trigger modal -->
+<% if current_user.admin? %>
+  <%= button_tag "Email User", class: "btn btn-primary", data: {bs_toggle: "modal", bs_target: "#emailModal"} %>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailModalLabel">Email User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(url: send_email_path, method: :post) do |form| %>
+          <div class="mb-3">
+            <%= form.label :to, "To:" %>
+            <%= form.text_field :to, value: @questionnaire.user.email, readonly: true, class: "form-control" %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :cc, "CC:" %>
+            <%= form.text_field :cc, class: "form-control" %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :message, "Message:" %>
+            <%= form.text_area :message, class: "form-control", rows: 3 %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit "Send Email", class: "btn btn-primary" %>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

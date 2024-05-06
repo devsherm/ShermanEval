@@ -35,7 +35,7 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
-
+=begin
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -51,8 +51,40 @@ Rails.application.configure do
     authentication: ENV["EMAIL_AUTH"],
     enable_starttls_auto: ENV["EMAIL_TLS_AUTO"]
   }
-
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+=end
+
+   # Configure the mailer to use SMTP
+   config.action_mailer.delivery_method = :smtp
+
+   # SMTP settings
+
+=begin
+   config.action_mailer.smtp_settings = {
+    address: ENV['SMTP_HOST'],
+    port: 587,             
+    user_name: ENV['EMAIL_USERNAME'], 
+    password: ENV['EMAIL_PASSWORD'],   
+    authentication: :login,    
+    enable_starttls_auto: true
+  }
+=end
+   config.action_mailer.smtp_settings = {
+     domain: ENV['EMAIL_DOMAIN'],
+     address:        ENV['EMAIL_ADDRESS'],
+     port:            587,
+     authentication: :plain,
+     user_name:      ENV['EMAIL_USERNAME'],
+     password:       ENV['EMAIL_PASSWORD']
+   }
+
+   # Set the default URL options for the mailer
+   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+   
+   # Optionally, specify other mailer options
+   config.action_mailer.raise_delivery_errors = true
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

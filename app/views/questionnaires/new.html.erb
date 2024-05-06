@@ -1,0 +1,52 @@
+<%= form_with(model: @questionnaire, local: true) do |form| %>
+  <% if @questionnaire.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h2><%= pluralize(@questionnaire.errors.count, "error") %> prohibited this questionnaire from being saved:</h2>
+      <ul>
+        <% @questionnaire.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :long_text, 'Write a blurb about yourself:', class: 'form-label' %>
+    <%= form.text_area :long_text, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :short_text, 'What city and state do you live in?', class: 'form-label' %>
+    <%= form.text_field :short_text, class: 'form-control' %>
+  </div>
+
+  <!-- Custom radio buttons -->
+  <fieldset class="mb-3">
+    <legend class="col-form-label pt-0">What type of work schedule do you prefer?</legend>
+    <div class="form-check">
+      <%= form.radio_button :radio_choice, "Hybrid", class: 'form-check-input', id: "questionnaire_radio_choice_hybrid" %>
+      <%= label :radio_choice, "Hybrid", class: 'form-check-label', for: "questionnaire_radio_choice_hybrid" %>
+    </div>
+    <div class="form-check">
+      <%= form.radio_button :radio_choice, "Remote", class: 'form-check-input', id: "questionnaire_radio_choice_remote" %>
+      <%= label :radio_choice, "Remote", class: 'form-check-label', for: "questionnaire_radio_choice_remote" %>
+    </div>
+  </fieldset>
+
+  <!-- Custom checkbox -->
+  <div class="mb-3">
+    <%= form.check_box :checkbox, class: 'form-check-input', id: "questionnaire_checkbox" %>
+    <%= label :checkbox, 'Check this box if you consent to receiving emails from ShermanEval.', class: 'form-check-label', for: "questionnaire_checkbox" %>
+  </div>
+
+  <% if current_user.admin? %>
+    <div class="mb-3">
+      <%= form.label :category, class: 'form-label' %>
+      <%= form.text_field :category, class: 'form-control' %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
