@@ -42,7 +42,7 @@ class ApplicantsController < ApplicationController
       @applicant.user = @user
       if @applicant.save
 	sign_in @user
-        redirect_to root_path
+        redirect_to @applicant
       else
         render :new, status: :unprocessable_entity
       end
@@ -92,6 +92,7 @@ class ApplicantsController < ApplicationController
       # TODO: remove this hack
       if params[:applicant].has_key? :answers_attributes
         params[:applicant][:answers_attributes].each_value { |v| if v[:value].is_a?(Array) then v[:value] = v[:value].compact_blank.join("\n") else v end  }
+        params[:applicant][:answers_attributes].each_value { |v| if v[:fixed_value].is_a?(Array) then v[:value] = v[:fixed_value].compact_blank.join("\n") else v end  }
       end
       params
     end
