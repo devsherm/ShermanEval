@@ -1,6 +1,6 @@
-<%= form_for @applicant do |form| %>
-  <%= form.fields_for :user do |user_fields| %>
-    <%= render "form_user_field", user: @applicant.user, f: user_fields %>
+<%= form_with model: @applicant do |form| %>
+  <%= form.fields_for @user do |user_fields| %>
+    <%= render "form_user_field", f: user_fields %>
   <% end %>
 
   <%= form.fields_for :answers do |answer_fields| %>
@@ -8,6 +8,6 @@
   <% end %>
 
   <div>
-    <%= form.submit class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium bg-green-200" %>
+    <%= form.submit class: "default"%>
   </div>
 <% end %>

@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <div class="container mx-auto mt-8 px-5">
+    <div class="container mx-auto mt-8">
       <% if notice.present? %><%#%>
         <p class='py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block' id='notice'>
           <%= notice %><%#%>
@@ -29,9 +29,11 @@
       <br>
       <% if current_user %><%#%>
         <%= render 'layouts/authenticated_header', user: current_user %><%#%>
+      <% else %><%#%>
+        <%= render 'layouts/not_authenticated_header' %><%#%>
       <% end %><%#%>
     </div>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-8 px-5 flex">
       <%= yield %>
     </main>
   </body>

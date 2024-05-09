@@ -1,11 +1,16 @@
 <table>
   <tr>
-    <td style="vertical-align: top;">
-      <%= link_to 'Home', root_path, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %><%#%><br>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'my-2 rounded-lg py-3 px-5 bg-red-200 text-black font-medium cursor-pointer' %><%#%>
-    </td><td style="vertical-align: top;">
-      Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><%#%><br>
-      <%= user.email %><%#%><br>
+    <td style="vertical-align: top;padding:10px;">
+      <%= link_to 'Home', root_path, class: 'rounded-lg py-3 px-5 inline-block font-medium bg-green-200 cursor-pointer' %>
+    </td>
+
+    <td style="vertical-align: top;padding:10px;text-align:end">
+      Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><br />
+      <div title="<%= user.email %>" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;width:240px;"><%= user.email %></div>
+    </td>
+    
+    <td style="vertical-align: top;padding: 10px;">
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'rounded-lg py-3 px-5 inline-block bg-red-200 text-black font-medium cursor-pointer' %><%#%>
     </td>
   </tr>
 </table>

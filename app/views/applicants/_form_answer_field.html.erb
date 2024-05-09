@@ -1,18 +1,19 @@
-<div class="py-3">
-  <p class="py-3 px-5 bg-gray-100">
+<div class="my-5">
+
+  <div class="py-3">
     <%= answer.question.text %>
     <%= f.hidden_field :question_id %>
-  </p>
+  </div>
 
-  <p class="py-2 px-5">  
+  <div class="py-0">  
     <% case answer.question.answer_type %>
       <% when "type_text" %>
-        <%= f.text_area :value %>
-
+        <%= f.text_area :value, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" %>
+ 
       <% when "select_one" %>
         <%#= f.collection_radio_buttons :value, answer.question.options.split("\n"), :to_s, :to_s %>
 
-        <%= f.select :value, answer.question.options.split("\n"), include_blank: true %>
+        <%= f.select :value, answer.question.options.split("\n"), { include_blank: true },  { class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
 
 	<%# answer.question.options.split("\n").each_with_index do |opt, idx| %>
           <%#= f.radio_button :value, opt %>
@@ -20,20 +21,21 @@
         <%# end %>
 
       <% when "select_multiple" %>
-	<% 
-	  opts = answer.question.options.split("\n")
-	  opts1 = opts.map { |e| [e, opts.find_index(e)] }
-	%>
+	<% opts = answer.question.options.split("\n").map { |e| [e, e] } %>
 	
-        <%#= f.collection_check_boxes :value, opts1, :last, :first %>
+        <%#= f.collection_check_boxes :value, opts, :last, :first %>
 
-	<%= f.select(:value, opts, {},  { multiple: true, size: 5, include_blank: false }) %>
-         
+	<%= f.select :value,
+		options_from_collection_for_select(opts, :first, :last,
+                  { :selected => f.object.value ? f.object.value.split("\n") : [] }),
+		{ include_blank: false },
+		{ multiple: true, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
+
 	<%# answer.question.options.split("\n").each do |opt| %>
           <%#= f.check_box :value, {}, opt %>
 	  <%#= opt %>
         <%# end %>
 
     <% end %>
-  </p>
+  </div>
 </div>

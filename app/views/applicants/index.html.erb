@@ -1,11 +1,24 @@
 <div>
-  <h1 class="font-bold text-4xl">Applicants</h1>
-  <ul>
+  <h1>Applicants</h1>
+  <table class="my-5">
     <% @applicants.each do |applicant| %>
-      <li><%= link_to applicant.user.name, applicant, class: "py-3 px-5 inline-block font-medium" %></li>
+      <tr>
+        <td style="padding:3px">
+	  <%= link_to "#{applicant.user.name} (#{applicant.user.email})", applicant, class: 'rounded-lg py-3 px-5 my-0 inline-block font-medium bg-gray-100 cursor-pointer w-full' %>
+        </td>
+        <td style="padding:3px">
+   	    <% if current_user and current_user.admin and not applicant.categories.empty? %>
+  	      <% applicant.categories.each do |category| %>
+	        <span class="rounded-lg py-3 px-5 my-0 inline-block font-medium bg-green-50"><%= category.label %></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-    <%= link_to "New Applicant", new_applicant_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </ul>
+  </table>
+  <% if not current_user or not current_user.admin %>
+    <%= link_to "New Applicant", new_applicant_path, class: "rounded-lg py-3 px-5 my-0 bg-blue-600 text-white inline-block font-medium w-full" %>
+  <% end %>
 </div>
 
 
