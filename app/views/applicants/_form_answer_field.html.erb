@@ -13,36 +13,35 @@
       <% when "select_one" %>
         <%= f.collection_radio_buttons :value, answer.question.options.split("\n"), :to_s, :to_s, {}, { class: "from-control" } do |b| %>
           <%= b.label { b.radio_button + " " + b.text } %><br/>
-    <% end %>
+        <% end %>
 
-        <%#= f.select :value, answer.question.options.split("\n"), { include_blank: true },  { class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
+        <%#= f.select :value,
+          # answer.question.options.split("\n"),
+          # { include_blank: true },
+          # { class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
 
-    <%# answer.question.options.split("\n").each_with_index do |opt, idx| %>
+        <%# answer.question.options.split("\n").each_with_index do |opt, idx| %>
           <%#= f.radio_button :value, opt %>
-      <%#= opt %>
+          <%#= opt %>
         <%# end %>
 
       <% when "select_multiple" %>
-    <% opts = answer.question.options.split("\n").map { |e| [e, e] } %>
+        <% opts = answer.question.options.split("\n").map { |e| [e, e] } %>
 
         <%= f.collection_check_boxes :fixed_value, opts, :last, :first do |b| %>
-      <%= b.label { b.check_box + " " + b.text } %><br/>
+          <%= b.label { b.check_box + " " + b.text } %><br/>
         <% end %>
 
-    <%#= f.select :fixed_value,
-#       opts,
-#       { include_blank: false },
-#       { multiple: true, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
+        <%#= f.select :fixed_value, opts,{ include_blank: false }, { multiple: true, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
 
-    <%#= f.select :value,
-#   options_from_collection_for_select(opts, :first, :last,
-#                  { :selected => f.object.value ? f.object.value.split("\n") : [] }),
-#       { include_blank: false },
-#   { multiple: true, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
+        <%#= f.select :value,
+          # options_from_collection_for_select(opts, :first, :last, { :selected => f.object.value ? f.object.value.split("\n") : [] }),
+          # { include_blank: false },
+          # { multiple: true, class: "inline-block shadow rounded-md border border-gray-200 outline-none px-3 w-full" } %>
 
-    <%# answer.question.options.split("\n").each do |opt| %>
+        <%# answer.question.options.split("\n").each do |opt| %>
           <%#= f.check_box :value, {}, opt %>
-      <%#= opt %>
+          <%#= opt %>
         <%# end %>
 
     <% end %>

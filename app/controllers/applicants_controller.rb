@@ -31,7 +31,7 @@ class ApplicantsController < ApplicationController
     if @user.save
       @applicant.user = @user
       if @applicant.save
-	sign_in @user
+        sign_in @user
         redirect_to @applicant
       else
         render :new, status: :unprocessable_entity
