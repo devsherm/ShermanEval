@@ -5,10 +5,12 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-category1 = Category.create(label: "Red")
-category2 = Category.create(label: "Yellow")
-category3 = Category.create(label: "Green")
-category4 = Category.create(label: "Has extra")
-category5 = Category.create(label: "Passed")
+Category.create(label: "Red")
+Category.create(label: "Yellow")
+Category.create(label: "Green")
+Category.create(label: "Has extra")
+Category.create(label: "Passed")
 
-
+Question.create(key: "q1", answer_type: "type_text", text: "Please type some text here", options: nil)
+Question.create(key: "q2", answer_type: "select_one", text: "Please select one from", options: "Option One\nOption Two\nOption Three")
+Question.create(key: "q3", answer_type: "select_multiple", text: "Please select multiple from", options: "Line 1\nLine 2\nLine 3")
