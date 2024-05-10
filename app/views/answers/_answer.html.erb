@@ -10,7 +10,7 @@
         <%= answer.value %>
 
       <% when "select_multiple" %>
-	<%= answer.value.empty? ? "<none>" : answer.value.split("\n").join(", ") %>
+    <%= answer.value.empty? ? "<none>" : answer.value.split("\n").join(", ") %>
     <% end %>
   </p>
 </div>

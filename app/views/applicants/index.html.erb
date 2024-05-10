@@ -4,12 +4,12 @@
     <% @applicants.each do |applicant| %>
       <tr>
         <td style="padding:3px">
-	  <%= link_to "#{applicant.user.name} (#{applicant.user.email})", applicant, class: 'rounded-lg py-3 px-5 my-0 inline-block font-medium bg-gray-100 cursor-pointer w-full' %>
+      <%= link_to "#{applicant.user.name} (#{applicant.user.email})", applicant, class: 'rounded-lg py-3 px-5 my-0 inline-block font-medium bg-gray-100 cursor-pointer w-full' %>
         </td>
         <td style="padding:3px">
-   	    <% if current_user and current_user.admin and not applicant.categories.empty? %>
-  	      <% applicant.categories.each do |category| %>
-	        <span class="rounded-lg py-3 px-5 my-0 inline-block font-medium bg-green-50"><%= category.label %></span>
+        <% if current_user and current_user.admin and not applicant.categories.empty? %>
+          <% applicant.categories.each do |category| %>
+            <span class="rounded-lg py-3 px-5 my-0 inline-block font-medium bg-green-50"><%= category.label %></span>
             <% end %>
           <% end %>
         </td>
@@ -20,6 +20,3 @@
     <%= link_to "New Applicant", new_applicant_path, class: "rounded-lg py-3 px-5 my-0 bg-blue-600 text-white inline-block font-medium w-full" %>
   <% end %>
 </div>
-
-
-

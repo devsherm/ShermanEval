@@ -16,10 +16,6 @@ class ApplicantsController < ApplicationController
   end
 
   def new
-    #if current_user
-    #  sign_out current_user
-    #end
- 
     @questions = Question.all
     @user = User.new
     @applicant = Applicant.new(user: @user, answers: @questions.map { |q| Answer.new(question: q) })
@@ -28,17 +24,11 @@ class ApplicantsController < ApplicationController
   def create
     # TODO: remove this hack
     handle_arrays_in_params
-    #if params[:applicant].has_key? :answers_attributes
-    #  params[:applicant][:answers_attributes].each_value { |v| if v[:value].is_a?(Array) then v[:value] = v[:value].compact_blank.join("\n") else v end  }
-    #end
 
     @user = User.new(user_params)
-
-    # params.require(:applicant).permit(user: [:name, :email], answers_attributes: [:id, :value])
-    #p = params.require(:applicant).permit(answers_attributes: [:value, :id, :question_id])
     @applicant = Applicant.new(user: @user, answers_attributes: applicant_params[:answers_attributes])
+
     if @user.save
-      #redirect_to user_url(@user), notice: "User was successfully created."
       @applicant.user = @user
       if @applicant.save
 	sign_in @user
@@ -62,10 +52,6 @@ class ApplicantsController < ApplicationController
 
     # TODO: remove this hack
     handle_arrays_in_params
-    
-    #if params[:applicant].has_key? :answers_attributes
-    #  params[:applicant][:answers_attributes].each_value { |v| if v[:value].is_a?(Array) then v[:value] = v[:value].compact_blank.join("\n") else v end  }
-    #end
 
     if not @applicant.user.update(user_params)
       @applicant.user.errors.add("cannot update user information")
@@ -96,5 +82,4 @@ class ApplicantsController < ApplicationController
       end
       params
     end
-
 end
