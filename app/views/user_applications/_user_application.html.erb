@@ -37,12 +37,12 @@
     <% if current_user.admin? %>
       <%= link_to "Evaluate This Application",
       edit_user_application_path(user_application),
-      class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+      class: "rounded-lg py-3 ml-2 px-5 bg-blue-300 inline-block font-medium" %>
       <hr class="mt-6">
     <% else %>
       <%= link_to "Edit This Application",
       edit_user_application_path(user_application),
-      class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+      class: "rounded-lg py-3 ml-2 px-5 bg-blue-300 inline-block font-medium" %>
     <% end %>
     <%= button_to "Delete This Application",
     user_application_path(user_application),
