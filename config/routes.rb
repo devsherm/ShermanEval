@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :job_applications
   devise_for :users
   resources :users, only: %i[edit update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
