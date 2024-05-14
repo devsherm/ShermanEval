@@ -1,7 +1,10 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New job application</h1>
 
+<div class="flex flex-col items-center space-y-4">
+  <%= render_card(title: "Hello, #{current_user.name}", 
+  subtitle: "Complete the form below to submit your application.",
+  body: nil, footer: nil, class: "w-full mb-4" ) do %>
+  <% end %>  
+
+  <h2 class="w-full text-sm text-left font-bold">Junior Rails Developer Application</h2>
   <%= render "form", job_application: @job_application %>
-
-  <%= link_to "Back to job applications", job_applications_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

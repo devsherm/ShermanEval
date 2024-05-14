@@ -1,36 +1,63 @@
 class JobApplicationsController < ApplicationController
-  before_action :set_job_application, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_job_application
+  before_action -> { redirect_to root_path if current_user.admin? }, only: %i[new show update create edit destroy ]
 
   # GET /job_applications or /job_applications.json
   def index
     @job_applications = JobApplication.all
+    @job_applications = @job_applications.where(status: params[:status]) if params[:status].present?
+    @job_applications = @job_applications.order(params[:column].to_s + ' ' + params[:direction].to_s) if params[:column].present? && params[:direction].present?
+  end
+
+  # GET job_applications/1/view
+  def view 
+    id = params[:id]
+    @job_application = JobApplication.find(id)
+    if @job_application.nil?
+      redirect_to root_path
+    end
+  end
+
+  # PATCH/PUT /job_applications/1/view
+  def change_status
+    if @job_application.update(status: job_application_params[:status])
+      redirect_to job_application_url(@job_application), notice: "Status updated."
+    else
+      render :view, status: :unprocessable_entity
+    end
   end
 
   # GET /job_applications/1 or /job_applications/1.json
   def show
+    if @job_application.nil?
+      redirect_to new_job_application_path
+    end
   end
 
   # GET /job_applications/new
   def new
-    @job_application = JobApplication.new
+    if @job_application.present?
+      redirect_to job_application_path(@job_application)
+    else
+      @job_application = JobApplication.new
+    end
   end
 
   # GET /job_applications/1/edit
   def edit
+    @job_application = JobApplication.find_by(user_id: current_user.id)
   end
 
   # POST /job_applications or /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
 
-    respond_to do |format|
-      if @job_application.save
-        format.html { redirect_to job_application_url(@job_application), notice: "Job application was successfully created." }
-        format.json { render :show, status: :created, location: @job_application }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @job_application.errors, status: :unprocessable_entity }
-      end
+    if @job_application.save
+      redirect_to root_path, notice: "Application submitted!"
+    else
+      flash[:alert] = @job_application.errors.full_messages.join('. ')
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -47,24 +74,28 @@ class JobApplicationsController < ApplicationController
     end
   end
 
-  # DELETE /job_applications/1 or /job_applications/1.json
-  def destroy
-    @job_application.destroy
+  # # DELETE /job_applications/1 or /job_applications/1.json
+  # def destroy
+  #   @job_application.destroy
 
-    respond_to do |format|
-      format.html { redirect_to job_applications_url, notice: "Job application was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to job_applications_url, notice: "Job application was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job_application
-      @job_application = JobApplication.find(params[:id])
+      if current_user.admin?
+        @job_application = JobApplication.find_by(id: params[:id])
+      else
+        @job_application = JobApplication.find_by(user_id: current_user.id)
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.fetch(:job_application, {})
+      params.require(:job_application).permit(:summary, :experience, :git_competence, :rails_competence, :terms, :status).merge(user_id: current_user.id, email: current_user.email, name: current_user.name)
     end
 end
