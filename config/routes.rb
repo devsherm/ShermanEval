@@ -1,11 +1,24 @@
 Rails.application.routes.draw do
-  resources :job_applications
-  devise_for :users
-  resources :users, only: %i[edit update]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Admin only routes
+  authenticate :user, ->(user) { user.admin? } do
+    get 'job_applications', to: 'job_applications#index'
+    get 'job_applications/:id/view', to: 'job_applications#view', as: 'view_job_application'
+    patch 'job_applications/:id/view', to: 'job_applications#change_status', as: 'change_status'
+  end
 
-  get 'welcome/spring_24_junior_rails_developer'
+  # Only include the desired Devise modules and routes
+  devise_for :users, skip: [:registrations]
+  
+  # Manually define the registrations routes you want to include, if any
+  devise_scope :user do
+    # Only include the registration route for new and create actions
+    get 'users/sign_up', to: 'devise/registrations#new', as: :new_user_registration
+    post 'users', to: 'devise/registrations#create', as: :user_registration
+  end
+
+  resources :job_applications, only: [:new, :edit, :show, :create]
+  patch '/job_applications', to: 'job_applications#update'
 
   # Defines the root path route ("/")
-  root 'welcome#index'
+  root 'home#index'
 end

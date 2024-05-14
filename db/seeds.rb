@@ -2,12 +2,12 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
 # Create admin user 
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', admin: true, name: 'Admin')
+User.create!(email: 'admin@example.com', password: 'testpassword', password_confirmation: 'testpassword', admin: true, name: 'Admin')
 
 # Create users
 3.times do |n|
     names = ["John Doe", "Jane Doe", "Joe Schmoe"]
-    User.create!(email: "user-#{n+1}@example.com", password: 'password', password_confirmation: 'password', name: names[n])
+    User.create!(email: "user-#{n+1}@example.com", password: 'testpassword', password_confirmation: 'testpassword', name: names[n])
 end
 
 # Create job applications

@@ -1,0 +1,16 @@
+<div class="flex items-center">
+  <%= render_card(title: "Login", subtitle: "Enter your email below to login to your account.", body: nil, footer: nil ) do %>
+    <%= render_form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+      <div class="field">
+        <%= form.label :email, class: "block text-left w-full" %>
+        <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+      <div class="field">
+        <%= form.label :password, class: "block text-left w-full" %>
+        <%= form.password_field :password, autocomplete: "password" %>
+      </div>
+      <%= form.submit "Login", class: "w-full" %>
+      <%= render "devise/shared/links" %>
+    <% end %>
+  <% end %>
+</div>

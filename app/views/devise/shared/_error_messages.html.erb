@@ -1,0 +1,9 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation" data-turbo-cache="false">
+    <ul class="mt-3">
+      <%= render_alert(variant: :alert, title: "Error", description: resource.errors.full_messages.join(". ") ) %>
+    </ul>
+  </div>
+<% end %>
+
+
