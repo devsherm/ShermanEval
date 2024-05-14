@@ -2,12 +2,28 @@ class JobApplicationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_job_application
   before_action -> { redirect_to root_path if current_user.admin? }, only: %i[new show update create edit destroy ]
+  ALLOWED_COLUMNS = %w[name email created_at status]
+  ALLOWED_DIRECTIONS = %w[asc desc]
 
   # GET /job_applications or /job_applications.json
   def index
     @job_applications = JobApplication.all
     @job_applications = @job_applications.where(status: params[:status]) if params[:status].present?
-    @job_applications = @job_applications.order(params[:column].to_s + ' ' + params[:direction].to_s) if params[:column].present? && params[:direction].present?
+    
+    # Sanitize sort params using hashes
+    if params[:column].present? && params[:direction].present?
+      column = params[:column].to_s
+      direction = params[:direction].to_s
+
+      if ALLOWED_COLUMNS.include?(column) && ALLOWED_DIRECTIONS.include?(direction)
+        order_hash = { column => direction }
+        @job_applications = @job_applications.order(order_hash)
+      else
+        @job_applications = @job_applications.order(updated_at: :desc)
+      end
+    else
+      @job_applications = @job_applications.order(updated_at: :desc) 
+    end
   end
 
   # GET job_applications/1/view
