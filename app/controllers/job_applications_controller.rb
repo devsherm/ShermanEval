@@ -47,6 +47,9 @@ class JobApplicationsController < ApplicationController
   # GET /job_applications/1/edit
   def edit
     @job_application = JobApplication.find_by(user_id: current_user.id)
+    if @job_application.nil?
+      redirect_to new_job_application_path
+    end
   end
 
   # POST /job_applications or /job_applications.json
