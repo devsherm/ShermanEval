@@ -1,0 +1,14 @@
+<% case as %>
+<% when :link %>
+ <%= link_to href, class: button_classes, data: data do %>
+    <%= text %>
+  <% end %>
+  <% when :button_to %>
+  <%= button_to url, method: method, class: button_classes, data: data do %>
+    <%= text %> 
+  <% end %>
+  <% when :button %>
+  <%= button_tag class: button_classes, data: data do %>
+    <%= text %>
+  <% end %>
+<% end %>
