@@ -71,7 +71,6 @@ class JobApplicationsController < ApplicationController
   # POST /job_applications or /job_applications.json
   def create
     @job_application = JobApplication.new(job_application_params)
-
     if @job_application.save
       redirect_to root_path, notice: "Application submitted!"
     else
@@ -115,6 +114,6 @@ class JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.require(:job_application).permit(:summary, :experience, :git_competence, :rails_competence, :terms, :status).merge(user_id: current_user.id, email: current_user.email, name: current_user.name)
+      params.require(:job_application).permit(:summary, :experience, :git_competence, :rails_competence, :preferred_contact, :terms, :status).merge(user_id: current_user.id, email: current_user.email, name: current_user.name)
     end
 end

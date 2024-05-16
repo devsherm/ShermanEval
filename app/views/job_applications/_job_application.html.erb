@@ -25,7 +25,10 @@
       <label class="text-sm font-bold w-32" for="rails_competence">Rails Competence</label>
       <p class="text-sm w-full"><%= @job_application.rails_competence %></p>
     </div>
-
+    <div class="flex flex-row space-x-4 items-start mb-8">
+      <label class="text-sm font-bold w-32" for="preferred_contact_method">Preferred Contact Method</label>
+      <p class="text-sm w-full"><%= @job_application.preferred_contact %></p>
+    </div>
     <div class="flex flex-row space-x-4 items-start mb-8">
       <label class="text-sm font-bold w-32" for="created_at">Date Applied</label>
       <p class="text-sm w-full"><%= @job_application.created_at %></p>

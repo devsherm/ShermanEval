@@ -1,5 +1,5 @@
 class JobApplication < ApplicationRecord
-    validates :summary, :experience, :git_competence, :rails_competence, presence: true
+    validates :summary, :experience, :git_competence, :rails_competence, :preferred_contact, presence: true
     validates :terms, acceptance: true
 
     STATUS= [
@@ -31,5 +31,11 @@ class JobApplication < ApplicationRecord
         "Neutral",
         "Uncomfortable",
         "Very Uncomfortable"
+    ].freeze
+
+    CONTACT_PREFERENCES = [
+        "Email",
+        "Phone",
+        "No Preference"
     ].freeze
 end

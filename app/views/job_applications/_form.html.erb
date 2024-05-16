@@ -23,8 +23,19 @@
           <br/><small class="text-muted-foreground">How comfortable are you with Rails?</small>
         </div>
         <div class="mb-6">
+          <%= f.label :preferred_contact_method, class: "capitalize block mb-2" %>
+          <div class="space-y-2">
+            <%= f.collection_radio_buttons :preferred_contact, JobApplication::CONTACT_PREFERENCES, :to_s, :to_s do |b| %>
+              <div class="flex items-center">
+                <%= b.radio_button class: "form-radio h-4 w-4 text-primary transition duration-150 ease-in-out" %>
+                <%= b.label class: "ml-2 text-sm" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="mb-6">
           <%= f.label :terms, class: "capitalize" %><br>
-          <%= f.check_box :terms, required: true %>
+          <%= f.check_box :terms, required: true, class: "text-primary" %>
           <small class="text-muted-foreground">I acknowledge that this is a contract position with flexible hours.</small>
         </div>
         <div class="mb-6">
