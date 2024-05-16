@@ -7,25 +7,19 @@ class JobApplicationsController < ApplicationController
 
   # GET /job_applications or /job_applications.json
   def index
-    @job_applications = JobApplication.all
+    @job_applications = JobApplication.page(params[:page]).per(10)
+  
+    # Filter by status if 'status' parameter is present
     @job_applications = @job_applications.where(status: params[:status]) if params[:status].present?
-    
-    # Sanitize sort params using hashes
-    if params[:column].present? && params[:direction].present?
-      column = params[:column].to_s
-      direction = params[:direction].to_s
+  
+    # Apply sorting, and ordering
+    sort_column = params[:column].presence_in(ALLOWED_COLUMNS) || 'updated_at'
+    sort_direction = params[:direction].presence_in(ALLOWED_DIRECTIONS) || 'desc'
+    sort_hash = { sort_column => sort_direction }
 
-      if ALLOWED_COLUMNS.include?(column) && ALLOWED_DIRECTIONS.include?(direction)
-        order_hash = { column => direction }
-        @job_applications = @job_applications.order(order_hash)
-      else
-        @job_applications = @job_applications.order(updated_at: :desc)
-      end
-    else
-      @job_applications = @job_applications.order(updated_at: :desc) 
-    end
+    @job_applications = @job_applications.order(sort_hash)
   end
-
+  
   # GET job_applications/1/view
   def view 
     id = params[:id]
@@ -114,6 +108,6 @@ class JobApplicationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def job_application_params
-      params.require(:job_application).permit(:summary, :experience, :git_competence, :rails_competence, :preferred_contact, :terms, :status).merge(user_id: current_user.id, email: current_user.email, name: current_user.name)
+      params.require(:job_application).permit(:summary, :experience, :git_competence, :rails_competence, :preferred_contact, :terms, :status, :page).merge(user_id: current_user.id, email: current_user.email, name: current_user.name)
     end
 end

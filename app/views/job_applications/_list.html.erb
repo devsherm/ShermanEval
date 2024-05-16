@@ -61,4 +61,6 @@
     <% if @job_applications.empty? %>
        <div class="text-center text-gray-500 pt-5">No applications found</div>
     <% end %>
+
+    <%= paginate @job_applications %>
 <% end %>

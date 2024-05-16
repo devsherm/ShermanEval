@@ -115,3 +115,26 @@ JobApplication.create!(
   user_id: 4,
   status: "Accepted"
 )
+
+# # Create more users and associate job applications with them
+# (5..40).each do |_|
+#   user = User.create!(
+#     name: "Test User",
+#     email:"test-#{rand(1000)}@example.com",
+#     password: "testpassword",
+#     password_confirmation: "testpassword"
+#   )
+
+#   JobApplication.create!(
+#     summary: "Test Summary",
+#     experience: "Intermediate",
+#     git_competence: "Comfortable",
+#     rails_competence: "Comfortable",
+#     preferred_contact: "Email",
+#     terms: true,
+#     name: user.name,
+#     email: user.email,
+#     user_id: user.id,
+#     status: "Pending"
+#   )
+# end
