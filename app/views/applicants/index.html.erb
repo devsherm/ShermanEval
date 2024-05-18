@@ -1,0 +1,22 @@
+<div class="w-full">
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Applicants</h1>
+    <% if @applicants.blank? || current_user.admin? then %>
+      <%= link_to "New applicant", new_user_applicant_path(current_user), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
+  </div>
+
+  <div id="applicants" class="min-w-full">
+    <% if current_user.admin? %>
+      <% if !@new_applicants.blank? %>
+        <%= render partial: "new_applicant_table", locals: { applicants: @new_applicants} %>
+      <% end %>
+      <% if !@evaluated_applicants.blank? %>
+        <%= render partial: "evaluated_applicant_table", locals: { applicants: @evaluated_applicants} %>
+      <% end %>
+    <% else %>
+      <%= render @applicants %>
+    <% end %>
+  </div>
+</div>

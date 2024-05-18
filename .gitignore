@@ -35,3 +35,4 @@
 
 # Ignore dotenv files
 .env*.local
+.byebug_history
