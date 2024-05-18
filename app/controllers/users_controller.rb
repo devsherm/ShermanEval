@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-=begin
+
   # GET /users or /users.json
   def index
     @users = User.all
@@ -29,7 +29,6 @@ class UsersController < ApplicationController
       end
     end
   end
-=end
 
   # GET /users/1/edit
   def edit
@@ -48,7 +47,7 @@ class UsersController < ApplicationController
       end
     end
   end
-=begin
+
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
@@ -58,7 +57,7 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-=end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
