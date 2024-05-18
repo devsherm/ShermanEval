@@ -1,0 +1,32 @@
+<div class="container mx-auto max-w-md mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold">Notify Applicant</h1>
+
+  <%= form_with(url: send_notification_v1_applicant_path(@applicant), method: :post, local: true) do |f| %>
+    <% if @applicant.errors.any? %>
+      <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h3><%= pluralize(@applicant.errors.count, "error") %> prohibited notifying the applicant:</h3>
+
+        <ul>
+          <% @applicant.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :email, "Applicant Email", class: "block text-sm font-medium" %>
+      <%= f.email_field :email, value: @applicant.email, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", disabled: true %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :message, "Notification Message", class: "block text-sm font-medium" %>
+      <%= f.text_area :message, class: "block w-full p-2 border border-gray-300 rounded-md outline-none", rows: 4 %>
+    </div>
+
+    <div class="form-actions flex justify-between">
+      <%= f.submit "Send Notification", class: "px-4 py-2 bg-blue-500 text-white rounded-lg font-medium cursor-pointer hover:bg-blue-600" %>
+      <%= link_to "Back", root_path(@applicant), class: "px-4 py-2 text-blue-600 underline" %>
+    </div>
+  <% end %>
+</div>

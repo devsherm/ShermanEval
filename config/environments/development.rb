@@ -44,12 +44,12 @@ Rails.application.configure do
   # Be sure to enable Authenticated SMTP for this address's account
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: ENV["EMAIL_SMTP_ADDR"],
-    port: ENV["EMAIL_PORT"],
-    user_name: ENV["EMAIL_USERNAME"],
-    password: ENV["EMAIL_PASSWORD"],
-    authentication: ENV["EMAIL_AUTH"],
-    enable_starttls_auto: ENV["EMAIL_TLS_AUTO"] == "true"
+    address: ENV["EMAIL_SMTP_ADDR"],# Replace with your SMTP server address
+    port: ENV["EMAIL_PORT"],# usually 587
+    user_name: ENV["EMAIL_USERNAME"],  # Replace with your SMTP username
+    password: ENV["EMAIL_PASSWORD"],  # Replace with your SMTP password
+    authentication: ENV["EMAIL_AUTH"], # usually 'plain'
+    enable_starttls_auto: ENV["EMAIL_TLS_AUTO"]
   }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
