@@ -1,0 +1,47 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <div id="<%= dom_id @applicant %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">User:</strong>
+        <%= @applicant.user_id %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Salary:</strong>
+        <%= @applicant.salary %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Hybrid option:</strong>
+        <%= @applicant.hybrid_option %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Rails level:</strong>
+        <%= @applicant.rails_level %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Perks:</strong>
+        <%= @applicant.perks.join(', ') %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Test score:</strong>
+        <%= @applicant.test_score %>
+      </p>
+    </div>
+
+
+    <%= link_to "Edit this applicant", edit_admin_applicant_path(@applicant), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Send Email", new_admin_email_path(email: { email: @applicant.user.email }), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this applicant", admin_applicant_path(@applicant), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%= link_to "Back to applicants", admin_applicants_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>

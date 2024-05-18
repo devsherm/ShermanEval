@@ -1,0 +1,11 @@
+<tr id="<%= dom_id applicant %>">
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.user.name %></td>
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.user.email %></td>
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.test_score %></td>
+  <td class="px-6 py-4 whitespace-no-wrap"><%= applicant.category %></td>
+  <td class="px-6 py-4 whitespace-no-wrap">
+    <span><%= link_to "Send Email", new_admin_email_path(email: { email: applicant.user.email }) %></span>
+    <span><%= link_to "Show", admin_applicant_path(applicant) %></span>
+    <span><%= link_to "Edit", edit_admin_applicant_path(applicant) %></span>
+  </td>
+</tr>

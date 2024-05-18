@@ -1,10 +1,22 @@
 Rails.application.routes.draw do
+  
   devise_for :users
+
+  authenticated :user, ->(user) { user.admin? } do
+    root 'admin/applicants#index', as: :admin_root
+  end
+
+  authenticated :user do
+    root 'applicants#show', as: :authenticated_root
+  end
+
+  namespace :admin do
+    resources :applicants, except: %i[new create]
+    resources :emails, only: %i[new create]
+  end
+
   resources :users, only: %i[edit update]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resource :applicants, only: %i[:show update]
 
-  get 'welcome/spring_24_junior_rails_developer'
-
-  # Defines the root path route ("/")
-  root 'welcome#index'
+  root 'applicants#show'
 end

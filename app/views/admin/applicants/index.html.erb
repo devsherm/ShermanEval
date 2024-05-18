@@ -1,0 +1,35 @@
+<div class="w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl mb-2">Applicants</h1>
+  </div>
+
+  <div id="applicants" class="min-w-full overflow-x-auto">
+    <%= form_tag search_helper, method: :get, data: { controller: 'form' } do %>
+      <%= text_field_tag :search, params[:search], data: { action: 'keyup->form#submit' } %>
+    <% end %>
+
+    <table class="table-auto min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <%= sort_helper("name") %>
+          </th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <%= sort_helper("email") %>
+          </th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <%= sort_helper("test_score") %>
+          </th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Category
+          </th>
+          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"></th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+         <%= render @applicants %>
+      </tbody>
+    </table>
+   
+  </div>
+</div>

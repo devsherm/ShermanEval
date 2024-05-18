@@ -1,7 +1,13 @@
 <table>
   <tr>
     <td style="vertical-align: top;">
-      <%= link_to 'Home', root_path, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %><%#%><br>
+      <%= link_to 'Home', root_path, class: 'rounded-lg py-3 px-5 inline-block font-medium bg-green-200 mb-2' %><%#%><br>
+      <%= link_to 'Edit User', edit_user_path(current_user), class: 'rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %><%#%><br>
+
+      <% if current_user.admin? %>
+        <%= link_to 'Admin', root_path, class: 'rounded-lg py-3 px-5 inline-block font-medium bg-green-200 mt-2' %><%#%><br>
+      <% end %>
+
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'my-2 rounded-lg py-3 px-5 bg-red-200 text-black font-medium cursor-pointer' %><%#%>
     </td><td style="vertical-align: top;">
       Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><%#%><br>
