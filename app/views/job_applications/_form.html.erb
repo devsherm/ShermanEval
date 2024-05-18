@@ -1,0 +1,47 @@
+<div class="max-w-lg">
+  <%= render_card(title: nil, subtitle: nil, body: nil, footer: nil, class: "w-full" ) do %>
+    <div class="max-w-lg space-y-4">
+      <%= render_form_with(model: @job_application, url: job_applications_path, local: true, column: params[:column], direction: params[:direction]) do |f| %>
+        <div class="mb-6">
+          <%= f.label :summary %><br>
+          <%= f.text_area :summary, required: true, placeholder: "A brief summary of your experience and skills" %>
+          <small class="text-muted-foreground">A brief summary of your experience and skills. This is what we will use to evaluate your application. Please make sure to include any relevant experience or skills.</small>
+        </div>
+        <div class="mb-6">
+          <%= f.label :experience %><br>
+          <%= f.collection_select :experience, JobApplication::EXPERIENCE_LEVELS, :first, :last, selected: @job_application.experience, prompt: "Select your experience level", required: true, class: "w-full"  %>
+          <br/><small class="text-muted-foreground">What is your experience level?</small>
+        </div>
+        <div class="mb-6">
+          <%= f.label :git_competence, class: "capitalize" %><br>
+          <%= f.collection_select :git_competence, JobApplication::GIT_COMPETENCE_LEVELS, :first, :last, selected: @job_application.git_competence, prompt: "Select your Git competence level", required: true, class: "w-full" %>
+          <br/><small class="text-muted-foreground">How comfortable are you with Git?</small>
+        </div>
+        <div class="mb-6">
+          <%= f.label :rails_competence, class: "capitalize" %><br>
+          <%= f.collection_select :rails_competence, JobApplication::RAILS_COMPETENCE_LEVELS, :first, :last, selected: @job_application.rails_competence, prompt: "Select your Rails competence level", required: true, class: "w-full" %>
+          <br/><small class="text-muted-foreground">How comfortable are you with Rails?</small>
+        </div>
+        <div class="mb-6">
+          <%= f.label :preferred_contact_method, class: "capitalize block mb-2" %>
+          <div class="space-y-2">
+            <%= f.collection_radio_buttons :preferred_contact, JobApplication::CONTACT_PREFERENCES, :to_s, :to_s do |b| %>
+              <div class="flex items-center">
+                <%= b.radio_button class: "form-radio h-4 w-4 text-primary transition duration-150 ease-in-out" %>
+                <%= b.label class: "ml-2 text-sm" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="mb-6">
+          <%= f.label :terms, class: "capitalize" %><br>
+          <%= f.check_box :terms, required: true, class: "text-primary" %>
+          <small class="text-muted-foreground">I acknowledge that this is a contract position with flexible hours.</small>
+        </div>
+        <div class="mb-6">
+          <%= f.submit "Submit", class: "w-full" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

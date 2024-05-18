@@ -1,0 +1,13 @@
+<div class="w-full">
+  <div class="max-w-fit">
+    <%= render_tabs do %>
+      <%= tab_list do %>
+        <%= filter_link(status: nil, label: "All", active: params[:status].blank?) %>
+        <%= filter_link(status: "Accepted", label: "Accepted", active: params[:status] == "Accepted") %>
+        <%= filter_link(status: "Pending", label: "Pending", active: params[:status] == "Pending") %>
+        <%= filter_link(status: "Rejected", label: "Rejected", active: params[:status] == "Rejected")  %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= render "list" %>
+</div>

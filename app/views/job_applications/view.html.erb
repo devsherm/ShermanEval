@@ -1,0 +1,13 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto w-full">
+    <%= link_to "< Back", job_applications_path, class: "text-sm mb-3 block hover:underline link" %>
+    <div>
+      <%= render_form_with(model: @job_application, url: change_status_path(@job_application), method: :patch, local: true) do |f| %>
+        <%= f.collection_select :status, JobApplication::STATUS, :first, :last, selected: @job_application.status, prompt: "Select status", required: true %>
+        <%= f.submit "Update status", class: "ml-2 min-w-32" %>
+      <% end %>
+    </div>
+    <%= render @job_application %>
+  </div>
+</div>
+

@@ -12,27 +12,30 @@
   </head>
 
   <body>
-    <div class="container mx-auto mt-8 px-5">
-      <% if notice.present? %><%#%>
-        <p class='py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block' id='notice'>
-          <%= notice %><%#%>
-        </p>
-      <% end %><%#%>
-      <% if alert.present? %><%#%>
-        <p class='py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block' id='alert'>
-          <%= alert %><%#%>
-        </p>
-      <% end %><%#%>
-      <% if local_assigns[:errors] %><%#%>
-        <%= render 'layouts/object_errors', errors: local_assigns[:errors] %><%#%>
-      <% end %><%#%>
-      <br>
-      <% if current_user %><%#%>
-        <%= render 'layouts/authenticated_header', user: current_user %><%#%>
-      <% end %><%#%>
+    <div>
+      <%= render 'layouts/header', user: current_user %>
+      <main class="py-4 min-h-[calc(100vh-4rem)] w-screen flex justify-center px-4">
+        <%= yield %>
+      </main>
+
+      <% if notice.present? %>
+        <div class="absolute top-20 right-4 max-w-fit m-auto bg-background rounded-lg shadow-md"
+          data-controller="alert"
+          data-timeout="5000"
+          data-alert-target="alert">
+          <%= render_alert(variant: :success, title: "Success", description: notice) %>
+        </div>
+      <% end %>
+
+      <% if alert.present? %>
+        <div class="absolute top-20 right-4 max-w-fit m-auto bg-background rounded-lg shadow-md"
+          data-controller="alert"
+          data-timeout="5000"
+          data-alert-target="alert">
+          <%= render_alert(variant: :alert, title: "Error", description: alert) %>
+        </div>
+      <% end %>
     </div>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
   </body>
 </html>
+

@@ -29,6 +29,10 @@ gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
+gem "tailwind_merge", "~> 0.7.4"
+
+# Use Kaminari for pagination
+gem 'kaminari'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"

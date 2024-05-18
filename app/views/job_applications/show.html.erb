@@ -1,0 +1,19 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto w-full">
+    <%= render_card(title: "Hello, #{current_user.name}", 
+    subtitle: "You have already submitted an application. Thank you for your interest in joining our team! We will get back to you shortly.",
+    body: nil, footer: nil, class: "w-full mb-4" ) %>
+
+    <div class="text-sm  py-4">
+      <strong>Current status:</strong> 
+        <%= render_badge text:  @job_application.status.capitalize, variant: case @job_application.status
+          when "Rejected" then :destructive
+          when "Accepted" then :default
+          else :outline
+          end
+        %>
+    </div>
+    <%= render @job_application %>
+    <%= render_button "Edit Application", as: :link, href: edit_job_application_path(@job_application) %>
+  </div>
+</div>

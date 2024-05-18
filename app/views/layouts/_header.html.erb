@@ -1,0 +1,16 @@
+<header class="justify-between top-0 flex h-16 items-center gap-4 border-b bg-background px-4">
+  <nav class="flex-col gap-6 text-lg font-medium ">
+    <%= link_to root_path, class: "inline-block" do %>
+      <%= image_tag "logo.png", class: "mx-auto h-12 w-auto", alt: "Sherman Buildings" %>
+    <% end %>
+  </nav>
+  <div class="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+    <% if current_user %>
+      <%= render_button as: :button_to, url: destroy_user_session_path, method: :delete do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 pr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+        </svg> Sign out
+      <% end %>
+    <% end %>
+  </div>
+</header>
