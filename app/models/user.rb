@@ -7,5 +7,5 @@ class User < ApplicationRecord
           :rememberable,
           # :confirmable, # Database is set up, but you need to set up the mailer, if you want
           :validatable
-
+  has_one :applicant, dependent: :destroy
 end

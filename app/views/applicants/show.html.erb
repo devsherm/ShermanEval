@@ -1,0 +1,33 @@
+<div>
+    <h1 class="text-6xl">Application</h1>
+    <div class="m-5">
+        First Name: <%= @applicant.first_name %>
+    </div>
+    <div class="m-5">
+        Last Name: <%= @applicant.last_name %>
+    </div>
+    <div class="m-5">
+        Job Type: <%= get_job_type %>
+    </div>
+    <div class="m-5">
+        Available Starting Date: <%= @applicant.start_date %>
+    </div>
+    <div class="m-5">
+        Status: <%= @applicant.status %>
+    </div>
+
+    <% if current_user == @applicant.user %>
+        <div class="m-5">
+            <%= button_to 'Withdraw Application', current_user.applicant, method: :delete, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-red-200' %>
+        </div>
+    <% end %>
+
+    <% if current_user.admin %>
+        <div class="m-5">
+                <%= button_to 'Accept Application', current_user.applicant, method: :put, params: {applicant: { id: @applicant.id, status: 'accepted'}}, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %>
+        </div>
+        <div class="m-5">
+                <%= button_to 'Deny Application', current_user.applicant, method: :put, params: {applicant: { id: @applicant.id, status: 'denied'}}, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-red-200' %>
+        </div>
+    <% end %>
+</div>
