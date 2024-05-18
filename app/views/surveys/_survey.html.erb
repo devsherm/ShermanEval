@@ -1,0 +1,56 @@
+<div class="row mb-3 text-center">
+
+  <div class="col-md-1">
+    <%= survey.favorite_cube %>
+  </div>
+  <div class="col-md-1">
+    <%= survey.like_ruby %>
+  </div>
+
+  <div class="col-md-5">
+    <div class="pb-3">
+      <%= survey.last_project %>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <%= survey.user.name %>
+    <br/>
+    <%= survey.user.email %>
+  </div>
+
+  <div class="col-md-2 d-grid align-self-start">
+    <div class="row">
+      <div class="col-md-6 p-1">
+        <%= button_to "Deny", admin_deny_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-danger p-0" %>
+      </div>
+      <div class="col-md-6 p-1">
+        <%= button_to "Approve", admin_approve_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-success p-0" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 p-1">
+        <%= button_to "Hold", admin_hold_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-primary p-0" %>
+      </div>
+      <div class="col-md-6 p-1">
+        <%= button_to "Reset", admin_reset_survey_path(survey.id), method: :get, class: "col-md-12 btn btn-outline-secondary p-0" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-1">
+    <%=
+       case survey.evaluation
+       when '1-held'
+         "On Hold"
+       when '2-approved'
+         "Approved"
+       when '3-denied'
+         "Denied"
+       else
+         "Not Evaluated"
+       end
+    %>
+  </div>
+
+</div>
