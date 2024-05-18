@@ -1,0 +1,25 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+
+    <%= render @application %>
+
+    <% if current_user.admin? %>
+      <%= link_to "Evaluate this Application",
+      edit_user_application_path(@application),
+      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <% else %>
+      <%= link_to "Edit this Application",
+      edit_user_application_path(@application),
+      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <% end %>
+    <div class="inline-block ml-2">
+      <%= button_to "Delete this Application",
+      user_application_path(@application),
+      method: :delete,
+      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%= link_to "Back to Applications",
+    user_applications_path,
+    class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>
