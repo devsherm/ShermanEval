@@ -1,0 +1,20 @@
+<p>
+  <%= "Hello #{@applicant.full_name}" %>, 
+  <% case @applicant.status %>
+    <% when "Application Pending" %>
+      <%= "We are emailing to inform you that your application is still pending. Thank you for being patient with us." %>
+    <% when "Reviewed" %>
+      <%= "We are emailing to inform you that we have reviewed your application and are in the middle of discussion regarding it. Thank you for your patience and we will reach back as soon as possible." %>
+    <% when "Not Moving Forward" %>
+      <%= "We are emailing to inform you that after reviewing your application, we have decided to persue another candiate at this time. Thank you for your time and effort, and we wish you the best of luck moving forward." %>
+    <% when "Requesting Interview" %>
+      <%= "We are emailing to inform you that after reviewing your application, we would like to offer an inperson or virtual interview. Please respond to this email with times available over the next few weeks. We look foward to hearing back from you" %>
+    <% when "Hired" %>
+      <%= "We are emailing to inform you that after your interview and application review, that we would like to offer you a position at ShermanEval. We will be in contact with you regarding paperwork and a formal offer letter. Congradulations and we look forward to working with you!" %>
+  <% end %>
+</p>
+
+<p>
+  Thank you for your time,
+  ShermanEval Admin
+</p>
