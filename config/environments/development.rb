@@ -49,7 +49,7 @@ Rails.application.configure do
     user_name: ENV["EMAIL_USERNAME"],
     password: ENV["EMAIL_PASSWORD"],
     authentication: ENV["EMAIL_AUTH"],
-    enable_starttls_auto: ENV["EMAIL_TLS_AUTO"]
+    enable_starttls_auto: ENV["EMAIL_TLS_AUTO"] == "true"
   }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
