@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h6 class="display-5">Questionnaire Details</h6>
+  <hr>
+  
+  <div class="mb-3">
+    <h5 class="mb-1">Write a blurb about yourself. (Text Field Input):</h5>
+    <p class="bg-light p-2 rounded"><%= @questionnaire.long_text %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="mb-1">What city and state do you live in? (String field Input):</h5>
+    <p class="bg-light p-2 rounded"><%= @questionnaire.short_text %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="mb-1">What type of work schedule do you prefer? (Radio Input):</h5>
+    <p class="bg-light p-2 rounded"><%= @questionnaire.radio_choice %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="mb-1">Check this box if you consent to receiving emails from shermaneval. (Checkbox Input):</h5>
+    <p class="bg-light p-2 rounded"><%= @questionnaire.checkbox ? 'Yes' : 'No' %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="mb-1">Category:</h5>
+    <p class="bg-light p-2 rounded"><%= @questionnaire.category %></p>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Questionnaire Actions">
+    <%= link_to 'Back', root_path, class: "btn btn-secondary" %>
+    <%= link_to 'Edit', edit_questionnaire_path(@questionnaire), class: "btn btn-primary" %>
+    <%= link_to 'Delete', questionnaire_path(@questionnaire), method: :delete, data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }, class: 'btn btn-danger' %>
+    <%= render 'questionnaires/email_user_modal' %>
+  </div>
+</div>

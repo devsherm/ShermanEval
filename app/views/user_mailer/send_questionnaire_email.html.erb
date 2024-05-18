@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include Bootstrap CSS from CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1 class="display-5">Questionnaire Response</h1>
+    <div class="alert alert-info" role="alert">
+      <p>Dear <%= @user.name %>,</p>
+    </div>
+    
+    <div class="mb-3">
+      <label class="form-label">Here is the message for you from ShermanEval Demo:</label>
+      <div class="p-3 mb-2 bg-light text-dark rounded"><%= @message %></div>
+    </div>
+  </div>
+</body>
+</html>

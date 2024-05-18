@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
-
-  def spring_24_junior_rails_developer
+  before_action :authenticate_user!
+  def index
+    @questionnaire = current_user.questionnaire
   end
 end

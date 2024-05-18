@@ -3,4 +3,10 @@
   <p class='mt-5'>
     <%= link_to "Spring '24 Junior Rails Developer Instructions", welcome_spring_24_junior_rails_developer_path, class: 'text-blue-600 underline' %><%#%>
   </p>
+  <br/>
+  <% if current_user.admin? %>
+    You are an Admin!  Link to all Candidates and Responses! <%= link_to 'View Questionnaires', questionnaires_path %>
+  <% else %>
+    You are not an Admin! Link to the Questionaire! <%if @questionnaire.nil?%><%= link_to 'New Questionnaire', new_questionnaire_path %><% else%><%= link_to 'Existing Questionnaire', questionnaire_path(@questionnaire) %><%end%>
+  <% end %>
 </div>
