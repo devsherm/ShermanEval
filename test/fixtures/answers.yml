@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  key: MyString
+  value: MyText
+  applicant: one
+  applicant: MyString
+
+two:
+  key: MyString
+  value: MyText
+  applicant: two
+  applicant: MyString

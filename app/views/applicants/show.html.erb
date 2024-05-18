@@ -1,0 +1,9 @@
+<div>
+  <h1>Show Applicant</h1>
+  <%= render @applicant, categories: @categories %>
+
+  <% if current_user == @applicant.user %>
+      <%= link_to "Edit", edit_applicant_path(@applicant), class: "rounded-lg py-2 px-5 bg-blue-600 inline-block font-medium text-white cursor-pointer" %>
+  <% end %>
+  <%= link_to "Show all", applicants_path, class: "rounded-lg py-2 px-5 my-2 bg-blue-600 text-white inline-block font-medium" %>
+</div>

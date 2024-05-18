@@ -1,0 +1,16 @@
+<div id="answer">
+  <p class="bg-gray-100">Question: <%= answer.question.text %></p>
+
+  <p>
+    <% case answer.question.answer_type %>
+      <% when "type_text" %>
+        <%= answer.value %>
+
+      <% when "select_one" %>
+        <%= answer.value %>
+
+      <% when "select_multiple" %>
+    <%= answer.value.empty? ? "<none>" : answer.value.split("\n").join(", ") %>
+    <% end %>
+  </p>
+</div>

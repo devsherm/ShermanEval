@@ -1,0 +1,13 @@
+<%= form_with model: @applicant do |form| %>
+  <%= form.fields_for @user do |user_fields| %>
+    <%= render "form_user_field", f: user_fields %>
+  <% end %>
+
+  <%= form.fields_for :answers do |answer_fields| %>
+    <%= render "form_answer_field", answer: answer_fields.object, f: answer_fields  %>
+  <% end %>
+
+  <div>
+    <%= form.submit class: "default"%>
+  </div>
+<% end %>
