@@ -1,0 +1,13 @@
+<div class="mx-auto w-full flex flex-col">
+
+  <%= render @user_application %>
+
+  <div class="flex gap-4 items-center mt-2"> 
+    <% if current_user.admin? %>
+      <%= button_to "Destroy application", user_application_path(@user_application), method: :delete, class:"mr-5 rounded-lg py-3 px-5 bg-red-100 inline-block font-medium" %>
+      <%= link_to "Edit application", edit_user_application_path(@user_application), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <% end %>
+
+    <%= link_to "Back", user_applications_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>

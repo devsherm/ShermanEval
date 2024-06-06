@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  user: one
+  skills: ["react", "vue_js"]
+  about_me: MyText
+  gender: 1
+  score: 1
+
+two:
+  first_name: MyString
+  last_name: MyString
+  user: two
+  skills: ["ruby"]
+  about_me: MyText
+  gender: 1
+  score: 1
+
+pass:
+  first_name: MyString
+  last_name: MyString
+  user: two
+  skills: ["ruby"]
+  about_me: MyText
+  gender: 1
+  score: 0

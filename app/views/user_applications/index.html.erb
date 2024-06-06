@@ -1,0 +1,116 @@
+<div class="w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl"><%= index_header %></h1>
+    <% if show_new_application_button? %>
+      <%= link_to "New user application", new_user_application_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
+  </div>
+
+  <%= render partial: "filter_controls" %>
+
+  <div id="user_applications" class="min-w-full mt-3">
+    <%= render @user_applications %>
+  </div>
+</div>
+  <% if current_user.admin? %>
+    <%= render 'shared/modal', modal_title: "Send Email to: ", modal_id: "email-modal",
+        modal_body: (render partial: 'email_applicant_form'),
+        modal_buttons: (render partial: 'email_applicant_buttons') 
+    %>
+  <% end %>
+
+<script>
+  function toggleReadMore() {
+    const containers = document.querySelectorAll('.text-container');
+    const buttons = document.querySelectorAll('.read-more');
+
+    // Function to check if the text is overflowing its container
+    function isOverflown(element) {
+      return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+    }
+
+    containers.forEach((container, index) => {
+      const button = buttons[index]; // Corresponding button for each container
+
+      // Initially hide the button if text is not overflowing
+      if (!isOverflown(container)) {
+        button.style.display = 'none';
+      } else {
+        button.style.display = 'inline'; // Ensure it's visible if needed
+      }
+
+      // Add click event listener to each button
+      button.addEventListener('click', function() {
+        if (container.classList.contains('line-clamp-4')) {
+          container.classList.remove('line-clamp-4'); // Remove clamping
+          button.textContent = 'Read Less';
+        } else {
+          container.classList.add('line-clamp-4'); // Add clamping
+          button.textContent = 'Read More';
+        }
+      });
+    });
+  }
+
+  // Function to toggle modal visibility
+  function toggleModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.toggle('hidden');
+  }
+
+  // Updates the user application id in the email form
+  function updateEmailId(applicationId) {
+    const form = document.getElementById('sendEmail');
+    const hiddenIdInput = document.getElementById('email_user_application_id');
+
+    form.action = `/user_applications/${applicationId}/email_applicant`;
+  }
+
+  function updateEmailApplicantName(name) {
+    const modalWrapper = document.getElementById('modal-title-wrapper');
+    let existingParagraph = modalWrapper.querySelector('p');
+
+    // Check if a <p> tag already exists inside the modalWrapper div
+    if (existingParagraph) {
+      // If it exists, replace its text content with the new name
+      existingParagraph.textContent = name;
+    } else {
+      // If it doesn't exist, create a new <p> element and append it to the modalWrapper div
+      const newParagraph = document.createElement('p');
+      newParagraph.textContent = name;
+      modalWrapper.appendChild(newParagraph);
+    }
+  }
+
+  // Bind our events to toggle modal
+  document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve all toggle buttons if there are multiple
+    const toggleButtons = document.querySelectorAll('[data-modal-id]');
+
+    // Attach event listeners to each toggle button
+     document.addEventListener('click', function(event) {
+    // Check if the clicked element is an email button
+      if (event.target.matches('.email-button')) {
+        // Retrieve data attributes from the clicked button
+        const modalId = event.target.getAttribute('data-modal-id');
+        const applicationId = event.target.getAttribute('data-user-application-id');
+        const applicantName = event.target.getAttribute('data-applicant-name');
+
+        // Call functions with the retrieved data
+        updateEmailId(applicationId);
+        updateEmailApplicantName(applicantName);
+        toggleModal(modalId);
+      }
+      
+      if (event.target.matches('.close-modal')) {
+        const modalId = event.target.getAttribute('data-modal-id');
+        toggleModal(modalId)
+      }
+    });
+  });
+
+  // Call the function whenever the page is loaded or refreshed
+  toggleReadMore();
+</script>
+
+

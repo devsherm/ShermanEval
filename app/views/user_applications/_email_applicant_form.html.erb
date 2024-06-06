@@ -1,0 +1,14 @@
+<%= form_tag(email_applicant_user_application_path(id: 1), method: :post, class: "flex flex-col w-full", id: "sendEmail") do %>
+  <div class="">
+    <%= label_tag :subject, "Subject:" %>
+    <%= text_field_tag :subject, nil, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", required: true %>
+  </div>
+
+  <div class="mt-3">
+    <%= label_tag :body, "Body:" %>
+    <%= text_area_tag :body, nil, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", rows: 5, required: true %>
+  </div>
+
+  <%= hidden_field :id, id: "email_user_application_id" %>
+
+<% end %>

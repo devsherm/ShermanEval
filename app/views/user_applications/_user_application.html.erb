@@ -1,0 +1,50 @@
+<div class="border border-black-500 border-opacity-70 p-5 rounded-lg mb-5 user-application" id="<%= dom_id user_application %>">
+  <div class="flex flex-row justify-between">
+    <h2 class="flex flex-row items-center">
+      <span class="text-2xl flex">
+        <b class="block font-medium mb-1 mr-2">Applicant:</b>
+        <%= user_application.full_name %>
+      </span>
+      <% if current_user.admin? && action_name != "show" %>
+        <i data-modal-id="email-modal" data-applicant-name="<%= user_application.full_name %>" class="email-button fa-solid fa-envelope ml-3 text-blue-300 cursor-pointer text-lg" title="Send Email" data-user-application-id="<%= user_application.id %>"></i>
+      <% end %>
+    </h2>
+
+    <div>
+      <% if action_name != "show" && current_user.admin? %>
+        <%= link_to "Show this user application", user_application, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit this user application", edit_user_application_path(user_application), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex flex-row gap-5">
+    <% if current_user.admin? %>
+      <p class="flex flex-row">
+        <strong class="block font-medium mb-1 mr-2">Email:</strong>
+        <%= user_application.user.email %>
+      </p>
+    <% end %>
+
+    <p class="flex flex-row">
+      <strong class="block font-medium mb-1 mr-2">Skills:</strong>
+      <%= user_application.skills&.map(&:titleize)&.join(", ") %>
+    </p>
+
+    <p class="flex flex-row">
+      <strong class="block font-medium mb-1 mr-2">Gender:</strong>
+      <%= user_application.gender&.titleize %>
+    </p>
+  </div>
+
+  <p class="mt-5 mb-3 text-container <%= action_name != "show" ? "line-clamp-4" : "" %>">
+    <strong class="block font-medium mb-1">About me:</strong>
+    <%= user_application.about_me %>
+  </p>
+
+  <% if action_name != "show" %>
+    <p class="read-more text-blue-500 underline cursor-pointer">Read more</p>
+  <% end %>
+
+  <%= render partial: "update_score", locals: {user_application: user_application} %>
+</div>

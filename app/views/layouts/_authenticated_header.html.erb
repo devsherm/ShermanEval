@@ -1,11 +1,12 @@
-<table>
-  <tr>
-    <td style="vertical-align: top;">
-      <%= link_to 'Home', root_path, class: 'ml-2 rounded-lg py-3 px-5 inline-block font-medium bg-green-200' %><%#%><br>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'my-2 rounded-lg py-3 px-5 bg-red-200 text-black font-medium cursor-pointer' %><%#%>
-    </td><td style="vertical-align: top;">
-      Hi, <%= "#{user.name} #{user.admin ? ' (Admin)' : ''}" %><%#%><br>
-      <%= user.email %><%#%><br>
-    </td>
-  </tr>
-</table>
+<nav class="flex justify-between items-center">
+  <div class="ml-2 flex">
+    <%= link_to 'Home', root_path, class: 'rounded-lg py-3 px-5 inline-block font-medium bg-green-200 mr-2' %>
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'rounded-lg py-3 px-5 bg-red-200 text-black font-medium cursor-pointer' %>
+  </div>
+  <div class="mr-2">
+    <p class="font-medium">
+      Hi, <%= "#{user.email} #{user.admin ? ' (Admin)' : ''}" %>
+    </p>
+  </div>
+</nav>
+
